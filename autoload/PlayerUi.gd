@@ -1,13 +1,13 @@
 extends CanvasLayer
 
+@onready var level_label: Label = $Panel/LevelLabel
 @onready var health_bar: ProgressBar = $Panel/HealthBar
 @onready var mana_bar: ProgressBar = $Panel/ManaBar
 @onready var exp_bar: ProgressBar = $Panel/ExpBar
-@onready var level_label: Label = $Panel/LevelLabel
 @onready var avatar_tree: AnimationTree = $Panel/Avatar/AnimationTree
 
-
 func _ready():
+
 	_apply_style(health_bar, Color(1, 0, 0, 0.6), Color(0.2, 0.2, 0.2, 0.4), Color(0.8, 0, 0))
 	_apply_style(mana_bar, Color(0, 0, 1, 0.6), Color(0.2, 0.2, 0.2, 0.4), Color(0, 0, 0.8))
 	_apply_style(exp_bar, Color(1, 1, 0, 0.6), Color(0.2, 0.2, 0.2, 0.4), Color(0.8, 0.8, 0))
@@ -32,8 +32,6 @@ func _process(_delta: float) -> void:
 func _update_avatar_state():
 	var tired_ratio = 1.0 - float(PlayerData.hp) / float(PlayerData.max_hp)
 	avatar_tree.set("parameters/EmotionBlend/blend_position", tired_ratio)
-
-
 
 func _apply_style(bar: ProgressBar, fill_color: Color, bg_color: Color, border_color: Color) -> void:
 	var fill_style := StyleBoxFlat.new()

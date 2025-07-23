@@ -21,7 +21,7 @@ AudioManager="*res://autoload/AudioManager.gd"
 SceneManager="*res://autoload/SceneManager.gd"
 CharactersManager="*res://autoload/CharactersManager.gd"
 PlayerData="*res://autoload/PlayerData.gd"
-PlayerUi="*res://autoload/PlayerUi.gd"
+PlayerUi="*res://autoload/PlayerUi.tscn"
 Global="*res://autoload/Global.gd"
 
 [display]

@@ -1,6 +1,7 @@
-[gd_scene load_steps=11 format=3 uid="uid://brc12spwl62eg"]
+[gd_scene load_steps=12 format=3 uid="uid://brc12spwl62eg"]
 
 [ext_resource type="Script" uid="uid://b6fv7lnrexiht" path="res://autoload/PlayerUi.gd" id="1_dribd"]
+[ext_resource type="Texture2D" uid="uid://cv4wnjqwtg0sn" path="res://assets/avatar/player_portrait.png" id="2_3sl7j"]
 
 [sub_resource type="Animation" id="Animation_04tfr"]
 length = 0.001
@@ -93,21 +94,21 @@ offset_bottom = 78.0
 theme_override_font_sizes/font_size = 10
 text = "Level 1"
 
-[node name="ManaBar" type="ProgressBar" parent="Panel"]
-layout_mode = 0
-offset_left = 50.0
-offset_top = 39.0
-offset_right = 154.0
-offset_bottom = 57.0
-theme_override_font_sizes/font_size = 10
-value = 100.0
-
 [node name="HealthBar" type="ProgressBar" parent="Panel"]
 layout_mode = 0
 offset_left = 51.0
 offset_top = 12.0
 offset_right = 154.0
 offset_bottom = 30.0
+theme_override_font_sizes/font_size = 10
+value = 100.0
+
+[node name="ManaBar" type="ProgressBar" parent="Panel"]
+layout_mode = 0
+offset_left = 50.0
+offset_top = 39.0
+offset_right = 154.0
+offset_bottom = 57.0
 theme_override_font_sizes/font_size = 10
 value = 100.0
 
@@ -118,12 +119,14 @@ offset_top = 63.0
 offset_right = 153.0
 offset_bottom = 81.0
 theme_override_font_sizes/font_size = 10
+value = 100.0
 
 [node name="Avatar" type="Node2D" parent="Panel"]
 
 [node name="Sprite2D" type="Sprite2D" parent="Panel/Avatar"]
 position = Vector2(25, 35)
 scale = Vector2(0.4, 0.4)
+texture = ExtResource("2_3sl7j")
 hframes = 4
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Panel/Avatar"]
@@ -134,4 +137,4 @@ libraries = {
 [node name="AnimationTree" type="AnimationTree" parent="Panel/Avatar"]
 tree_root = SubResource("AnimationNodeStateMachine_dribd")
 anim_player = NodePath("../AnimationPlayer")
-parameters/EmotionBlend/blend_position = 0.0
+parameters/EmotionBlend/blend_position = -0.277603

@@ -12,7 +12,7 @@ func _ready() -> void:
 	# Load scene đầu tiên (ví dụ: MainMenu)
 	_load_initial_scene("res://scenes/ui/MainMenu.tscn")
 	# Ẩn UI toàn cục
-	PlayerUi.visible = false  
+	PlayerUi.visible = false
 	
 
 func _check_autoloads() -> void:
