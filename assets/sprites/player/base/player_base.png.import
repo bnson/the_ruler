@@ -2,12 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ci6wpigtwpu8m"
-valid=false
+uid="uid://n8i4ygco5fjm"
+path="res://.godot/imported/player_base.png-98abfa42e4c4aaae1f0ad4ec10d5f419.ctex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
 source_file="res://assets/sprites/player/base/player_base.png"
+dest_files=["res://.godot/imported/player_base.png-98abfa42e4c4aaae1f0ad4ec10d5f419.ctex"]
 
 [params]
 

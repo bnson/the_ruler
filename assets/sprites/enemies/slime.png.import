@@ -3,11 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://co4g61a05ey85"
-valid=false
+path="res://.godot/imported/slime.png-6c95f0dedbd235796c6b94737af7af6f.ctex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
 source_file="res://assets/sprites/enemies/slime.png"
+dest_files=["res://.godot/imported/slime.png-6c95f0dedbd235796c6b94737af7af6f.ctex"]
 
 [params]
 

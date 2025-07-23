@@ -2,12 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bcwsiiw0j5n68"
-valid=false
+uid="uid://n3drq5aonn7k"
+path="res://.godot/imported/dungeon_props.png-6e3d532f1d85cc9e7d1cd76202c6104d.ctex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
 source_file="res://assets/sprites/props/dungeon_props.png"
+dest_files=["res://.godot/imported/dungeon_props.png-6e3d532f1d85cc9e7d1cd76202c6104d.ctex"]
 
 [params]
 

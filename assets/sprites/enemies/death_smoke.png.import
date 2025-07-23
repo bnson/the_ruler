@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cjthotjpiu38q"
-path="res://.godot/imported/spin_effect.png-26661cfbea4802253c7006f405131a02.ctex"
+uid="uid://ddk345afuf57i"
+path="res://.godot/imported/death_smoke.png-a2361d0e3986bfb45f746ede334dc451.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/player/effects/spin_effect.png"
-dest_files=["res://.godot/imported/spin_effect.png-26661cfbea4802253c7006f405131a02.ctex"]
+source_file="res://assets/sprites/enemies/death_smoke.png"
+dest_files=["res://.godot/imported/death_smoke.png-a2361d0e3986bfb45f746ede334dc451.ctex"]
 
 [params]
 

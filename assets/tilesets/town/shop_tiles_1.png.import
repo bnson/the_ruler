@@ -2,12 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dthc4pifcedma"
-valid=false
+uid="uid://blkqcq6pjktcr"
+path="res://.godot/imported/shop_tiles_1.png-9e81b5e53dc67a228acc4e5e23a64134.ctex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
 source_file="res://assets/tilesets/town/shop_tiles_1.png"
+dest_files=["res://.godot/imported/shop_tiles_1.png-9e81b5e53dc67a228acc4e5e23a64134.ctex"]
 
 [params]
 

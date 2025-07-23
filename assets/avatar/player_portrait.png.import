@@ -2,12 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cwwsixim32wi6"
-valid=false
+uid="uid://cv4wnjqwtg0sn"
+path="res://.godot/imported/player_portrait.png-3020950fdacaa71ed26a9c830a01ab4f.ctex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
 source_file="res://assets/avatar/player_portrait.png"
+dest_files=["res://.godot/imported/player_portrait.png-3020950fdacaa71ed26a9c830a01ab4f.ctex"]
 
 [params]
 

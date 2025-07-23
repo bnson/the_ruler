@@ -2,12 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bywld0y1dqd4b"
-valid=false
+uid="uid://ffs25qtbl812"
+path="res://.godot/imported/katana.png-b8617a2b2f3cdc2b9a71e9ee7597d158.ctex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
 source_file="res://assets/sprites/player/weapons/katana.png"
+dest_files=["res://.godot/imported/katana.png-b8617a2b2f3cdc2b9a71e9ee7597d158.ctex"]
 
 [params]
 

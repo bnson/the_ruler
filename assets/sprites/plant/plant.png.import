@@ -2,12 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dx0erawvjvafa"
-valid=false
+uid="uid://b8njqkuc23gbk"
+path="res://.godot/imported/plant.png-4d8cb0a8c39a18f8703c1bffa2f85b36.ctex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
 source_file="res://assets/sprites/plant/plant.png"
+dest_files=["res://.godot/imported/plant.png-4d8cb0a8c39a18f8703c1bffa2f85b36.ctex"]
 
 [params]
 

@@ -2,12 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://oht5j58x6g5y"
-valid=false
+uid="uid://ds66jl2m2cyw8"
+path="res://.godot/imported/player_shadow.png-45c15833a56f32509db51933a7fbcf5e.ctex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
 source_file="res://assets/sprites/player/base/player_shadow.png"
+dest_files=["res://.godot/imported/player_shadow.png-45c15833a56f32509db51933a7fbcf5e.ctex"]
 
 [params]
 

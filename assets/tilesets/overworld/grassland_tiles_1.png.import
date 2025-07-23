@@ -2,12 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://byt127581xyhr"
-valid=false
+uid="uid://ddgppyfecj8o2"
+path="res://.godot/imported/grassland_tiles_1.png-64539d6210d916e454a77c63b5295748.ctex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
 source_file="res://assets/tilesets/overworld/grassland_tiles_1.png"
+dest_files=["res://.godot/imported/grassland_tiles_1.png-64539d6210d916e454a77c63b5295748.ctex"]
 
 [params]
 

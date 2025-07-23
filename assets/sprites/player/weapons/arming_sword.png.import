@@ -2,12 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dc5yo06urwi1q"
-valid=false
+uid="uid://e6sdod8rkv2j"
+path="res://.godot/imported/arming_sword.png-3509b580e9fac007caaf00317b39da60.ctex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
 source_file="res://assets/sprites/player/weapons/arming_sword.png"
+dest_files=["res://.godot/imported/arming_sword.png-3509b580e9fac007caaf00317b39da60.ctex"]
 
 [params]
 

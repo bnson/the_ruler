@@ -2,12 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c0r2as3wf371i"
-valid=false
+uid="uid://lvr57kjme5n6"
+path="res://.godot/imported/ninja_suit.png-23b6dcb9724efa6b06a0190503e8a1c1.ctex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
 source_file="res://assets/sprites/player/skins/ninja_suit.png"
+dest_files=["res://.godot/imported/ninja_suit.png-23b6dcb9724efa6b06a0190503e8a1c1.ctex"]
 
 [params]
 
