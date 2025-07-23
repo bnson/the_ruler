@@ -1,7 +1,21 @@
-[gd_scene load_steps=12 format=3 uid="uid://cf8c1vdwthaxy"]
+[gd_scene load_steps=11 format=3 uid="uid://brc12spwl62eg"]
 
-[ext_resource type="Script" uid="uid://br0gbyxotb3c7" path="res://autoload/PlayerUi.gd" id="1_dribd"]
-[ext_resource type="Texture2D" uid="uid://dre8sfn37nl48" path="res://assets/avatar/player_portrait.png" id="2_3sl7j"]
+[ext_resource type="Script" uid="uid://b6fv7lnrexiht" path="res://autoload/PlayerUi.gd" id="1_dribd"]
+
+[sub_resource type="Animation" id="Animation_04tfr"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
 
 [sub_resource type="Animation" id="Animation_3sl7j"]
 resource_name = "idle"
@@ -17,21 +31,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [0, 1]
-}
-
-[sub_resource type="Animation" id="Animation_04tfr"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
 }
 
 [sub_resource type="Animation" id="Animation_8lkxx"]
@@ -125,7 +124,6 @@ theme_override_font_sizes/font_size = 10
 [node name="Sprite2D" type="Sprite2D" parent="Panel/Avatar"]
 position = Vector2(25, 35)
 scale = Vector2(0.4, 0.4)
-texture = ExtResource("2_3sl7j")
 hframes = 4
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Panel/Avatar"]

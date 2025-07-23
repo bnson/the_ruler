@@ -8,8 +8,8 @@ var sfx_player: AudioStreamPlayer
 # Danh sách âm thanh preload sẵn (có thể mở rộng)
 var audio_files := {
 	"bgm_waves": preload("res://assets/audio/bgm/bgm_waves.mp3"),
-	"sfx_button_click": preload("res://assets/audio/sfx/sfx_button_click.wav"),
-	"sfx_button_focus": preload("res://assets/audio/sfx/sfx_button_focus.wav")
+	"sfx_button_click": preload("res://assets/audio/sfx/sfx_menu_select.wav"),
+	"sfx_button_focus": preload("res://assets/audio/sfx/sfx_menu_focus.wav")
 }
 
 func _ready():
