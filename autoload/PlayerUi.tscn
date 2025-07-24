@@ -1,7 +1,10 @@
-[gd_scene load_steps=12 format=3 uid="uid://brc12spwl62eg"]
+[gd_scene load_steps=20 format=3 uid="uid://cf8c1vdwthaxy"]
 
-[ext_resource type="Script" uid="uid://b6fv7lnrexiht" path="res://autoload/PlayerUi.gd" id="1_dribd"]
-[ext_resource type="Texture2D" uid="uid://cv4wnjqwtg0sn" path="res://assets/avatar/player_portrait.png" id="2_3sl7j"]
+[ext_resource type="Script" uid="uid://br0gbyxotb3c7" path="res://autoload/PlayerUi.gd" id="1_dribd"]
+[ext_resource type="Texture2D" uid="uid://dre8sfn37nl48" path="res://assets/avatar/player_portrait.png" id="2_3sl7j"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3sl7j"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
 
 [sub_resource type="Animation" id="Animation_04tfr"]
 length = 0.001
@@ -78,63 +81,152 @@ states/EmotionBlend/position = Vector2(402, 100)
 states/End/position = Vector2(200, 29)
 transitions = ["Start", "EmotionBlend", SubResource("AnimationNodeStateMachineTransition_fvpmo")]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_04tfr"]
+bg_color = Color(0.239, 0.239, 0.239, 0.4)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 0.4)
+expand_margin_left = 1.0
+expand_margin_top = 1.0
+expand_margin_right = 1.0
+expand_margin_bottom = 1.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hrr0w"]
+bg_color = Color(1, 0, 0, 0.6)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8lkxx"]
+bg_color = Color(0.239, 0.239, 0.239, 0.4)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 0.4)
+expand_margin_left = 1.0
+expand_margin_top = 1.0
+expand_margin_right = 1.0
+expand_margin_bottom = 1.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tq4lh"]
+bg_color = Color(0, 0, 1, 0.6)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fvpmo"]
+bg_color = Color(0.239, 0.239, 0.239, 0.4)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 0.4)
+expand_margin_left = 1.0
+expand_margin_top = 1.0
+expand_margin_right = 1.0
+expand_margin_bottom = 1.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kjqem"]
+bg_color = Color(0.6, 0.2, 0.8, 0.6)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oxe1b"]
+content_margin_left = 3.0
+content_margin_top = 1.0
+content_margin_right = 3.0
+content_margin_bottom = 1.0
+bg_color = Color(0.251, 0.251, 0.251, 0.4)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 0.4)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+expand_margin_left = 1.0
+expand_margin_top = 1.0
+expand_margin_right = 1.0
+expand_margin_bottom = 1.0
+
 [node name="PlayerUi" type="CanvasLayer"]
 script = ExtResource("1_dribd")
 
-[node name="Panel" type="Panel" parent="."]
-offset_right = 162.0
-offset_bottom = 89.0
+[node name="MainPanel" type="Panel" parent="."]
+custom_minimum_size = Vector2(180, 90)
+offset_right = 180.0
+offset_bottom = 90.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_3sl7j")
 
-[node name="LevelLabel" type="Label" parent="Panel"]
+[node name="MainContainer" type="VBoxContainer" parent="MainPanel"]
 layout_mode = 0
-offset_left = 8.0
-offset_top = 64.0
-offset_right = 42.0
-offset_bottom = 78.0
-theme_override_font_sizes/font_size = 10
-text = "Level 1"
+offset_right = 40.0
+offset_bottom = 40.0
 
-[node name="HealthBar" type="ProgressBar" parent="Panel"]
-layout_mode = 0
-offset_left = 51.0
-offset_top = 12.0
-offset_right = 154.0
-offset_bottom = 30.0
-theme_override_font_sizes/font_size = 10
-value = 100.0
+[node name="HBoxContainer1" type="HBoxContainer" parent="MainPanel/MainContainer"]
+layout_mode = 2
 
-[node name="ManaBar" type="ProgressBar" parent="Panel"]
-layout_mode = 0
-offset_left = 50.0
-offset_top = 39.0
-offset_right = 154.0
-offset_bottom = 57.0
-theme_override_font_sizes/font_size = 10
-value = 100.0
+[node name="VBoxContainer1" type="VBoxContainer" parent="MainPanel/MainContainer/HBoxContainer1"]
+custom_minimum_size = Vector2(50, 70)
+layout_mode = 2
 
-[node name="ExpBar" type="ProgressBar" parent="Panel"]
-layout_mode = 0
-offset_left = 50.0
-offset_top = 63.0
-offset_right = 153.0
-offset_bottom = 81.0
-theme_override_font_sizes/font_size = 10
-value = 100.0
+[node name="Avatar" type="Node2D" parent="MainPanel/MainContainer/HBoxContainer1/VBoxContainer1"]
 
-[node name="Avatar" type="Node2D" parent="Panel"]
-
-[node name="Sprite2D" type="Sprite2D" parent="Panel/Avatar"]
+[node name="Sprite2D" type="Sprite2D" parent="MainPanel/MainContainer/HBoxContainer1/VBoxContainer1/Avatar"]
 position = Vector2(25, 35)
 scale = Vector2(0.4, 0.4)
 texture = ExtResource("2_3sl7j")
 hframes = 4
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Panel/Avatar"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="MainPanel/MainContainer/HBoxContainer1/VBoxContainer1/Avatar"]
 libraries = {
 &"": SubResource("AnimationLibrary_8lkxx")
 }
 
-[node name="AnimationTree" type="AnimationTree" parent="Panel/Avatar"]
+[node name="AnimationTree" type="AnimationTree" parent="MainPanel/MainContainer/HBoxContainer1/VBoxContainer1/Avatar"]
 tree_root = SubResource("AnimationNodeStateMachine_dribd")
 anim_player = NodePath("../AnimationPlayer")
-parameters/EmotionBlend/blend_position = -0.277603
+parameters/EmotionBlend/blend_position = 0.0
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="MainPanel/MainContainer/HBoxContainer1"]
+custom_minimum_size = Vector2(90, 70)
+layout_mode = 2
+alignment = 1
+
+[node name="HealthBar" type="ProgressBar" parent="MainPanel/MainContainer/HBoxContainer1/VBoxContainer2"]
+custom_minimum_size = Vector2(0, 6)
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+theme_override_styles/background = SubResource("StyleBoxFlat_04tfr")
+theme_override_styles/fill = SubResource("StyleBoxFlat_hrr0w")
+value = 100.0
+show_percentage = false
+
+[node name="ManaBar" type="ProgressBar" parent="MainPanel/MainContainer/HBoxContainer1/VBoxContainer2"]
+custom_minimum_size = Vector2(0, 6)
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+theme_override_styles/background = SubResource("StyleBoxFlat_8lkxx")
+theme_override_styles/fill = SubResource("StyleBoxFlat_tq4lh")
+value = 100.0
+show_percentage = false
+
+[node name="ExpBar" type="ProgressBar" parent="MainPanel/MainContainer/HBoxContainer1/VBoxContainer2"]
+custom_minimum_size = Vector2(0, 6)
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+theme_override_styles/background = SubResource("StyleBoxFlat_fvpmo")
+theme_override_styles/fill = SubResource("StyleBoxFlat_kjqem")
+show_percentage = false
+
+[node name="LevelLabel" type="Label" parent="MainPanel/MainContainer/HBoxContainer1/VBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_colors/font_color = Color(1, 1, 1, 0.6)
+theme_override_font_sizes/font_size = 9
+theme_override_styles/normal = SubResource("StyleBoxFlat_oxe1b")
+text = "Level 1"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MainPanel/MainContainer"]
+layout_mode = 2
+
+[node name="TimeLabel" type="Label" parent="MainPanel/MainContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
