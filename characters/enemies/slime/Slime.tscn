@@ -303,7 +303,7 @@ size = Vector2(30, 26)
 
 [node name="Slime" type="CharacterBody2D"]
 collision_layer = 8
-collision_mask = 137
+collision_mask = 201
 script = ExtResource("1_vn8bj")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

@@ -1,4 +1,30 @@
-# the_ruler
+# THE RULE.
+
+## 🧩 Phân tích cấu hình Layer tiêu chuẩn cho game RPG (mở rộng)
+
+| Layer | Tên Layer               | Mục đích sử dụng | Ghi chú |
+|-------|-------------------------|------------------|--------|
+| 1     | `Player`                | Hiển thị nhân vật người chơi | Sprite, animation, Y-sort |
+| 2     | `Player Hitbox`         | Vùng tấn công của người chơi | Dùng để gây sát thương lên enemy |
+| 3     | `Player Hurtbox`        | Vùng nhận sát thương của người chơi | Enemy đánh trúng sẽ ảnh hưởng |
+| 4     | `Enemy`                 | Hiển thị kẻ địch | Sprite, animation |
+| 5     | `Enemy Hitbox`          | Vùng tấn công của enemy | Dùng để gây sát thương lên player |
+| 6     | `Enemy Hurtbox`         | Vùng nhận sát thương của enemy | Player đánh trúng sẽ ảnh hưởng |
+| 7     | `Environment`           | Các thành phần môi trường tĩnh | Tường, nền, cầu thang, vật cản |
+| 8     | `Interactable`          | Vật thể có thể tương tác | NPC, rương, cửa, cầu thang chuyển tầng |
+| 9     | `Interactable Hitbox`   | Vùng tấn công của vật thể tương tác | Ví dụ: bẫy, turret |
+| 10    | `Interactable Hurtbox`  | Vùng nhận sát thương của vật thể tương tác | Ví dụ: rương bị phá, cửa bị đập |
+| 11    | `Interactable Detector` | Vùng phát hiện tương tác | Dùng `Area2D` để phát hiện người chơi đến gần |
+| 12    | `NPC`                   | Hiển thị nhân vật không điều khiển | Sprite, animation, có thể tương tác |
+| 13    | `NPC Detector`          | Vùng phát hiện người chơi | Dùng để kích hoạt hội thoại hoặc hành vi |
+| 14    | `Weapon`                | Vũ khí rời hoặc gắn với nhân vật | Có thể có animation riêng |
+| 15    | `Skill`                 | Kỹ năng, phép thuật, đạn bay | Gồm projectile, hiệu ứng kỹ năng |
+| 16    | `Skill Hitbox`          | Vùng gây sát thương của kỹ năng | Dùng cho phép nổ, tia, đạn |
+| 17    | `Skill Hurtbox`         | Vùng nhận sát thương của kỹ năng | Ví dụ: kỹ năng bị phản đòn hoặc hủy |
+| 18    | `Effect`                | Hiệu ứng đặc biệt | Ánh sáng, bóng đổ, particle, shader |
+| 19    | `UI Detector`           | Vùng phát hiện tương tác UI | Dùng cho menu, bảng chọn, v.v.
+
+
 ## 🧱 Tiêu chuẩn phân lớp TileMapLayer cho game RPG
 
 | Lớp TileMapLayer     | Mục đích sử dụng                         | Ghi chú thêm                              |
