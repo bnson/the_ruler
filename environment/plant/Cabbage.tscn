@@ -1,0 +1,33 @@
+[gd_scene load_steps=6 format=3 uid="uid://d070epdgdlwsb"]
+
+[ext_resource type="Script" uid="uid://53n0t8v4if04" path="res://environment/plant/Cabbage.gd" id="1_wwujv"]
+[ext_resource type="Texture2D" uid="uid://dhqlpjew4e6ht" path="res://assets/sprites/plant/plant.png" id="2_k2omj"]
+[ext_resource type="Script" uid="uid://cuu77ku28oekw" path="res://components/combat/Hurtbox.gd" id="3_1ey6v"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k2omj"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sop20"]
+size = Vector2(30, 26)
+
+[node name="Cabbage" type="Node2D"]
+script = ExtResource("1_wwujv")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_k2omj")
+hframes = 16
+vframes = 3
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_layer = 128
+collision_mask = 9
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource("RectangleShape2D_k2omj")
+
+[node name="Hurtbox" type="Area2D" parent="."]
+collision_layer = 256
+collision_mask = 2
+script = ExtResource("3_1ey6v")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("RectangleShape2D_sop20")
