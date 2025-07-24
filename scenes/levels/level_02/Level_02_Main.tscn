@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=4 uid="uid://dkln3d051y3ih"]
 
-[ext_resource type="Texture2D" uid="uid://cw1sy3nqewgf5" path="res://assets/tilesets/overworld/grassland_tiles_1.png" id="1_ithsn"]
-[ext_resource type="Script" uid="uid://bt7kqcofecdvy" path="res://scenes/levels/level_02/Level_02_Main.gd" id="1_xw0ls"]
+[ext_resource type="Texture2D" uid="uid://ddgppyfecj8o2" path="res://assets/tilesets/overworld/grassland_tiles_1.png" id="1_ithsn"]
+[ext_resource type="Script" uid="uid://tikir6b2sf4p" path="res://scenes/levels/level_02/Level_02_Main.gd" id="1_xw0ls"]
 [ext_resource type="PackedScene" uid="uid://cg6lquywnk1v" path="res://characters/player/PlayerSpawn.tscn" id="3_4n2hf"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_xw0ls"]

@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="The_Ruler"
-run/main_scene="uid://88qtdfkxdrom"
+run/main_scene="uid://b4yy56dam6dh6"
 config/features=PackedStringArray("4.4", "Mobile")
 config/icon="res://icon.svg"
 
@@ -21,6 +21,8 @@ AudioManager="*res://autoload/AudioManager.gd"
 SceneManager="*res://autoload/SceneManager.gd"
 CharactersManager="*res://autoload/CharactersManager.gd"
 PlayerData="*res://autoload/PlayerData.gd"
+TimeManager="*res://autoload/TimeManager.tscn"
+DayNightController="*res://autoload/DayNightController.tscn"
 PlayerUi="*res://autoload/PlayerUi.tscn"
 Global="*res://autoload/Global.gd"
 
@@ -28,6 +30,8 @@ Global="*res://autoload/Global.gd"
 
 window/size/viewport_width=480
 window/size/viewport_height=270
+window/size/window_width_override=1440
+window/size/window_height_override=810
 window/stretch/mode="viewport"
 
 [input]

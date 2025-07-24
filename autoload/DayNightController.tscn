@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://bkt25bhln7l8e"]
 
-[ext_resource type="Script" uid="uid://cwet3jdkfp6qt" path="res://autoload/DayNightController.gd" id="1_fgjf8"]
+[ext_resource type="Script" uid="uid://chrx5fxx8bpnw" path="res://autoload/DayNightController.gd" id="1_fgjf8"]
 [ext_resource type="Texture2D" uid="uid://plciysbqk8rc" path="res://assets/environment/day_night_cycle_gradient_texture_2.tres" id="2_so6ae"]
 
 [node name="DayNightController" type="CanvasModulate"]

@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=4 uid="uid://dmax51ar1t2kf"]
 
-[ext_resource type="Script" uid="uid://dj5wsvmly3aw3" path="res://scripts/ui/MainMenu.gd" id="1_6jbdy"]
-[ext_resource type="Texture2D" uid="uid://byh8tssos3663" path="res://assets/tilesets/dungeon/dungeon_tiles_1.png" id="1_vjtqc"]
+[ext_resource type="Script" uid="uid://cfbcpfssujtup" path="res://scripts/ui/MainMenu.gd" id="1_6jbdy"]
+[ext_resource type="Texture2D" uid="uid://dkvi1sbwsesvr" path="res://assets/tilesets/dungeon/dungeon_tiles_1.png" id="1_vjtqc"]
 [ext_resource type="PackedScene" uid="uid://bn7gnwxahnjaa" path="res://scenes/transitions/FadeScene.tscn" id="2_xpiny"]
 [ext_resource type="PackedScene" uid="uid://cjpcfb3we1gs7" path="res://scenes/ui/SplashScreen.tscn" id="3_iwbf0"]
 [ext_resource type="PackedScene" uid="uid://dv0wj0fq5ge0l" path="res://environment/props/Statue.tscn" id="4_2ysvc"]

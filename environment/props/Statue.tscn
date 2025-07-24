@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://dv0wj0fq5ge0l"]
 
-[ext_resource type="Texture2D" uid="uid://d3gi38diyanlm" path="res://assets/sprites/props/dungeon_props.png" id="1_nxjdt"]
-[ext_resource type="Script" uid="uid://bxc0khu1wmawo" path="res://environment/props/Statue.gd" id="1_ottok"]
+[ext_resource type="Texture2D" uid="uid://n3drq5aonn7k" path="res://assets/sprites/props/dungeon_props.png" id="1_nxjdt"]
+[ext_resource type="Script" uid="uid://e5maof3yc75k" path="res://environment/props/Statue.gd" id="1_ottok"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nxjdt"]
 size = Vector2(30, 11)

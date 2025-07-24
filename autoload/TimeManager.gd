@@ -4,14 +4,14 @@ signal time_updated(day_name: String, hour: int, minute: int, is_daytime: bool, 
 
 enum TimePeriod { Morning, Noon, Afternoon, Evening }
 
-@export var day_names: Array[String] = ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"]
+@export var day_names: Array[String] = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
 @export var time_speed_levels: Array[int] = [3, 6, 12, 30, 60]
 
 var current_day_index := 0
 var hour := 6
 var minute := 0
 
-var time_speed := 60
+var time_speed := 3
 var current_speed_index := 0
 var is_paused := false
 
@@ -101,13 +101,13 @@ func is_daytime() -> bool:
 
 func get_time_period() -> String:
 	if hour >= 5 and hour < 11:
-		return "Morning"
+		return "☀️" # Morning
 	elif hour >= 11 and hour < 13:
-		return "Noon"
+		return "🌞" # Noon
 	elif hour >= 13 and hour < 18:
-		return "Afternoon"
+		return "🌞"
 	else:
-		return "Evening"  # Bao gồm 0–5 và 18–23
+		return "🌙"  # Bao gồm 0–5 và 18–23
 
 func get_time_progress_ratio() -> float:
 	var total_minutes = hour * 60 + minute
