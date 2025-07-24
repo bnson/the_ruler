@@ -1,0 +1,3 @@
+[gd_scene format=3 uid="uid://cng6xlhaebp0g"]
+
+[node name="HealEffect" type="Node2D"]
