@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://ycsm6osox7cf"]
+
+[ext_resource type="Script" uid="uid://dsja8nwr01sgh" path="res://src/components/combat/Hitbox.gd" id="1_8krxb"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_tufbh"]
+radius = 20.0
+
+[node name="Hitbox" type="Area2D"]
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("1_8krxb")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_tufbh")
