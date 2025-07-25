@@ -1,10 +1,7 @@
 # 📘 Quy Chuẩn Đặt Tên Cho Project Game RPG (Godot 4)
 
 Quy chuẩn này giúp đảm bảo tính nhất quán, dễ mở rộng, dễ bảo trì và dễ làm việc nhóm trong quá trình phát triển game RPG bằng Godot.
-
----
-
-## 1. 🧪 Bảng Kiểm Tra Nhanh
+Dưới đây là bảng quy chuẩn áp dúng cho project.
 
 | Loại        | Kiểu viết     | ✅ Ví dụ đúng           | ❌ Ví dụ sai              |
 |-------------|----------------|--------------------------|---------------------------|
@@ -14,8 +11,9 @@ Quy chuẩn này giúp đảm bảo tính nhất quán, dễ mở rộng, dễ b
 | Asset       | `snake_case`   | `goblin_attack.png`      | `GoblinAttack.png`        |
 | Viết tắt    | `PascalCase`   | `NpcMerchant.gd`         | `NPCMerchant.gd`          |
 
+---
 
-## 2. 📁 Thư Mục (Folder)
+## 1. 📁 Thư Mục (Folder)
 
 - **Kiểu viết**: `snake_case`
 - **Lý do**: Dễ gõ, tránh lỗi case-sensitive trên Linux/Android
