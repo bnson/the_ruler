@@ -1,7 +1,9 @@
 extends CharacterBody2D
+class_name Player
 
 @export var speed: float = 200.0
 
+@onready var node_name := get_name()
 @onready var state_machine: Node = $StateMachine
 @onready var animation_tree: AnimationTree = $AnimationTree
 @onready var animation_state: AnimationNodeStateMachinePlayback = animation_tree.get("parameters/playback")
@@ -15,18 +17,16 @@ var knockback_vector: Vector2 = Vector2.ZERO
 var knockback_timer: float = 0.0
 const KNOCKBACK_DURATION: float = 0.2
 
-
 func _ready() -> void:
-	print("Player ready...")
+	Logger.debug_log(node_name, "Player ready...", "Player")
 	animation_tree.active = true
 	state_machine.change_state("IdleState")
-	
 	hitbox.hitbox_owner = self
 
-	if hurtbox.has_signal("hit_received"):
-		print("Player hit received...")
-		hurtbox.connect("hit_received", Callable(self, "_on_hit_received"))
+	connect_signals()
 
+func connect_signals() -> void:
+	Logger.connect_signal_once(hurtbox, "hit_received", Callable(self, "_on_hit_received"), node_name, "Player")
 
 func _physics_process(delta: float) -> void:
 	var input_vector = Vector2(
@@ -34,7 +34,6 @@ func _physics_process(delta: float) -> void:
 		Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
 	).normalized()
 
-	# Nếu đang bị knockback
 	if knockback_timer > 0:
 		velocity = knockback_vector
 		knockback_timer -= delta
@@ -42,41 +41,39 @@ func _physics_process(delta: float) -> void:
 		velocity = input_vector * speed
 
 	move_and_slide()
-	
-	# Cập nhập hướng cho BlendSpace2d
+
 	if input_vector != Vector2.ZERO:
-		animation_tree.set("parameters/IdleState/blend_position", input_vector)
-		animation_tree.set("parameters/WalkState/blend_position", input_vector)
-		animation_tree.set("parameters/AttackState/blend_position", input_vector)
-		
-		attack_effect_animation_tree.set("parameters/AttackEffect/blend_position", input_vector)
+		update_blend_positions(input_vector)
+		update_hitbox_rotation(input_vector)
 
 	if state_machine.current_state:
 		state_machine.current_state.physics_update(delta)
 
-	if input_vector != Vector2.ZERO:
-		if input_vector == Vector2(0, -1):  # lên
-			hitbox.rotation_degrees = -180
-		elif input_vector == Vector2(0, 1):  # xuống
-			hitbox.rotation_degrees = 0
-		elif input_vector == Vector2(-1, 0):  # trái
-			hitbox.rotation_degrees = 90
-		elif input_vector == Vector2(1, 0):  # phải
-			hitbox.rotation_degrees = -90
+func update_blend_positions(input_vector: Vector2) -> void:
+	animation_tree.set("parameters/IdleState/blend_position", input_vector)
+	animation_tree.set("parameters/WalkState/blend_position", input_vector)
+	animation_tree.set("parameters/AttackState/blend_position", input_vector)
+	attack_effect_animation_tree.set("parameters/AttackEffect/blend_position", input_vector)
+
+func update_hitbox_rotation(input_vector: Vector2) -> void:
+	match input_vector:
+		Vector2(0, -1): hitbox.rotation_degrees = -180  # lên
+		Vector2(0, 1): hitbox.rotation_degrees = 0      # xuống
+		Vector2(-1, 0): hitbox.rotation_degrees = 90    # trái
+		Vector2(1, 0): hitbox.rotation_degrees = -90    # phải
 
 func take_damage(amount: int) -> void:
 	PlayerData.hp -= amount
 	PlayerUi.health_bar.value = PlayerData.hp
-	print("Player bị trúng đòn! Mất ", amount, " máu, còn lại ", PlayerData.hp, " máu")
+	Logger.debug_log(node_name, "Received damage: %d | Current HP: %d" % [amount, PlayerData.hp], "Player")
+
 	if PlayerData.hp <= 0:
 		die()
 
 func die() -> void:
-	print("Player die...")
+	Logger.debug_log(node_name, "Player has died.", "Player")
 
 func _on_hit_received(damage: int, from_position: Vector2) -> void:
-	# Tính hướng knockback
 	knockback_vector = (global_position - from_position).normalized() * 300
 	knockback_timer = KNOCKBACK_DURATION
-	# TODO: Trừ máu, hiệu ứng, v.v.
 	take_damage(damage)

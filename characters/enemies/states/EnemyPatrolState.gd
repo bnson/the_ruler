@@ -4,7 +4,7 @@ var patrol_index := 0
 var patrol_points := []
 
 func enter() -> void:
-	print("Enemy patrol state enter...")
+	#print("Enemy patrol state enter...")
 	var enemy = state_machine.get_parent()
 	enemy.animation_state.travel("WalkState")
 

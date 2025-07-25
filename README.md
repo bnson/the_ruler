@@ -1,5 +1,10 @@
 # THE RULE.
 
+
+## 📄 Tài liệu kỹ thuật
+- [docs/Log.md](./docs/Log.md): Hướng dẫn cấu hình và sử dụng hệ thống log.
+
+
 ## 🧩 Phân tích cấu hình Layer tiêu chuẩn cho game RPG (mở rộng)
 
 | Layer | Tên Layer               | Mục đích sử dụng | Ghi chú |

@@ -4,10 +4,11 @@
 [ext_resource type="Texture2D" uid="uid://b8njqkuc23gbk" path="res://assets/sprites/plant/plant.png" id="2_k2omj"]
 [ext_resource type="Script" uid="uid://bxe6ei0rj0p6l" path="res://components/combat/Hurtbox.gd" id="3_1ey6v"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_k2omj"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_6n35u"]
+radius = 17.2627
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_sop20"]
-size = Vector2(30, 26)
+[sub_resource type="CircleShape2D" id="CircleShape2D_nn31f"]
+radius = 19.4165
 
 [node name="Cabbage" type="Node2D"]
 script = ExtResource("1_wwujv")
@@ -22,12 +23,13 @@ collision_layer = 128
 collision_mask = 9
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-shape = SubResource("RectangleShape2D_k2omj")
+shape = SubResource("CircleShape2D_6n35u")
+debug_color = Color(0.921569, 0, 0.505882, 0.509804)
 
 [node name="Hurtbox" type="Area2D" parent="."]
-collision_layer = 256
+collision_layer = 512
 collision_mask = 2
 script = ExtResource("3_1ey6v")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
-shape = SubResource("RectangleShape2D_sop20")
+shape = SubResource("CircleShape2D_nn31f")

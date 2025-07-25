@@ -1,4 +1,5 @@
 extends CharacterBody2D
+class_name Slime
 
 signal slime_died(slime_node: Node)
 
@@ -18,13 +19,14 @@ var knockback_vector := Vector2.ZERO
 var knockback_timer := 0.0
 const KNOCKBACK_DURATION := 0.2
 
+@onready var node_name := get_name()
 @onready var state_machine = $StateMachine
 @onready var animation_tree: AnimationTree = $AnimationTree
 @onready var animation_state: AnimationNodeStateMachinePlayback = animation_tree.get("parameters/playback")
 @onready var hitbox: Area2D = $Hitbox
 @onready var hurtbox: Area2D = $Hurtbox
-@onready var patrol_positions: Array[Vector2] = generate_patrol_positions(global_position, patrol_shape, patrol_radius)
 @onready var detection_area: Area2D = $DetectionArea
+@onready var patrol_positions: Array[Vector2] = generate_patrol_positions(global_position, patrol_shape, patrol_radius)
 
 func _ready() -> void:
 	current_hp = max_hp
@@ -32,10 +34,12 @@ func _ready() -> void:
 	state_machine.change_state("PatrolState")
 	hitbox.hitbox_owner = self
 
-	detection_area.connect("body_entered", Callable(self, "_on_body_entered"))
+	Logger.debug_log(node_name, "Slime initialized with HP: %d" % max_hp, "Enemy")
+	connect_signals()
 
-	if not hurtbox.is_connected("hit_received", Callable(self, "_on_hit_received")):
-		hurtbox.connect("hit_received", Callable(self, "_on_hit_received"))
+func connect_signals() -> void:
+	Logger.connect_signal_once(hurtbox, "hit_received", Callable(self, "_on_hit_received"), node_name, "Enemy")
+	Logger.connect_signal_once(detection_area, "body_entered", Callable(self, "_on_body_entered"), node_name, "Enemy")
 
 func _physics_process(delta: float) -> void:
 	var input_vector := Vector2(
@@ -61,25 +65,28 @@ func _physics_process(delta: float) -> void:
 func get_player() -> Node2D:
 	if Global.player:
 		return Global.player
-	push_error("Player chưa được khởi tạo trong Global.gd!")
+	Logger.error(node_name, "Player chưa được khởi tạo trong Global.gd!", "Enemy")
 	return null
 
 func take_damage(amount: int) -> void:
 	current_hp -= amount
-	print("Slime current HP: ", current_hp)
+	Logger.debug_log(node_name, "Received damage: %d | Current HP: %d" % [amount, current_hp], "Enemy")
+
 	if current_hp <= 0:
 		die()
 
 func die() -> void:
-	print("Slime die.")
+	Logger.debug_log(node_name, "Slime has died.", "Enemy")
+
 	if Global.player and Global.player.has_method("gain_experience"):
 		Global.player.gain_experience(exp_reward)
+		Logger.debug_log(node_name, "Granted %d EXP to player." % exp_reward, "Enemy")
 
 	emit_signal("slime_died", self)
 	queue_free()
 
 func _on_hit_received(damage: int, from_position: Vector2) -> void:
-	print("Slime nhận tín hiệu sát thương: ", damage, " - vị trí: ", from_position)
+	Logger.debug_log(node_name, "Hit received: %d from position %s" % [damage, str(from_position)], "Enemy")
 	knockback_vector = (global_position - from_position).normalized() * 300
 	knockback_timer = KNOCKBACK_DURATION
 	take_damage(damage)
@@ -106,5 +113,5 @@ func generate_patrol_positions(center: Vector2, shape: int, radius: float) -> Ar
 
 func _on_body_entered(body: Node) -> void:
 	if body.is_in_group("Player"):
-		print("Player đã vào vùng quan sát của enemy.")
+		Logger.debug_log(node_name, "Player entered detection area — switching to WalkState.", "Enemy")
 		state_machine.change_state("WalkState")

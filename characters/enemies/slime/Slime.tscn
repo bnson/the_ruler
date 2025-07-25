@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://cscea5qc4p4qk"]
+[gd_scene load_steps=38 format=3 uid="uid://cscea5qc4p4qk"]
 
 [ext_resource type="Script" uid="uid://ddmmtrlr1k6va" path="res://characters/enemies/slime/Slime.gd" id="1_vn8bj"]
 [ext_resource type="Texture2D" uid="uid://co4g61a05ey85" path="res://assets/sprites/enemies/slime.png" id="2_ov3fh"]
@@ -296,10 +296,13 @@ states/WalkState/position = Vector2(551, 119)
 transitions = ["Start", "IdleState", SubResource("AnimationNodeStateMachineTransition_pfy11"), "IdleState", "WalkState", SubResource("AnimationNodeStateMachineTransition_nq2cd"), "WalkState", "IdleState", SubResource("AnimationNodeStateMachineTransition_huoql")]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_tufbh"]
-radius = 20.0
+radius = 19.0263
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_sop20"]
-size = Vector2(30, 26)
+[sub_resource type="CircleShape2D" id="CircleShape2D_1n3me"]
+radius = 14.0357
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_sdfkt"]
+radius = 46.0
 
 [node name="Slime" type="CharacterBody2D"]
 collision_layer = 8
@@ -314,6 +317,7 @@ vframes = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_jfo11")
+debug_color = Color(0.919787, 2.88785e-06, 0.507552, 0.509804)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -333,6 +337,7 @@ script = ExtResource("3_nq2cd")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
 shape = SubResource("CircleShape2D_tufbh")
+debug_color = Color(1, 0.012597, 0.0137024, 0.42)
 
 [node name="Hurtbox" type="Area2D" parent="."]
 collision_layer = 32
@@ -340,7 +345,13 @@ collision_mask = 2
 script = ExtResource("4_huoql")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
-shape = SubResource("RectangleShape2D_sop20")
+shape = SubResource("CircleShape2D_1n3me")
+
+[node name="DetectionArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
+shape = SubResource("CircleShape2D_sdfkt")
+debug_color = Color(0.623665, 0.532772, 0, 0.42)
 
 [node name="StateMachine" type="Node" parent="."]
 script = ExtResource("5_pfy11")

@@ -514,6 +514,7 @@ sources/4 = SubResource("TileSetAtlasSource_l8nqg")
 
 [node name="Level01Main" type="Node2D"]
 script = ExtResource("1_yie7g")
+slime_scene = ExtResource("6_tv6s7")
 metadata/_edit_vertical_guides_ = [2010.0, -2012.0]
 metadata/_edit_horizontal_guides_ = [-1503.0, 1998.0]
 
@@ -570,4 +571,3 @@ max_hp = 50
 [node name="Slime2" parent="." instance=ExtResource("6_tv6s7")]
 position = Vector2(-417, 78)
 max_hp = 50
-patrol_positions = Array[Vector2]([Vector2(-100, -200), Vector2(400, 200)])

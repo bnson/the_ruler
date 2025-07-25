@@ -54,7 +54,7 @@ func spawn_single_slime():
 	slime.connect("slime_died", Callable(self, "_on_slime_died"))
 	$SceneContainer.add_child(slime)
 
-func _on_slime_died(slime_node: Node):
+func _on_slime_died(_slime_node: Node):
 	var respawn_time: float
 	if use_random_respawn_time:
 		respawn_time = randf_range(respawn_time_min, respawn_time_max)

@@ -5,13 +5,14 @@ signal time_updated(day_name: String, hour: int, minute: int, is_daytime: bool, 
 enum TimePeriod { Morning, Noon, Afternoon, Evening }
 
 @export var day_names: Array[String] = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
-@export var time_speed_levels: Array[int] = [3, 6, 12, 30, 60]
+#@export var time_speed_levels: Array[int] = [3, 6, 12, 30, 60]
+@export var time_speed_levels: Array[float] = [1.0, 1.5, 2.0, 3.0, 6.0]
 
 var current_day_index := 0
 var hour := 6
 var minute := 0
 
-var time_speed := 3
+var time_speed: float = 3.0
 var current_speed_index := 0
 var is_paused := false
 

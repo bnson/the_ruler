@@ -1,4 +1,5 @@
 extends Node2D
+class_name Cabbage
 
 @export var max_hp := 1
 @export var exp_reward := 5
@@ -6,15 +7,18 @@ extends Node2D
 var current_hp := max_hp
 var is_alive := true
 
-@onready var hurtbox = $Hurtbox
-
+@onready var node_name := get_name()
+@onready var hurtbox := $Hurtbox
 
 func _ready() -> void:
-	print("Cabbage ready")
-	
-	if hurtbox.has_signal("hit_received"):
-		print("Cabbage hit received")
-		hurtbox.connect("hit_received", Callable(self, "_on_hit_received"))
+	current_hp = max_hp
+	is_alive = true
+
+	Logger.debug_log(node_name, "Cabbage is now active.", "Enemy")
+	connect_signals()
+
+func connect_signals() -> void:
+	Logger.connect_signal_once(hurtbox, "hit_received", Callable(self, "_on_hit_received"), node_name, "Enemy")
 
 func _on_hit_received(damage: int, _from_position: Vector2) -> void:
 	take_damage(damage)
@@ -24,17 +28,18 @@ func take_damage(amount: int) -> void:
 		return
 
 	current_hp -= amount
-	print("Cabbage bị đánh trúng với sát thương:", amount)
+	Logger.debug_log(node_name, "Received damage: %d | Current HP: %d" % [amount, current_hp], "Enemy")
 
 	if current_hp <= 0:
 		die()
 
 func die() -> void:
 	is_alive = false
-	print("Cabbage biến mất.")
+	Logger.debug_log(node_name, "Cabbage has died.", "Enemy")
 
 	if Global.player and Global.player.has_method("add_exp"):
 		Global.player.add_exp(exp_reward)
+		Logger.debug_log(node_name, "Granted %d EXP to player." % exp_reward, "Enemy")
 
 	$StaticBody2D.queue_free()
 	queue_free()
