@@ -12,11 +12,13 @@ func physics_update(_delta: float) -> void:
 		state_machine.change_state("PatrolState")
 		return
 
-	#var direction = (player.global_position - enemy.global_position).normalized()
-	#enemy.velocity = direction * enemy.speed
-	enemy.move_and_slide()
+	var distance = enemy.global_position.distance_to(player.global_position)
 
-	if enemy.global_position.distance_to(player.global_position) < 30:
+	if distance < 30:
 		state_machine.change_state("AttackState")
-	elif enemy.global_position.distance_to(player.global_position) > 200:
+	elif distance > 200:
 		state_machine.change_state("PatrolState")
+	else:
+		var direction = (player.global_position - enemy.global_position).normalized()
+		enemy.velocity = direction * enemy.speed
+		enemy.move_and_slide()
