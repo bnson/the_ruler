@@ -1,71 +1,68 @@
 extends CharacterBody2D
 
+signal slime_died(slime_node: Node)
+
+enum PatrolShape { SQUARE, CIRCLE, TRIANGLE }
+
 @export var speed := 40.0
 @export var max_hp := 30
 @export var exp_reward := 10
-@export var patrol_positions: Array[Vector2] = [
-	Vector2(100, 200),
-	Vector2(400, 200)
-]
+@export var patrol_shape: PatrolShape = PatrolShape.SQUARE
+@export var patrol_radius: float = 100.0
 
 var current_hp := max_hp
 var patrol_index := 0
-var is_attacking: bool = true
+var is_attacking := true
 
-var knockback_vector: Vector2 = Vector2.ZERO
-var knockback_timer: float = 0.0
-const KNOCKBACK_DURATION: float = 0.2
+var knockback_vector := Vector2.ZERO
+var knockback_timer := 0.0
+const KNOCKBACK_DURATION := 0.2
 
 @onready var state_machine = $StateMachine
 @onready var animation_tree: AnimationTree = $AnimationTree
 @onready var animation_state: AnimationNodeStateMachinePlayback = animation_tree.get("parameters/playback")
 @onready var hitbox: Area2D = $Hitbox
 @onready var hurtbox: Area2D = $Hurtbox
-
+@onready var patrol_positions: Array[Vector2] = generate_patrol_positions(global_position, patrol_shape, patrol_radius)
+@onready var detection_area: Area2D = $DetectionArea
 
 func _ready() -> void:
-	#print("Slime HP khi khởi tạo: ", max_hp)
 	current_hp = max_hp
-	
 	animation_tree.active = true
-	#state_machine.change_state("WalkState")
 	state_machine.change_state("PatrolState")
-	
 	hitbox.hitbox_owner = self
-	
-	if hurtbox.has_signal("hit_received"):
+
+	detection_area.connect("body_entered", Callable(self, "_on_body_entered"))
+
+	if not hurtbox.is_connected("hit_received", Callable(self, "_on_hit_received")):
 		hurtbox.connect("hit_received", Callable(self, "_on_hit_received"))
 
 func _physics_process(delta: float) -> void:
-	var input_vector = Vector2(
+	var input_vector := Vector2(
 		Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left"),
 		Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
 	).normalized()
-	
-	# Nếu đang bị knockback
-	if knockback_timer > 0:
+
+	if knockback_timer > 0.0:
 		velocity = knockback_vector
 		knockback_timer -= delta
 	else:
 		velocity = input_vector * speed
-	
+
 	move_and_slide()
-	
-	# Cập nhập hướng cho BlendSpace2d
+
 	if input_vector != Vector2.ZERO:
 		animation_tree.set("parameters/IdleState/blend_position", input_vector)
 		animation_tree.set("parameters/WalkState/blend_position", input_vector)
-	
+
 	if state_machine.current_state:
 		state_machine.current_state.physics_update(delta)
-	
 
 func get_player() -> Node2D:
 	if Global.player:
 		return Global.player
-	else:
-		push_error("Player chưa được khởi tạo trong Global.gd!")
-		return null
+	push_error("Player chưa được khởi tạo trong Global.gd!")
+	return null
 
 func take_damage(amount: int) -> void:
 	current_hp -= amount
@@ -74,15 +71,40 @@ func take_damage(amount: int) -> void:
 		die()
 
 func die() -> void:
-	print("Cabbage die.")
+	print("Slime die.")
 	if Global.player and Global.player.has_method("gain_experience"):
 		Global.player.gain_experience(exp_reward)
+
+	emit_signal("slime_died", self)
 	queue_free()
-	
+
 func _on_hit_received(damage: int, from_position: Vector2) -> void:
 	print("Slime nhận tín hiệu sát thương: ", damage, " - vị trí: ", from_position)
-	# Tính hướng knockback
 	knockback_vector = (global_position - from_position).normalized() * 300
 	knockback_timer = KNOCKBACK_DURATION
-	# TODO: Trừ máu, hiệu ứng, v.v.
 	take_damage(damage)
+
+func generate_patrol_positions(center: Vector2, shape: int, radius: float) -> Array[Vector2]:
+	var positions: Array[Vector2] = []
+	match shape:
+		PatrolShape.SQUARE:
+			positions = [
+				center + Vector2(-radius, -radius),
+				center + Vector2(radius, -radius),
+				center + Vector2(radius, radius),
+				center + Vector2(-radius, radius)
+			]
+		PatrolShape.CIRCLE:
+			for i in range(4):
+				var angle = i * PI / 2
+				positions.append(center + Vector2(cos(angle), sin(angle)) * radius)
+		PatrolShape.TRIANGLE:
+			for i in range(3):
+				var angle = i * TAU / 3
+				positions.append(center + Vector2(cos(angle), sin(angle)) * radius)
+	return positions
+
+func _on_body_entered(body: Node) -> void:
+	if body.is_in_group("Player"):
+		print("Player đã vào vùng quan sát của enemy.")
+		state_machine.change_state("WalkState")
