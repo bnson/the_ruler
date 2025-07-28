@@ -1,6 +1,6 @@
 extends Area2D
 
-const MAX_DISTANCE := 40.0
+const MAX_DISTANCE := 10.0
 
 @onready var handle := $Handle
 @onready var background := $Background
@@ -16,27 +16,27 @@ func _process(_delta: float) -> void:
 		handle.global_position = global_position
 		raw_vector = Vector2.ZERO
 
-func _input(event: InputEvent) -> void:
-	if event is InputEventScreenTouch:
-		is_touching = event.pressed
-		if is_touching:
-			raw_vector = event.position - global_position
+# Khi chạm vào vùng joystick
+func _input_event(_viewport, event, _shape_idx):
+	if event is InputEventScreenTouch and event.pressed:
+		is_touching = true
+		raw_vector = event.position - global_position
 	elif event is InputEventScreenDrag and is_touching:
 		raw_vector = event.position - global_position
+
+# Khi thả tay ở bất kỳ đâu
+func _unhandled_input(event: InputEvent) -> void:
+	if event is InputEventScreenTouch and not event.pressed:
+		is_touching = false
 
 func get_direction() -> Vector2:
 	if is_touching and raw_vector.length() > 0:
 		var direction: Vector2 = raw_vector.normalized()
 		var strength: float = clamp(raw_vector.length() / MAX_DISTANCE, 0.0, 1.0)
 		var result := direction * strength
-		# Làm tròn nếu gần hướng chính
-		result = snap_to_cardinal(result)
-		return result
+		return snap_to_cardinal(result)
 	else:
-		return Vector2(
-			Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left"),
-			Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
-		).normalized()
+		return Vector2.ZERO
 
 func snap_to_cardinal(vec: Vector2) -> Vector2:
 	if vec.length() < 0.1:
