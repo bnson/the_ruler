@@ -14,7 +14,7 @@ func enter() -> void:
 		player.get_node("Hitbox").activate()
 
 
-func physics_update(_delta: float) -> void:
+func physics_update(_delta: float, _input_vector: Vector2) -> void:
 	# Kiểm tra nếu animation đã kết thúc
 	var player = state_machine.get_parent()
 	var current_anim = player.animation_state.get_current_node()

@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://d070epdgdlwsb"]
 
 [ext_resource type="Script" uid="uid://byrupai741si5" path="res://src/environment/plant/Cabbage.gd" id="1_wwujv"]
-[ext_resource type="Texture2D" uid="uid://b8njqkuc23gbk" path="res://assets/sprites/plant/plant.png" id="2_k2omj"]
+[ext_resource type="Texture2D" uid="uid://d1smn0r7nxved" path="res://assets/sprites/plant/plant_1.png" id="2_ufpr6"]
 [ext_resource type="Script" uid="uid://bxe6ei0rj0p6l" path="res://src/components/combat/Hurtbox.gd" id="3_1ey6v"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_6n35u"]
@@ -14,8 +14,8 @@ radius = 19.4165
 script = ExtResource("1_wwujv")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_k2omj")
-hframes = 4
+texture = ExtResource("2_ufpr6")
+hframes = 16
 vframes = 3
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]

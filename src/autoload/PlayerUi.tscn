@@ -1,7 +1,8 @@
-[gd_scene load_steps=21 format=3 uid="uid://cf8c1vdwthaxy"]
+[gd_scene load_steps=22 format=3 uid="uid://cf8c1vdwthaxy"]
 
 [ext_resource type="Script" uid="uid://b6fv7lnrexiht" path="res://src/autoload/PlayerUi.gd" id="1_dribd"]
 [ext_resource type="Texture2D" uid="uid://cv4wnjqwtg0sn" path="res://assets/avatar/player_portrait.png" id="2_3sl7j"]
+[ext_resource type="PackedScene" uid="uid://cg7jvbdfkggsf" path="res://src/components/joystick/Joystick.tscn" id="3_wlkt0"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3sl7j"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -229,3 +230,7 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_xyom4")
 text = "☀️ Mon - 06:00"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Joystick" parent="." instance=ExtResource("3_wlkt0")]
+position = Vector2(41, 228)
+scale = Vector2(0.10338, 0.10338)

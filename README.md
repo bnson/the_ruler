@@ -3,6 +3,7 @@
 
 ## 📄 Tài liệu kỹ thuật
 - [docs/Log.md](./docs/Log.md): Hướng dẫn cấu hình và sử dụng hệ thống log.
+- [docs/NamingConvention.md](./docs/NamingConvention.md): Quy chuẩn đặt tên cho project.
 
 
 ## 🧩 Phân tích cấu hình Layer tiêu chuẩn cho game RPG (mở rộng)
