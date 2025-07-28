@@ -1,0 +1,57 @@
+[gd_scene load_steps=2 format=3 uid="uid://dyn6u18j5ccn6"]
+
+[ext_resource type="Script" uid="uid://dxeh63yl8mqmc" path="res://src/components/joystick/AttackButtons.gd" id="1_gplpf"]
+
+[node name="AttackButtons" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_gplpf")
+
+[node name="Attack" type="TextureButton" parent="."]
+layout_mode = 0
+anchor_right = 0.1
+anchor_bottom = 0.2
+offset_left = 900.0
+offset_top = 500.0
+offset_right = 900.0
+offset_bottom = 500.0
+
+[node name="Skill1" type="TextureButton" parent="."]
+layout_mode = 0
+anchor_right = 0.1
+anchor_bottom = 0.2
+offset_left = 1000.0
+offset_top = 420.0
+offset_right = 1000.0
+offset_bottom = 420.0
+
+[node name="Skill2" type="TextureButton" parent="."]
+layout_mode = 0
+anchor_right = 0.1
+anchor_bottom = 0.2
+offset_left = 1100.0
+offset_top = 500.0
+offset_right = 1100.0
+offset_bottom = 500.0
+
+[node name="Dash" type="TextureButton" parent="."]
+layout_mode = 0
+anchor_right = 0.1
+anchor_bottom = 0.2
+offset_left = 1000.0
+offset_top = 600.0
+offset_right = 1000.0
+offset_bottom = 600.0
+
+[node name="Block" type="TextureButton" parent="."]
+layout_mode = 0
+anchor_right = 0.1
+anchor_bottom = 0.2
+offset_left = 850.0
+offset_top = 600.0
+offset_right = 850.0
+offset_bottom = 600.0
