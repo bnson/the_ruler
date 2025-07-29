@@ -1,42 +1,56 @@
-extends Area2D
+extends Control
 
-const MAX_DISTANCE := 10.0
+const MAX_DISTANCE := 15.0  # Bán kính joystick
 
-@onready var handle := $Handle
-@onready var background := $Background
+@onready var stick: TextureRect = $Stick
+@onready var base: TextureRect = $Base
 
 var is_touching := false
 var raw_vector := Vector2.ZERO
+var touch_index := -1  # ID của ngón tay đang điều khiển joystick
 
 func _process(_delta: float) -> void:
+	var center := base.position + base.size / 2
 	if is_touching:
-		var clamped_vector := raw_vector.limit_length(MAX_DISTANCE)
-		handle.global_position = global_position + clamped_vector
+		var clamped := raw_vector.limit_length(MAX_DISTANCE)
+		stick.position = center + clamped - stick.size / 2
 	else:
-		handle.global_position = global_position
+		stick.position = center - stick.size / 2
 		raw_vector = Vector2.ZERO
 
-# Khi chạm vào vùng joystick
-func _input_event(_viewport, event, _shape_idx):
-	if event is InputEventScreenTouch and event.pressed:
-		is_touching = true
-		raw_vector = event.position - global_position
-	elif event is InputEventScreenDrag and is_touching:
-		raw_vector = event.position - global_position
-
-# Khi thả tay ở bất kỳ đâu
 func _unhandled_input(event: InputEvent) -> void:
-	if event is InputEventScreenTouch and not event.pressed:
-		is_touching = false
+	var global_center := base.get_global_transform().origin + base.size / 2
+
+	if event is InputEventScreenTouch:
+		if event.pressed and event.index == 0:
+			if touch_index == -1:
+				var local_pos : Vector2 = base.get_global_transform().affine_inverse() * event.position
+				if local_pos.distance_to(base.size / 2) <= MAX_DISTANCE:
+					touch_index = event.index
+					is_touching = true
+					raw_vector = event.position - global_center
+		else:
+			if event.index == touch_index:
+				is_touching = false
+				touch_index = -1
+				raw_vector = Vector2.ZERO
+
+	elif event is InputEventScreenDrag:
+		if is_touching and event.index == touch_index:
+			raw_vector = event.position - global_center
 
 func get_direction() -> Vector2:
 	if is_touching and raw_vector.length() > 0:
 		var direction: Vector2 = raw_vector.normalized()
 		var strength: float = clamp(raw_vector.length() / MAX_DISTANCE, 0.0, 1.0)
 		var result := direction * strength
-		return snap_to_cardinal(result)
+		result = snap_to_cardinal(result)
+		return result
 	else:
-		return Vector2.ZERO
+		return Vector2(
+			Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left"),
+			Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
+		).normalized()
 
 func snap_to_cardinal(vec: Vector2) -> Vector2:
 	if vec.length() < 0.1:

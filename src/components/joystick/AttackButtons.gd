@@ -1,13 +1,30 @@
 extends Control
 
-func _ready():
-	$Attack.pressed.connect(func(): simulate_action("attack"))
-	$Skill1.pressed.connect(func(): simulate_action("skill1"))
-	$Skill2.pressed.connect(func(): simulate_action("skill2"))
-	$Dash.pressed.connect(func(): simulate_action("dash"))
-	$Block.pressed.connect(func(): simulate_action("block"))
+signal attack_triggered
 
-func simulate_action(action_name: String, duration := 0.1):
-	Input.action_press(action_name)
-	await get_tree().create_timer(duration).timeout
-	Input.action_release(action_name)
+@onready var attack_button := $AttackButton
+@onready var cooldown_timer := $CooldownTimer
+
+var can_attack := true
+
+func _ready() -> void:
+	print("Attack buttons ready...")
+	attack_button.pressed.connect(_on_attack_button_pressed)
+	attack_button.gui_input.connect(_on_attack_gui_input)
+	cooldown_timer.timeout.connect(_on_cooldown_finished)
+
+func _on_attack_button_pressed() -> void:
+	if can_attack:
+		can_attack = false
+		print("Attack triggered!")
+		emit_signal("attack_triggered")
+		cooldown_timer.start()
+
+func _on_attack_gui_input(event: InputEvent) -> void:
+	if event is InputEventScreenTouch and event.pressed:
+		if event.index != 0:  # tránh xung đột với Joystick
+			print("AttackButton received touch at index: ", event.index)
+			_on_attack_button_pressed()
+
+func _on_cooldown_finished() -> void:
+	can_attack = true

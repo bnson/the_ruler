@@ -11,6 +11,7 @@ func _ready() -> void:
 		child.set_physics_process(false)
 
 func change_state(state_name: String) -> void:
+	print("Change state..." + state_name)
 	if current_state:
 		current_state.exit()
 		current_state.set_process(false)

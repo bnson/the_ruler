@@ -1,9 +1,9 @@
 extends Node
 
 @export var slime_scene: PackedScene
-@export var min_slimes: int = 3
-@export var max_slimes: int = 6
-@export var spawn_area: Rect2 = Rect2(Vector2(100, 100), Vector2(800, 400))
+@export var min_slimes: int = 40
+@export var max_slimes: int = 60
+@export var spawn_area: Rect2 = Rect2(Vector2(0, 0), Vector2(800, 800))
 @export var max_spawn_attempts: int = 10
 
 @export var use_random_respawn_time: bool = false

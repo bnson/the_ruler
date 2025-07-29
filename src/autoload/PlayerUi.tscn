@@ -1,8 +1,9 @@
-[gd_scene load_steps=22 format=3 uid="uid://cf8c1vdwthaxy"]
+[gd_scene load_steps=23 format=3 uid="uid://cf8c1vdwthaxy"]
 
 [ext_resource type="Script" uid="uid://b6fv7lnrexiht" path="res://src/autoload/PlayerUi.gd" id="1_dribd"]
 [ext_resource type="Texture2D" uid="uid://cv4wnjqwtg0sn" path="res://assets/avatar/player_portrait.png" id="2_3sl7j"]
 [ext_resource type="PackedScene" uid="uid://cg7jvbdfkggsf" path="res://src/components/joystick/Joystick.tscn" id="3_wlkt0"]
+[ext_resource type="PackedScene" uid="uid://dyn6u18j5ccn6" path="res://src/components/joystick/AttackButtons.tscn" id="4_tqk0u"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3sl7j"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -135,11 +136,12 @@ bg_color = Color(0.239216, 0.239216, 0.239216, 0.4)
 
 [node name="PlayerUi" type="CanvasLayer"]
 script = ExtResource("1_dribd")
+metadata/_edit_horizontal_guides_ = [257.0]
 
 [node name="MainPanel" type="Panel" parent="."]
 custom_minimum_size = Vector2(180, 90)
-offset_right = 180.0
-offset_bottom = 90.0
+offset_right = 222.0
+offset_bottom = 100.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_3sl7j")
 
 [node name="MainContainer" type="VBoxContainer" parent="MainPanel"]
@@ -231,6 +233,29 @@ text = "☀️ Mon - 06:00"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Joystick" parent="." instance=ExtResource("3_wlkt0")]
-position = Vector2(41, 228)
-scale = Vector2(0.10338, 0.10338)
+[node name="CenterContainer" type="CenterContainer" parent="."]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -106.0
+offset_right = 114.0
+grow_vertical = 0
+mouse_filter = 2
+
+[node name="Joystick" parent="CenterContainer" instance=ExtResource("3_wlkt0")]
+layout_mode = 2
+
+[node name="CenterContainer2" type="CenterContainer" parent="."]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -88.0
+offset_top = -88.0
+grow_horizontal = 0
+grow_vertical = 0
+mouse_filter = 2
+
+[node name="AttackButtons" parent="CenterContainer2" instance=ExtResource("4_tqk0u")]
+layout_mode = 2

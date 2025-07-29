@@ -11,12 +11,12 @@ const LOG_PATH := "user://debug_log.txt"
 
 # ✅ Bật/tắt theo nhóm
 var DEBUG_GROUPS := {
-	"Enemy": true,
+	"Enemy": false,
 	"Player": true,
-	"Combat": true,
+	"Combat": false,
 	"UI": true,
-	"Item": true,
-	"Skill": true
+	"Item": false,
+	"Skill": false
 }
 
 func debug_log(source: String, message: String, group: String = "") -> void:

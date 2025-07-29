@@ -11,13 +11,17 @@ class_name Player
 @onready var attack_effect_animation_state: AnimationNodeStateMachinePlayback = attack_effect_animation_tree.get("parameters/playback")
 @onready var hitbox: Area2D = $Hitbox
 @onready var hurtbox: Area2D = $Hurtbox
-@onready var joystick := PlayerUi.get_node_or_null("Joystick")
+
+@onready var joystick := PlayerUi.get_node_or_null("CenterContainer/Joystick")
+@onready var attack_buttons := PlayerUi.get_node_or_null("CenterContainer2/AttackButtons")
 
 
 var is_attacking: bool = false
 var knockback_vector: Vector2 = Vector2.ZERO
 var knockback_timer: float = 0.0
 const KNOCKBACK_DURATION: float = 0.2
+var attack_requested: bool = false
+
 
 var look_direction: Vector2 = Vector2.RIGHT  # mặc định nhìn phải
 
@@ -29,8 +33,9 @@ func _ready() -> void:
 	connect_signals()
 
 func connect_signals() -> void:
+	attack_buttons.attack_triggered.connect(_on_attack_triggered)
 	Logger.connect_signal_once(hurtbox, "hit_received", Callable(self, "_on_hit_received"), node_name, "Player")
-
+	
 func _physics_process(delta: float) -> void:
 	#var input_vector: Vector2 = Vector2(
 	#	Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left"),
@@ -102,3 +107,6 @@ func _on_hit_received(damage: int, from_position: Vector2) -> void:
 	knockback_vector = (global_position - from_position).normalized() * 300
 	knockback_timer = KNOCKBACK_DURATION
 	take_damage(damage)
+
+func _on_attack_triggered() -> void:
+	attack_requested = true
