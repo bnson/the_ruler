@@ -8,10 +8,10 @@ extends CanvasLayer
 @onready var time_label: Label = $MainPanel/MainContainer/HBoxContainer2/TimeLabel
 
 var last_displayed_minute := -1
-const UPDATE_INTERVAL := 5  # phút
 
 func _ready():
 	_connect_time_manager()
+
 	if PlayerData and not PlayerData.stats_changed.is_connected(_update_status_bars):
 		PlayerData.stats_changed.connect(_update_status_bars)
 
@@ -22,9 +22,10 @@ func _process(_delta: float) -> void:
 func _connect_time_manager():
 	if TimeManager and not TimeManager.time_updated.is_connected(_on_time_updated):
 		TimeManager.time_updated.connect(_on_time_updated)
-		print("✅ Connected to TimeManager.")
+		Logger.debug_log("Connected to TimeManager", "PlayerUi", "UI")
+		TimeManager.emit_time_updated()  
 	elif not TimeManager:
-		print("⚠️ TimeManager not found!")
+		Logger.debug_warn("TimeManager not found!", "PlayerUi", "UI")
 
 # -------------------------------
 # 🔄 Cập nhật UI
@@ -46,10 +47,10 @@ func _update_avatar_state():
 	var tired_ratio = 1.0 - float(PlayerData.hp) / float(PlayerData.max_hp)
 	avatar_tree.set("parameters/EmotionBlend/blend_position", tired_ratio)
 
-func _on_time_updated(day_name: String, hour: int, minute: int, _is_daytime: bool, time_period: String) -> void:
-	if minute % UPDATE_INTERVAL != 0 or minute == last_displayed_minute:
+func _on_time_updated(_day_name: String, _hour: int, minute: int, _is_daytime: bool, _time_period: String) -> void:
+	Logger.debug_log("Time updated: %s" % TimeManager.get_time_string(), "PlayerUi", "UI")
+	if minute == last_displayed_minute:
 		return
 
 	last_displayed_minute = minute
-	#var icon = "🌞" if is_daytime else "🌙"
-	time_label.text = "%s %s - %02d:00" % [time_period, day_name, hour]
+	time_label.text = TimeManager.get_time_string()
