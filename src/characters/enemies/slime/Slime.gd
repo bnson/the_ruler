@@ -9,7 +9,7 @@ enum PatrolShape { SQUARE, CIRCLE, TRIANGLE }
 # Exported
 @export var speed: float = 40.0
 @export var max_hp: int = 30
-@export var exp_reward: int = 10
+@export var exp_reward: int = 1000
 @export var patrol_shape: PatrolShape = PatrolShape.SQUARE
 @export var patrol_radius: float = 100.0
 
