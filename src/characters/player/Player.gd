@@ -100,6 +100,10 @@ func take_damage(amount: int) -> void:
 	if PlayerData.hp <= 0:
 		die()
 
+func gain_experience(amount: int) -> void:
+	PlayerData.gain_experience(amount)
+	PlayerUi.exp_bar.value = PlayerData.experience
+
 func die() -> void:
 	Logger.debug_log(node_name, "Player has died.", "Player")
 
