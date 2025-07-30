@@ -1,0 +1,38 @@
+{
+    "potion": {
+        "id": "potion",
+        "name": "Potion",
+        "description": "Heals 50 HP",
+        "type": "consumable",
+        "value": 10,
+        "atlas_path": "res://assets/items_sprite_sheet.png",
+        "region_x": 0,
+        "region_y": 0,
+        "region_w": 32,
+        "region_h": 32
+    },
+    "sword": {
+        "id": "sword",
+        "name": "Iron Sword",
+        "description": "Basic melee weapon",
+        "type": "equipment",
+        "value": 100,
+        "atlas_path": "res://assets/items_sprite_sheet.png",
+        "region_x": 32,
+        "region_y": 0,
+        "region_w": 32,
+        "region_h": 32
+    },
+    "shield": {
+        "id": "shield",
+        "name": "Wooden Shield",
+        "description": "Provides basic defense",
+        "type": "equipment",
+        "value": 80,
+        "atlas_path": "res://assets/items_sprite_sheet.png",
+        "region_x": 64,
+        "region_y": 0,
+        "region_w": 32,
+        "region_h": 32
+    }
+}
