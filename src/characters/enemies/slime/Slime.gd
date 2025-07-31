@@ -186,14 +186,12 @@ func choose_random_item() -> String:
 
 # Spawn item ra map với lực văng ngẫu nhiên
 func spawn_item(item: Item, amount := 1):
-	#var drop_scene = preload("res://src/scenes/items/DroppedItem.tscn")
-	#var drop = drop_scene.instantiate()
-	
+	print("📦 SPAWN", item.id, "x", amount, "at", global_position)
 	if not dropped_item_scene:
 		push_error("❌ dropped_item_scene chưa được set trong Inspector")
 		return
 
-	var drop = dropped_item_scene.instantiate()
+	var drop: DroppedItem = dropped_item_scene.instantiate()
 
 	# Offset vị trí + random lực văng
 	var offset = Vector2(randf_range(-8, 8), randf_range(-8, 8))
@@ -202,7 +200,12 @@ func spawn_item(item: Item, amount := 1):
 	var force = randf_range(60, 120)
 	drop.linear_velocity = Vector2.RIGHT.rotated(angle) * force
 
-	if get_parent():
-		get_parent().add_child(drop)   # add vào SceneTree trước	
-	
-	drop.set_item(item, amount)
+	# ✅ Add vào SceneTree trước để @onready var sprite khởi tạo
+	if get_tree().current_scene:
+		get_tree().current_scene.call_deferred("add_child", drop)
+	else:
+		push_error("⚠️ current_scene null, không thể add_child")
+
+	# ✅ Sau khi add vào tree mới set_item
+	# Dùng call_deferred để đảm bảo sprite đã tồn tại
+	drop.call_deferred("set_item", item, amount)

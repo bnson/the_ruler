@@ -2,7 +2,7 @@ extends BaseState
 class_name EnemyWalkState
 
 func enter() -> void:
-	print("Enemy walk state enter...")
+	#print("Enemy walk state enter...")
 	state_machine.get_parent().animation_state.travel("WalkState")
 
 func physics_update(_delta: float, _input_vector := Vector2.ZERO) -> void:

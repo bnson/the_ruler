@@ -6,8 +6,10 @@ extends CanvasLayer
 @onready var avatar_tree: AnimationTree = $MainPanel/MainContainer/HBoxContainer1/VBoxContainer1/Avatar/AnimationTree
 @onready var level_label: Label = $MainPanel/MainContainer/HBoxContainer2/LevelLabel
 @onready var time_label: Label = $MainPanel/MainContainer/HBoxContainer2/TimeLabel
+@onready var inventory_ui: Control = $CenterContainer3/InventoryUI
 
 var last_displayed_minute := -1
+var inventory_visible := false
 
 func _ready():
 	_connect_time_manager()
@@ -18,6 +20,11 @@ func _ready():
 
 func _process(_delta: float) -> void:
 	_update_avatar_state()
+
+func _input(event):
+	# Khi nhấn phím I (hoặc bất kỳ phím nào bạn muốn)
+	if event.is_action_pressed("ui_inventory"):
+		toggle_inventory()
 
 # ----------------------------------
 # 🕒 Kết nối TimeManager
@@ -79,3 +86,18 @@ func _on_time_updated(_day_name: String, _hour: int, minute: int, _is_daytime: b
 	last_displayed_minute = minute
 
 	time_label.text = TimeManager.get_time_string()
+
+# ----------------------------------
+# 🕒 Cập nhật Time UI
+# ----------------------------------
+func toggle_inventory():
+	inventory_visible = not inventory_visible
+	inventory_ui.visible = inventory_visible
+
+	if inventory_visible:
+		# Làm mờ nền hoặc pause game nếu muốn
+		# get_tree().paused = true
+		print("📦 Inventory opened")
+	else:
+		# get_tree().paused = false
+		print("📦 Inventory closed")

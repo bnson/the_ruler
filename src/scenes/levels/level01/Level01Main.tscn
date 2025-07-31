@@ -5656,7 +5656,7 @@ next_level_path = "uid://dkln3d051y3ih"
 fade_layer_path = NodePath("../FadeScene/CanvasLayer")
 
 [node name="PlayerSpawn" parent="." instance=ExtResource("9_m23j1")]
-position = Vector2(-777, -1644)
+position = Vector2(195, -187)
 
 [node name="Cabbage" parent="." instance=ExtResource("10_8jmmc")]
 position = Vector2(599, -656)

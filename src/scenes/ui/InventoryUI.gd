@@ -1,6 +1,6 @@
 extends Control
 
-@onready var grid: GridContainer = $GridContainer
+@onready var grid: GridContainer = $Panel/MarginContainer/GridContainer
 @export var slot_scene: PackedScene
 
 func _ready():
@@ -8,7 +8,9 @@ func _ready():
 	_refresh()
 
 func _refresh():
-	grid.queue_free_children()
+	# Xóa tất cả slot cũ
+	for child in grid.get_children():
+		child.queue_free()
 
 	var inventory = GameState.player.inventory
 	for id in inventory.items.keys():

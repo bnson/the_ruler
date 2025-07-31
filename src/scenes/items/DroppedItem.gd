@@ -21,6 +21,9 @@ func _ready():
 func set_item(new_item: Item, count := 1):
 	item = new_item
 	amount = count
+	
+	print("🎨 SET ITEM:", item.id, "texture:", item.atlas_texture)
+	
 	if sprite:
 		sprite.texture = item.atlas_texture
 
