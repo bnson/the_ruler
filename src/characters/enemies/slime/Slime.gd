@@ -12,6 +12,20 @@ enum PatrolShape { SQUARE, CIRCLE, TRIANGLE }
 @export var exp_reward: int = 1000
 @export var patrol_shape: PatrolShape = PatrolShape.SQUARE
 @export var patrol_radius: float = 100.0
+@export var dropped_item_scene: PackedScene
+
+# Drop table: item_id : tỉ lệ (trọng số)
+@export var drop_table := {
+	"potion": 0.5,
+	"apple": 0.3,
+	"key": 0.2
+}
+
+@export var min_drop_count := 1
+@export var max_drop_count: int = 3
+
+# Chế độ loot: true = auto loot trực tiếp vào Inventory, false = spawn item ra map
+@export var auto_loot := false
 
 #––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
 # Internal state
@@ -35,7 +49,8 @@ var look_direction: Vector2 = Vector2.RIGHT  # mặc định nhìn phải
 @onready var detection_area: Area2D = $DetectionArea
 @onready var patrol_positions: Array[Vector2] = generate_patrol_positions(global_position, patrol_shape, patrol_radius)
 
-
+#––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+# Ready
 func _ready() -> void:
 	current_hp = max_hp
 	animation_tree.active = true
@@ -50,6 +65,8 @@ func connect_signals() -> void:
 	Logger.connect_signal_once(hurtbox, "hit_received", Callable(self, "_on_hit_received"), node_name, "Enemy")
 	Logger.connect_signal_once(detection_area, "body_entered", Callable(self, "_on_body_entered"), node_name, "Enemy")
 
+#––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+# Logic
 func _apply_knockback(delta: float) -> void:
 	if knockback_timer > 0.0:
 		velocity = knockback_vector
@@ -60,13 +77,11 @@ func _update_animation() -> void:
 	if move_dir == Vector2.ZERO:
 		return
 
-	# Chọn hướng chính (trái/phải nếu |x|> |y|, ngược lại lên/xuống)
 	if abs(move_dir.x) > abs(move_dir.y):
 		look_direction = Vector2(sign(move_dir.x), 0)
 	else:
 		look_direction = Vector2(0, sign(move_dir.y))
 
-	# Cập nhật blend_position cho cả Idle và Walk
 	animation_tree.set("parameters/IdleState/blend_position", look_direction)
 	animation_tree.set("parameters/WalkState/blend_position", look_direction)
 
@@ -77,11 +92,11 @@ func _state_update(delta: float) -> void:
 func _physics_process(delta: float) -> void:
 	_apply_knockback(delta)
 	move_and_slide()
-	
 	_update_animation()
 	_state_update(delta)
 
-
+#––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+# Combat & Death
 func get_player() -> Node2D:
 	if Global.player:
 		return Global.player
@@ -98,9 +113,11 @@ func take_damage(amount: int) -> void:
 func die() -> void:
 	Logger.debug_log(node_name, "Slime has died.", "Enemy")
 
-	if Global.player and Global.player.has_method("gain_experience"):
-		Global.player.gain_experience(exp_reward)
-		Logger.debug_log(node_name, "Granted %d EXP to player." % exp_reward, "Enemy")
+	# Thêm EXP vào player
+	GameState.player.stats.gain_experience(exp_reward)
+
+	# Drop item (spawn hoặc auto loot)
+	drop_item(auto_loot)
 
 	emit_signal("slime_died", self)
 	queue_free()
@@ -111,6 +128,8 @@ func _on_hit_received(damage: int, from_position: Vector2) -> void:
 	knockback_timer = KNOCKBACK_DURATION
 	take_damage(damage)
 
+#––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+# Patrol positions
 func generate_patrol_positions(center: Vector2, shape: int, radius: float) -> Array[Vector2]:
 	var positions: Array[Vector2] = []
 	match shape:
@@ -135,3 +154,55 @@ func _on_body_entered(body: Node) -> void:
 	if body.is_in_group("Player"):
 		Logger.debug_log(node_name, "Player entered detection area — switching to WalkState.", "Enemy")
 		state_machine.change_state("WalkState")
+
+#––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+# Loot system
+func drop_item(_auto_loot := false):
+	var drop_count = randi_range(min_drop_count, max_drop_count)
+	for i in range(drop_count):
+		var id = choose_random_item()
+		if id != "":
+			var item = ItemDatabase.items.get(id)
+			if item:
+				var amount = randi_range(1, 3)  # mỗi item drop từ 1-3 stack
+				if auto_loot:
+					GameState.player.inventory.add_item(item, amount)
+				else:
+					spawn_item(item, amount)
+
+# Weighted random chọn item từ drop_table
+func choose_random_item() -> String:
+	var total_weight := 0.0
+	for chance in drop_table.values():
+		total_weight += chance
+
+	var rnd = randf() * total_weight
+	var running_sum := 0.0
+	for id in drop_table.keys():
+		running_sum += drop_table[id]
+		if rnd <= running_sum:
+			return id
+	return ""
+
+# Spawn item ra map với lực văng ngẫu nhiên
+func spawn_item(item: Item, amount := 1):
+	#var drop_scene = preload("res://src/scenes/items/DroppedItem.tscn")
+	#var drop = drop_scene.instantiate()
+	
+	if not dropped_item_scene:
+		push_error("❌ dropped_item_scene chưa được set trong Inspector")
+		return
+
+	var drop = dropped_item_scene.instantiate()
+
+	# Offset vị trí + random lực văng
+	var offset = Vector2(randf_range(-8, 8), randf_range(-8, 8))
+	drop.global_position = global_position + offset
+	var angle = randf() * TAU
+	var force = randf_range(60, 120)
+	drop.linear_velocity = Vector2.RIGHT.rotated(angle) * force
+
+	if get_parent():
+		get_parent().add_child(drop)   # add vào SceneTree trước	
+	
+	drop.set_item(item, amount)

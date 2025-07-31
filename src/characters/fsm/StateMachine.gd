@@ -1,11 +1,12 @@
-class_name EnemyStateMachine extends Node
+extends Node
+class_name StateMachine
 
 var states: Dictionary = {}
-var current_state: EnemyState = null
+var current_state: BaseState = null
 
 func _ready() -> void:
 	for child in get_children():
-		if child is EnemyState:
+		if child is BaseState:
 			states[child.name] = child
 			child.state_machine = self
 			child.set_process(false)
@@ -23,4 +24,4 @@ func change_state(state_name: String) -> void:
 		current_state.set_physics_process(true)
 		current_state.enter()
 	else:
-		push_error("Enemy state not found: " + state_name)
+		push_error("State not found: " + state_name)

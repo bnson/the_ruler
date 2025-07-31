@@ -11,46 +11,71 @@ var last_displayed_minute := -1
 
 func _ready():
 	_connect_time_manager()
+	_connect_stats_signals()
 
-	if PlayerData and not PlayerData.stats_changed.is_connected(_update_status_bars):
-		PlayerData.stats_changed.connect(_update_status_bars)
+	# Update UI ngay khi load
+	_update_status_bars()
 
 func _process(_delta: float) -> void:
-	if PlayerData:
-		_update_avatar_state()
+	_update_avatar_state()
 
+# ----------------------------------
+# 🕒 Kết nối TimeManager
+# ----------------------------------
 func _connect_time_manager():
-	if TimeManager and not TimeManager.time_updated.is_connected(_on_time_updated):
-		TimeManager.time_updated.connect(_on_time_updated)
-		Logger.debug_log("Connected to TimeManager", "PlayerUi", "UI")
-		TimeManager.emit_time_updated()  
-	elif not TimeManager:
+	if TimeManager:
+		if not TimeManager.time_updated.is_connected(Callable(self, "_on_time_updated")):
+			TimeManager.time_updated.connect(Callable(self, "_on_time_updated"))
+			Logger.debug_log("Connected to TimeManager", "PlayerUi", "UI")
+			# Phát signal ngay để UI hiện thời gian lúc start
+			TimeManager.emit_time_updated()
+	else:
 		Logger.debug_warn("TimeManager not found!", "PlayerUi", "UI")
 
-# -------------------------------
+# ----------------------------------
+# 🔗 Kết nối Stats signal từ GameState
+# ----------------------------------
+func _connect_stats_signals():
+	if GameState and GameState.player and GameState.player.stats:
+		var stats = GameState.player.stats
+		if not stats.stats_changed.is_connected(Callable(self, "_update_status_bars")):
+			stats.stats_changed.connect(Callable(self, "_update_status_bars"))
+	else:
+		Logger.debug_warn("GameState or PlayerState not found!", "PlayerUi", "UI")
+
+# ----------------------------------
 # 🔄 Cập nhật UI
-# -------------------------------
-
+# ----------------------------------
 func _update_status_bars():
-	health_bar.max_value = PlayerData.max_hp
-	health_bar.value = PlayerData.hp
+	var stats = GameState.player.stats
+	health_bar.max_value = stats.max_hp
+	health_bar.value = stats.hp
 
-	mana_bar.max_value = PlayerData.max_sp
-	mana_bar.value = PlayerData.sp
+	# Giả sử bạn có SP (Mana) trong Stats (nếu chưa, cần bổ sung)
+	if "max_sp" in stats and "sp" in stats:
+		mana_bar.max_value = stats.max_sp
+		mana_bar.value = stats.sp
+	else:
+		mana_bar.visible = false
 
-	exp_bar.max_value = PlayerData.experience_to_next_level
-	exp_bar.value = PlayerData.experience
+	exp_bar.max_value = stats.get_exp_to_next_level(stats.level)
+	exp_bar.value = stats.experience
 
-	level_label.text = "Level: %d" % PlayerData.level
+	level_label.text = "Level: %d" % stats.level
 
 func _update_avatar_state():
-	var tired_ratio = 1.0 - float(PlayerData.hp) / float(PlayerData.max_hp)
+	var stats = GameState.player.stats
+	var tired_ratio = 1.0 - float(stats.hp) / float(stats.max_hp)
 	avatar_tree.set("parameters/EmotionBlend/blend_position", tired_ratio)
 
+# ----------------------------------
+# 🕒 Cập nhật Time UI
+# ----------------------------------
 func _on_time_updated(_day_name: String, _hour: int, minute: int, _is_daytime: bool, _time_period: String) -> void:
 	Logger.debug_log("Time updated: %s" % TimeManager.get_time_string(), "PlayerUi", "UI")
+
 	if minute == last_displayed_minute:
 		return
-
 	last_displayed_minute = minute
+
 	time_label.text = TimeManager.get_time_string()

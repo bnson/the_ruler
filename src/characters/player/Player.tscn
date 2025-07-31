@@ -8,7 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://bnb0sk8ffd0p5" path="res://assets/sprites/player/effects/attack_01.png" id="6_7aoru"]
 [ext_resource type="Script" uid="uid://dsja8nwr01sgh" path="res://src/components/combat/Hitbox.gd" id="7_5dd86"]
 [ext_resource type="Script" uid="uid://bxe6ei0rj0p6l" path="res://src/components/combat/Hurtbox.gd" id="8_ohrde"]
-[ext_resource type="Script" uid="uid://cp7trgrk0xskg" path="res://src/characters/player/states/PlayerStateMachine.gd" id="9_k06rn"]
+[ext_resource type="Script" uid="uid://bo3rk6p1yoi3a" path="res://src/characters/fsm/StateMachine.gd" id="9_u6aaa"]
 [ext_resource type="Script" uid="uid://b8mo87jt01ymq" path="res://src/characters/player/states/PlayerIdleState.gd" id="10_u7nq2"]
 [ext_resource type="Script" uid="uid://dxr0kui5jm78v" path="res://src/characters/player/states/PlayerWalkState.gd" id="11_iabyh"]
 [ext_resource type="Script" uid="uid://v71btqgfeilc" path="res://src/characters/player/states/PlayerAttackState.gd" id="12_r4f2b"]
@@ -841,6 +841,7 @@ collision_mask = 200
 motion_mode = 1
 wall_min_slide_angle = 0.174533
 script = ExtResource("1_mv25b")
+speed = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 show_behind_parent = true
@@ -922,7 +923,7 @@ script = ExtResource("8_ohrde")
 shape = SubResource("RectangleShape2D_sop20")
 
 [node name="StateMachine" type="Node" parent="."]
-script = ExtResource("9_k06rn")
+script = ExtResource("9_u6aaa")
 
 [node name="IdleState" type="Node" parent="StateMachine"]
 script = ExtResource("10_u7nq2")

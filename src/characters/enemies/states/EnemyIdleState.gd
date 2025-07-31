@@ -1,4 +1,5 @@
-class_name EnemyIdleState extends EnemyState
+extends BaseState
+class_name EnemyIdleState
 
 @onready var node_name := get_name()
 
@@ -11,7 +12,7 @@ func enter() -> void:
 	state_machine.get_parent().animation_state.travel("IdleState")
 	idle_timer = 0.0
 
-func physics_update(delta: float) -> void:
+func physics_update(delta: float, _input_vector := Vector2.ZERO) -> void:
 	idle_timer += delta
 	if idle_timer >= 2.0:
 		state_machine.change_state("PatrolState")

@@ -1,4 +1,5 @@
-class_name EnemyPatrolState extends EnemyState
+extends BaseState
+class_name EnemyPatrolState
 
 var patrol_index := 0
 var patrol_points := []
@@ -16,7 +17,7 @@ func enter() -> void:
 	# Đảm bảo index không vượt quá giới hạn
 	#patrol_index = patrol_index % patrol_points.size()
 
-func physics_update(_delta: float) -> void:
+func physics_update(_delta: float, _input_vector := Vector2.ZERO) -> void:
 	var enemy = state_machine.get_parent()
 	var positions = enemy.patrol_positions
 	

@@ -1,4 +1,5 @@
-class_name EnemyWanderState extends EnemyState
+extends BaseState
+class_name EnemyWanderState
 
 var direction := Vector2.ZERO
 var change_timer := 0.0
@@ -6,7 +7,7 @@ var change_timer := 0.0
 func enter() -> void:
 	change_direction()
 
-func physics_update(delta: float) -> void:
+func physics_update(delta: float, _input_vector := Vector2.ZERO) -> void:
 	var enemy = state_machine.get_parent()
 	change_timer -= delta
 	if change_timer <= 0:

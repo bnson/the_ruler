@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://4acfqyigneek"]
+
+[ext_resource type="Script" uid="uid://34koi3ymy86a" path="res://src/scenes/ui/SlotTemplate.gd" id="1_tje7l"]
+
+[node name="SlotTemplate" type="TextureButton"]
+script = ExtResource("1_tje7l")
+
+[node name="Icon" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Quantity" type="Label" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0

@@ -1,10 +1,11 @@
-class_name EnemyWalkState extends EnemyState
+extends BaseState
+class_name EnemyWalkState
 
 func enter() -> void:
 	print("Enemy walk state enter...")
 	state_machine.get_parent().animation_state.travel("WalkState")
 
-func physics_update(_delta: float) -> void:
+func physics_update(_delta: float, _input_vector := Vector2.ZERO) -> void:
 	var enemy = state_machine.get_parent()
 	var player = enemy.get_player()
 

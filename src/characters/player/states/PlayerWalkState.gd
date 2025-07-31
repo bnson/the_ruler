@@ -1,10 +1,11 @@
-class_name PlayerWalkState extends PlayerState
+extends BaseState
+class_name PlayerWalkState
 
 func enter() -> void:
 	#print("Enter player walk")
 	state_machine.get_parent().animation_state.travel("WalkState")
 
-func physics_update(_delta: float, input_vector: Vector2) -> void:
+func physics_update(_delta: float, input_vector := Vector2.ZERO) -> void:
 	#var input_vector = Vector2(
 	#	Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left"),
 	#	Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")

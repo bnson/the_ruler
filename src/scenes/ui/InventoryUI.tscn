@@ -1,27 +1,18 @@
-[gd_scene load_steps=3 format=3]
+[gd_scene load_steps=3 format=3 uid="uid://b6c34ptj7fxqe"]
 
-[ext_resource path="res://scripts/InventoryUI.gd" type="Script" id=1]
+[ext_resource type="Script" uid="uid://0njfbjbh5sr4" path="res://src/scenes/ui/InventoryUi.gd" id="1_cqhmj"]
+[ext_resource type="PackedScene" uid="uid://4acfqyigneek" path="res://src/scenes/ui/SlotTemplate.tscn" id="2_85kqp"]
 
 [node name="InventoryUI" type="Control"]
-script = ExtResource( 1 )
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_cqhmj")
 
 [node name="GridContainer" type="GridContainer" parent="."]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
 columns = 4
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_right = 600.0
-margin_bottom = 400.0
 
-[node name="Tooltip" type="PopupPanel" parent="."]
-visible = false
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_right = 200.0
-margin_bottom = 100.0
-
-[node name="TooltipLabel" type="Label" parent="Tooltip"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_right = 200.0
-margin_bottom = 100.0
-text = "Item Info"
+[node name="SlotTemplate" parent="GridContainer" instance=ExtResource("2_85kqp")]
+layout_mode = 2

@@ -1,4 +1,5 @@
-class_name EnemyAttackState extends EnemyState
+extends BaseState
+class_name EnemyAttackState 
 
 
 func enter() -> void:
@@ -10,7 +11,7 @@ func enter() -> void:
 	if enemy.has_node("Hitbox"):
 		enemy.get_node("Hitbox").activate()
 
-func physics_update(_delta: float) -> void:
+func physics_update(_delta: float, _input_vector := Vector2.ZERO) -> void:
 	var enemy = state_machine.get_parent()
 	var current_anim = enemy.animation_state.get_current_node()
 

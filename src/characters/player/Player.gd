@@ -93,16 +93,16 @@ func update_hitbox_rotation(input_vector: Vector2) -> void:
 		hitbox.rotation_degrees = 0 if input_vector.y > 0 else -180
 
 func take_damage(amount: int) -> void:
-	PlayerData.hp -= amount
-	PlayerUi.health_bar.value = PlayerData.hp
-	Logger.debug_log(node_name, "Received damage: %d | Current HP: %d" % [amount, PlayerData.hp], "Player")
+	GameState.player.stats.hp -= amount
+	PlayerUi.health_bar.value = GameState.player.stats.hp
+	Logger.debug_log(node_name, "Received damage: %d | Current HP: %d" % [amount, GameState.player.stats.hp], "Player")
 
-	if PlayerData.hp <= 0:
+	if GameState.player.stats.hp <= 0:
 		die()
 
 func gain_experience(amount: int) -> void:
-	PlayerData.gain_experience(amount)
-	PlayerUi.exp_bar.value = PlayerData.experience
+	GameState.player.gain_experience(amount)
+	PlayerUi.exp_bar.value = GameState.player.stats.experience
 
 func die() -> void:
 	Logger.debug_log(node_name, "Player has died.", "Player")
@@ -114,3 +114,6 @@ func _on_hit_received(damage: int, from_position: Vector2) -> void:
 
 func _on_attack_triggered() -> void:
 	attack_requested = true
+
+func add_item_to_inventory(item: Item, amount := 1):
+	GameState.player.inventory.add_item(item, amount)

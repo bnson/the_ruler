@@ -5,5 +5,5 @@ class_name Item
 @export var name: String
 @export var description: String
 @export var type: String
-@export var value: int
+@export var value: int = 0
 @export var atlas_texture: AtlasTexture
