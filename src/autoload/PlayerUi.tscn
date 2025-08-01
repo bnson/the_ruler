@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://cv4wnjqwtg0sn" path="res://assets/avatar/player_portrait.png" id="2_3sl7j"]
 [ext_resource type="PackedScene" uid="uid://cg7jvbdfkggsf" path="res://src/components/joystick/Joystick.tscn" id="3_wlkt0"]
 [ext_resource type="PackedScene" uid="uid://dyn6u18j5ccn6" path="res://src/components/joystick/AttackButtons.tscn" id="4_tqk0u"]
-[ext_resource type="PackedScene" uid="uid://b6c34ptj7fxqe" path="res://src/scenes/ui/InventoryUi.tscn" id="5_8yonx"]
+[ext_resource type="PackedScene" uid="uid://b6c34ptj7fxqe" path="res://src/scenes/ui/hud/InventoryUi.tscn" id="5_8yonx"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3sl7j"]
 bg_color = Color(0.6, 0.6, 0.6, 0)

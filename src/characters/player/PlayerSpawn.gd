@@ -1,5 +1,8 @@
-extends Node
+### 📄 PlayerSpawn.gd
+extends Marker2D
 
 func _ready():
-	if not Engine.is_editor_hint():
-		$Sprite2D.visible = false
+	if Engine.is_editor_hint(): return
+	$Sprite2D.visible = false
+
+	Global.attach_player_to(get_parent(), global_position)

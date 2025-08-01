@@ -1,9 +1,15 @@
+### 📄 Player.gd
 extends CharacterBody2D
 class_name Player
 
-@export var speed: float = 200.0
+signal damaged(amount: int)
+signal healed(amount: int)
+signal gained_exp(amount: int)
+signal died()
 
-@onready var node_name := get_name()
+@export var speed: float = 200.0
+var state: PlayerState
+
 @onready var state_machine: Node = $StateMachine
 @onready var animation_tree: AnimationTree = $AnimationTree
 @onready var animation_state: AnimationNodeStateMachinePlayback = animation_tree.get("parameters/playback")
@@ -11,42 +17,30 @@ class_name Player
 @onready var attack_effect_animation_state: AnimationNodeStateMachinePlayback = attack_effect_animation_tree.get("parameters/playback")
 @onready var hitbox: Area2D = $Hitbox
 @onready var hurtbox: Area2D = $Hurtbox
+@onready var joystick := Global.get_node_or_null("/root/PlayerUi/CenterContainer/Joystick")
+@onready var attack_buttons := Global.get_node_or_null("/root/PlayerUi/CenterContainer2/AttackButtons")
 
-@onready var joystick := PlayerUi.get_node_or_null("CenterContainer/Joystick")
-@onready var attack_buttons := PlayerUi.get_node_or_null("CenterContainer2/AttackButtons")
-
-
-var is_attacking: bool = false
-var knockback_vector: Vector2 = Vector2.ZERO
-var knockback_timer: float = 0.0
-const KNOCKBACK_DURATION: float = 0.2
-var attack_requested: bool = false
-
-
-var look_direction: Vector2 = Vector2.RIGHT  # mặc định nhìn phải
+var is_attacking := false
+var knockback_vector := Vector2.ZERO
+var knockback_timer := 0.0
+const KNOCKBACK_DURATION := 0.2
+var attack_requested := false
+var look_direction: Vector2 = Vector2.RIGHT
 
 func _ready() -> void:
-	Logger.debug_log(node_name, "Player ready...", "Player")
 	animation_tree.active = true
 	state_machine.change_state("IdleState")
 	hitbox.hitbox_owner = self
 	connect_signals()
 
 func connect_signals() -> void:
-	attack_buttons.attack_triggered.connect(_on_attack_triggered)
-	Logger.connect_signal_once(hurtbox, "hit_received", Callable(self, "_on_hit_received"), node_name, "Player")
-	
+	if attack_buttons:
+		attack_buttons.attack_triggered.connect(_on_attack_triggered)
+	hurtbox.connect("hit_received", _on_hit_received)
+
 func _physics_process(delta: float) -> void:
-	#var input_vector: Vector2 = Vector2(
-	#	Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left"),
-	#	Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
-	#).normalized()
-	
-	var input_vector : Vector2 = joystick.get_direction()
-	#print(input_vector)
+	var input_vector: Vector2 = joystick.get_direction() if joystick else Vector2.ZERO
 
-
-	# Di chuyển
 	if knockback_timer > 0:
 		velocity = knockback_vector
 		knockback_timer -= delta
@@ -55,57 +49,45 @@ func _physics_process(delta: float) -> void:
 
 	move_and_slide()
 
-	# Cập nhật hướng nhìn
-	var blend_vector: Vector2 = input_vector
-
-	if input_vector.x != 0 and input_vector.y != 0:
-		# Nếu đang đi chéo → giữ hướng trái/phải
-		look_direction = Vector2(input_vector.x, 0)
-		blend_vector = look_direction
-	elif input_vector != Vector2.ZERO:
-		# Nếu chỉ đi theo 1 hướng → dùng hướng thật
-		look_direction = input_vector
-		blend_vector = input_vector
-
-	# Cập nhật animation và hitbox
 	if input_vector != Vector2.ZERO:
+		var blend_vector = _update_look_direction(input_vector)
 		update_blend_positions(blend_vector)
 		update_hitbox_rotation(blend_vector)
 
-	# Gọi cập nhật từ state machine
 	if state_machine.current_state:
-		#print(state_machine.current_state)
 		state_machine.current_state.physics_update(delta, input_vector)
 
-func update_blend_positions(input_vector: Vector2) -> void:
-	animation_tree.set("parameters/IdleState/blend_position", input_vector)
-	animation_tree.set("parameters/WalkState/blend_position", input_vector)
-	animation_tree.set("parameters/AttackState/blend_position", input_vector)
-	attack_effect_animation_tree.set("parameters/AttackEffect/blend_position", input_vector)
+func _update_look_direction(input: Vector2) -> Vector2:
+	if input.x != 0 and input.y != 0:
+		look_direction = Vector2(input.x, 0)
+	elif input != Vector2.ZERO:
+		look_direction = input
+	return look_direction
 
-func update_hitbox_rotation(input_vector: Vector2) -> void:
-	if input_vector == Vector2.ZERO:
-		return
+func update_blend_positions(input: Vector2) -> void:
+	for state in ["IdleState", "WalkState", "AttackState"]:
+		animation_tree.set("parameters/%s/blend_position" % state, input)
+	attack_effect_animation_tree.set("parameters/AttackEffect/blend_position", input)
 
-	if abs(input_vector.x) > abs(input_vector.y):
-		hitbox.rotation_degrees = -90 if input_vector.x > 0 else 90
+func update_hitbox_rotation(input: Vector2) -> void:
+	if input == Vector2.ZERO: return
+	if abs(input.x) > abs(input.y):
+		hitbox.rotation_degrees = -90 if input.x > 0 else 90
 	else:
-		hitbox.rotation_degrees = 0 if input_vector.y > 0 else -180
+		hitbox.rotation_degrees = 0 if input.y > 0 else -180
 
 func take_damage(amount: int) -> void:
-	GameState.player.stats.hp -= amount
-	PlayerUi.health_bar.value = GameState.player.stats.hp
-	Logger.debug_log(node_name, "Received damage: %d | Current HP: %d" % [amount, GameState.player.stats.hp], "Player")
-
-	if GameState.player.stats.hp <= 0:
+	state.stats.hp = max(0, state.stats.hp - amount)
+	emit_signal("damaged", amount)
+	if state.stats.hp <= 0:
 		die()
 
 func gain_experience(amount: int) -> void:
-	GameState.player.gain_experience(amount)
-	PlayerUi.exp_bar.value = GameState.player.stats.experience
+	state.gain_experience(amount)
+	emit_signal("gained_exp", amount)
 
 func die() -> void:
-	Logger.debug_log(node_name, "Player has died.", "Player")
+	emit_signal("died")
 
 func _on_hit_received(damage: int, from_position: Vector2) -> void:
 	knockback_vector = (global_position - from_position).normalized() * 300
@@ -116,4 +98,4 @@ func _on_attack_triggered() -> void:
 	attack_requested = true
 
 func add_item_to_inventory(item: Item, amount := 1):
-	GameState.player.inventory.add_item(item, amount)
+	state.inventory.add_item(item, amount)

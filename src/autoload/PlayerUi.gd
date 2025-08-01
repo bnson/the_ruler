@@ -1,3 +1,4 @@
+### 📄 PlayerUi.gd
 extends CanvasLayer
 
 @onready var health_bar: ProgressBar = $MainPanel/MainContainer/HBoxContainer1/VBoxContainer2/HealthBar
@@ -14,51 +15,39 @@ var inventory_visible := false
 func _ready():
 	_connect_time_manager()
 	_connect_stats_signals()
-
-	# Update UI ngay khi load
+	_connect_player_signals()
 	_update_status_bars()
 
 func _process(_delta: float) -> void:
 	_update_avatar_state()
 
 func _input(event):
-	# Khi nhấn phím I (hoặc bất kỳ phím nào bạn muốn)
 	if event.is_action_pressed("ui_inventory"):
 		toggle_inventory()
 
-# ----------------------------------
-# 🕒 Kết nối TimeManager
-# ----------------------------------
 func _connect_time_manager():
 	if TimeManager:
-		if not TimeManager.time_updated.is_connected(Callable(self, "_on_time_updated")):
-			TimeManager.time_updated.connect(Callable(self, "_on_time_updated"))
-			Logger.debug_log("Connected to TimeManager", "PlayerUi", "UI")
-			# Phát signal ngay để UI hiện thời gian lúc start
+		if not TimeManager.time_updated.is_connected(_on_time_updated):
+			TimeManager.time_updated.connect(_on_time_updated)
 			TimeManager.emit_time_updated()
-	else:
-		Logger.debug_warn("TimeManager not found!", "PlayerUi", "UI")
 
-# ----------------------------------
-# 🔗 Kết nối Stats signal từ GameState
-# ----------------------------------
+func _on_time_updated(_day_name: String, _hour: int, minute: int, _is_daytime: bool, _time_period: String) -> void:
+	if minute == last_displayed_minute:
+		return
+	last_displayed_minute = minute
+	time_label.text = TimeManager.get_time_string()
+
 func _connect_stats_signals():
-	if GameState and GameState.player and GameState.player.stats:
+	if GameState.player and GameState.player.stats:
 		var stats = GameState.player.stats
-		if not stats.stats_changed.is_connected(Callable(self, "_update_status_bars")):
-			stats.stats_changed.connect(Callable(self, "_update_status_bars"))
-	else:
-		Logger.debug_warn("GameState or PlayerState not found!", "PlayerUi", "UI")
+		if not stats.stats_changed.is_connected(_update_status_bars):
+			stats.stats_changed.connect(_update_status_bars)
 
-# ----------------------------------
-# 🔄 Cập nhật UI
-# ----------------------------------
 func _update_status_bars():
 	var stats = GameState.player.stats
 	health_bar.max_value = stats.max_hp
 	health_bar.value = stats.hp
 
-	# Giả sử bạn có SP (Mana) trong Stats (nếu chưa, cần bổ sung)
 	if "max_sp" in stats and "sp" in stats:
 		mana_bar.max_value = stats.max_sp
 		mana_bar.value = stats.sp
@@ -67,7 +56,6 @@ func _update_status_bars():
 
 	exp_bar.max_value = stats.get_exp_to_next_level(stats.level)
 	exp_bar.value = stats.experience
-
 	level_label.text = "Level: %d" % stats.level
 
 func _update_avatar_state():
@@ -75,29 +63,25 @@ func _update_avatar_state():
 	var tired_ratio = 1.0 - float(stats.hp) / float(stats.max_hp)
 	avatar_tree.set("parameters/EmotionBlend/blend_position", tired_ratio)
 
-# ----------------------------------
-# 🕒 Cập nhật Time UI
-# ----------------------------------
-func _on_time_updated(_day_name: String, _hour: int, minute: int, _is_daytime: bool, _time_period: String) -> void:
-	Logger.debug_log("Time updated: %s" % TimeManager.get_time_string(), "PlayerUi", "UI")
+func _connect_player_signals():
+	if Global.player:
+		if not Global.player.damaged.is_connected(_on_player_damaged):
+			Global.player.damaged.connect(_on_player_damaged)
+		if not Global.player.gained_exp.is_connected(_on_player_gained_exp):
+			Global.player.gained_exp.connect(_on_player_gained_exp)
+		if not Global.player.died.is_connected(_on_player_died):
+			Global.player.died.connect(_on_player_died)
 
-	if minute == last_displayed_minute:
-		return
-	last_displayed_minute = minute
+func _on_player_damaged(amount: int) -> void:
+	health_bar.value = GameState.player.stats.hp
 
-	time_label.text = TimeManager.get_time_string()
+func _on_player_gained_exp(amount: int) -> void:
+	exp_bar.value = GameState.player.stats.experience
 
-# ----------------------------------
-# 🕒 Cập nhật Time UI
-# ----------------------------------
+func _on_player_died() -> void:
+	# TODO: show Game Over screen
+	print("Player has died")
+
 func toggle_inventory():
 	inventory_visible = not inventory_visible
 	inventory_ui.visible = inventory_visible
-
-	if inventory_visible:
-		# Làm mờ nền hoặc pause game nếu muốn
-		# get_tree().paused = true
-		print("📦 Inventory opened")
-	else:
-		# get_tree().paused = false
-		print("📦 Inventory closed")

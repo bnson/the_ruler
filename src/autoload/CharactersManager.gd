@@ -4,6 +4,7 @@ extends Node
 var characters = {
 	"Player": preload("res://src/characters/player/Player.tscn"),
 	"Slime": preload("res://src/characters/enemies/slime/Slime.tscn"),
+	"Amice": preload("res://src/characters/npcs/amice_grover/AmiceGrover.tscn")
 	# Thêm các nhân vật khác tại đây
 }
 

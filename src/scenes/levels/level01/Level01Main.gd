@@ -15,7 +15,8 @@ extends Node
 
 func _ready():
 	if $PlayerSpawn and $SceneContainer:
-		Global.attach_player_to($SceneContainer, $PlayerSpawn.global_position)
+		#Global.attach_player_to($SceneContainer, $PlayerSpawn.global_position)
+		call_deferred("_attach_player_later")
 	else:
 		push_error("PlayerSpawn hoặc SceneContainer chưa sẵn sàng!")
 
@@ -89,3 +90,6 @@ func is_position_valid(position: Vector2, radius: float = 16.0) -> bool:
 
 func is_valid_packed_scene(scene: PackedScene) -> bool:
 	return scene != null and scene.can_instantiate()
+
+func _attach_player_later():
+	Global.attach_player_to($SceneContainer, $PlayerSpawn.global_position)

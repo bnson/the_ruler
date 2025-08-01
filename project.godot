@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="The_Ruler"
-run/main_scene="uid://b4yy56dam6dh6"
+run/main_scene="uid://88qtdfkxdrom"
 config/features=PackedStringArray("4.4", "Mobile")
 config/icon="res://icon.svg"
 
@@ -21,6 +21,7 @@ Logger="*res://src/autoload/Logger.gd"
 AudioManager="*res://src/autoload/AudioManager.gd"
 SceneManager="*res://src/autoload/SceneManager.gd"
 CharactersManager="*res://src/autoload/CharactersManager.gd"
+DialogueManager="*res://src/autoload/DialogueManager.gd"
 GameState="*res://src/autoload/GameState.gd"
 TimeManager="*res://src/autoload/TimeManager.tscn"
 DayNightController="*res://src/autoload/DayNightController.tscn"

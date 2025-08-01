@@ -1,8 +1,0 @@
-{
-	"npc_name": "Unnamed NPC",
-	"dialogue": [
-		{ "id": 1, "text": "Hello, traveler!" },
-		{ "id": 2, "text": "The weather is nice today." },
-		{ "id": 3, "text": "Safe travels!" }
-	]
-}
