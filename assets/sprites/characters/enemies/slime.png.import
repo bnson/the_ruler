@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ddk345afuf57i"
-path="res://.godot/imported/death_smoke.png-a2361d0e3986bfb45f746ede334dc451.ctex"
+uid="uid://co4g61a05ey85"
+path="res://.godot/imported/slime.png-9c9fc7b50c0e17f327f07d2892bfbf41.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/enemies/death_smoke.png"
-dest_files=["res://.godot/imported/death_smoke.png-a2361d0e3986bfb45f746ede334dc451.ctex"]
+source_file="res://assets/sprites/characters/enemies/slime.png"
+dest_files=["res://.godot/imported/slime.png-9c9fc7b50c0e17f327f07d2892bfbf41.ctex"]
 
 [params]
 

@@ -1,3 +1,4 @@
+### 📄 Stats.gd 
 extends Resource
 class_name Stats
 
@@ -23,6 +24,16 @@ var max_hp := 100:
 		max_hp = value
 		emit_signal("stats_changed")
 
+var mp := 100:
+	set(value):
+		mp = clamp(value, 0, max_mp)
+		emit_signal("stats_changed")
+
+var max_mp := 100:
+	set(value):
+		max_mp = value
+		emit_signal("stats_changed")
+
 var strength := 10
 var defense := 5
 
@@ -37,6 +48,8 @@ func _level_up():
 	level += 1
 	max_hp += 10
 	hp = max_hp
+	max_mp += 5
+	mp = max_mp
 
 func get_exp_to_next_level(lvl: int) -> int:
 	return int(100 * pow(lvl, 1.2))
@@ -47,6 +60,8 @@ func to_dict() -> Dictionary:
 		"experience": experience,
 		"hp": hp,
 		"max_hp": max_hp,
+		"mp": mp,
+		"max_mp": max_mp,
 		"strength": strength,
 		"defense": defense
 	}
@@ -56,5 +71,7 @@ func from_dict(data: Dictionary):
 	experience = data.get("experience", experience)
 	hp = data.get("hp", hp)
 	max_hp = data.get("max_hp", max_hp)
+	mp = data.get("mp", mp)
+	max_mp = data.get("max_mp", max_mp)
 	strength = data.get("strength", strength)
 	defense = data.get("defense", defense)

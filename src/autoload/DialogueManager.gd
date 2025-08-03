@@ -1,43 +1,49 @@
 ### 📄 DialogueManager.gd (Autoload)
 extends Node
 
-signal dialogue_started(entry: Dictionary)
-signal dialogue_advanced(entry: Dictionary)
-signal dialogue_options_shown(options: Array)
+signal dialogue_started(speaker: String, text: String, options: Array[Dictionary])
 signal dialogue_ended
-signal dialogue_option_selected(option_data: Dictionary)
+signal dialogue_option_selected(option: Dictionary)
 
-var current_dialogue: Array = []
-var current_index: int = 0
+var dialogue_resource: DialogueResource
 var npc_node: Node = null
+var current_node_id: String = ""
+var active := false
 
-func start(dialogue_data: Array, npc: Node):
-	current_dialogue = dialogue_data
-	current_index = 0
+func start(resource: DialogueResource, npc: Node, start_id: String = "start") -> void:
+	dialogue_resource = resource
 	npc_node = npc
-	emit_signal("dialogue_started", current_dialogue[current_index])
+	current_node_id = start_id
+	active = true
+	_show_current_node()
 
-func next():
-	current_index += 1
-	if current_index >= current_dialogue.size():
-		emit_signal("dialogue_ended")
+func _show_current_node():
+	var node := dialogue_resource.get_node_by_id(current_node_id)
+	if node.is_empty():
+		end()
 		return
+	emit_signal("dialogue_started", node.get("speaker", ""), node.get("text", ""), node.get("options", []))
 
-	var entry = current_dialogue[current_index]
-	if entry.has("options"):
-		emit_signal("dialogue_options_shown", entry["options"])
+func select_option(option: Dictionary):
+	if not active:
+		return
+	
+	emit_signal("dialogue_option_selected", option)
+
+	var event : String = option.get("event", "")
+	if npc_node and event != "":
+		npc_node._on_option_selected(option)
+
+	var next_id : String = option.get("next", "")
+	if next_id != "":
+		current_node_id = next_id
+		_show_current_node()
 	else:
-		emit_signal("dialogue_advanced", entry)
+		end()
 
-func select_option(option_data: Dictionary):
-	if option_data.has("next"):
-		var next_id = option_data["next"]
-		for i in range(current_dialogue.size()):
-			if current_dialogue[i].get("id", "") == next_id:
-				current_index = i
-				emit_signal("dialogue_advanced", current_dialogue[i])
-				return
-
-	if option_data.has("event"):
-		emit_signal("dialogue_option_selected", option_data)
-		emit_signal("dialogue_ended")
+func end():
+	active = false
+	emit_signal("dialogue_ended")
+	dialogue_resource = null
+	npc_node = null
+	current_node_id = ""

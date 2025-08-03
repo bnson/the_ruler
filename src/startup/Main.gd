@@ -18,7 +18,7 @@ func _ready() -> void:
 func _check_autoloads() -> void:
 	for autoload_name in REQUIRED_AUTOLOADS:
 		if typeof(get_node_or_null("/root/" + autoload_name)) == TYPE_NIL:
-			push_error("❌ Autoload '%s' is missing! Check Project Settings → Autoload." % name)
+			push_error("❌ Autoload '%s' is missing! Check Project Settings → Autoload." % autoload_name)
 		else:
 			print("✅ Autoload '%s' is available." % autoload_name)
 

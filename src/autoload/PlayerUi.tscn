@@ -1,10 +1,11 @@
-[gd_scene load_steps=24 format=3 uid="uid://cf8c1vdwthaxy"]
+[gd_scene load_steps=25 format=3 uid="uid://cf8c1vdwthaxy"]
 
 [ext_resource type="Script" uid="uid://b6fv7lnrexiht" path="res://src/autoload/PlayerUi.gd" id="1_dribd"]
 [ext_resource type="Texture2D" uid="uid://cv4wnjqwtg0sn" path="res://assets/avatar/player_portrait.png" id="2_3sl7j"]
 [ext_resource type="PackedScene" uid="uid://cg7jvbdfkggsf" path="res://src/components/joystick/Joystick.tscn" id="3_wlkt0"]
 [ext_resource type="PackedScene" uid="uid://dyn6u18j5ccn6" path="res://src/components/joystick/AttackButtons.tscn" id="4_tqk0u"]
 [ext_resource type="PackedScene" uid="uid://b6c34ptj7fxqe" path="res://src/scenes/ui/hud/InventoryUi.tscn" id="5_8yonx"]
+[ext_resource type="PackedScene" uid="uid://fkoit46sv3kg" path="res://src/scenes/ui/dialogue/DialogueUi.tscn" id="6_rjh28"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3sl7j"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -275,4 +276,20 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="InventoryUI" parent="CenterContainer3" instance=ExtResource("5_8yonx")]
+layout_mode = 2
+
+[node name="CenterContainer4" type="CenterContainer" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="DialogueUi" parent="CenterContainer4" instance=ExtResource("6_rjh28")]
 layout_mode = 2

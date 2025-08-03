@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://lvr57kjme5n6"
-path="res://.godot/imported/ninja_suit.png-23b6dcb9724efa6b06a0190503e8a1c1.ctex"
+uid="uid://ffs25qtbl812"
+path="res://.godot/imported/katana.png-7bb4186fcd9411e5f4a13929b8b3619c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/player/skins/ninja_suit.png"
-dest_files=["res://.godot/imported/ninja_suit.png-23b6dcb9724efa6b06a0190503e8a1c1.ctex"]
+source_file="res://assets/sprites/characters/player/weapons/katana.png"
+dest_files=["res://.godot/imported/katana.png-7bb4186fcd9411e5f4a13929b8b3619c.ctex"]
 
 [params]
 

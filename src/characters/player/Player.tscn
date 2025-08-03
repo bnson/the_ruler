@@ -1,11 +1,11 @@
 [gd_scene load_steps=67 format=3 uid="uid://c07c34lylop2i"]
 
 [ext_resource type="Script" uid="uid://wc5wljtcgcfp" path="res://src/characters/player/Player.gd" id="1_mv25b"]
-[ext_resource type="Texture2D" uid="uid://n8i4ygco5fjm" path="res://assets/sprites/player/base/player_base.png" id="2_ratqf"]
+[ext_resource type="Texture2D" uid="uid://n8i4ygco5fjm" path="res://assets/sprites/characters/player/base/player_base.png" id="2_ratqf"]
 [ext_resource type="Script" uid="uid://c430434hs7eqe" path="res://src/characters/player/components/PlayerSprite.gd" id="3_ts4up"]
-[ext_resource type="Texture2D" uid="uid://e6sdod8rkv2j" path="res://assets/sprites/player/weapons/arming_sword.png" id="4_po6sa"]
-[ext_resource type="Texture2D" uid="uid://ds66jl2m2cyw8" path="res://assets/sprites/player/base/player_shadow.png" id="5_ir81o"]
-[ext_resource type="Texture2D" uid="uid://bnb0sk8ffd0p5" path="res://assets/sprites/player/effects/attack_01.png" id="6_7aoru"]
+[ext_resource type="Texture2D" uid="uid://e6sdod8rkv2j" path="res://assets/sprites/characters/player/weapons/arming_sword.png" id="4_po6sa"]
+[ext_resource type="Texture2D" uid="uid://ds66jl2m2cyw8" path="res://assets/sprites/characters/player/base/player_shadow.png" id="5_ir81o"]
+[ext_resource type="Texture2D" uid="uid://bnb0sk8ffd0p5" path="res://assets/sprites/characters/player/effects/attack_01.png" id="6_7aoru"]
 [ext_resource type="Script" uid="uid://dsja8nwr01sgh" path="res://src/components/combat/Hitbox.gd" id="7_5dd86"]
 [ext_resource type="Script" uid="uid://bxe6ei0rj0p6l" path="res://src/components/combat/Hurtbox.gd" id="8_ohrde"]
 [ext_resource type="Script" uid="uid://bo3rk6p1yoi3a" path="res://src/characters/fsm/StateMachine.gd" id="9_u6aaa"]
@@ -837,7 +837,7 @@ radius = 20.0
 size = Vector2(30, 26)
 
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
-collision_mask = 200
+collision_mask = 2248
 motion_mode = 1
 wall_min_slide_angle = 0.174533
 script = ExtResource("1_mv25b")

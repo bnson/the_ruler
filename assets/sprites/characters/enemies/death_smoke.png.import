@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ds66jl2m2cyw8"
-path="res://.godot/imported/player_shadow.png-45c15833a56f32509db51933a7fbcf5e.ctex"
+uid="uid://ddk345afuf57i"
+path="res://.godot/imported/death_smoke.png-1059835506a6015515d710157f24dbb5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/player/base/player_shadow.png"
-dest_files=["res://.godot/imported/player_shadow.png-45c15833a56f32509db51933a7fbcf5e.ctex"]
+source_file="res://assets/sprites/characters/enemies/death_smoke.png"
+dest_files=["res://.godot/imported/death_smoke.png-1059835506a6015515d710157f24dbb5.ctex"]
 
 [params]
 

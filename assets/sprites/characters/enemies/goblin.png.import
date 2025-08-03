@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cjthotjpiu38q"
-path="res://.godot/imported/spin_effect.png-26661cfbea4802253c7006f405131a02.ctex"
+uid="uid://7nr3ae2nf1qw"
+path="res://.godot/imported/goblin.png-143632b46ede155465e7336751b22635.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/player/effects/spin_effect.png"
-dest_files=["res://.godot/imported/spin_effect.png-26661cfbea4802253c7006f405131a02.ctex"]
+source_file="res://assets/sprites/characters/enemies/goblin.png"
+dest_files=["res://.godot/imported/goblin.png-143632b46ede155465e7336751b22635.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://co4g61a05ey85"
-path="res://.godot/imported/slime.png-6c95f0dedbd235796c6b94737af7af6f.ctex"
+uid="uid://ijljfv07anye"
+path="res://.godot/imported/idle_001.png-43ed9f932d95fc61eb8cfb16fb42ded4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/enemies/slime.png"
-dest_files=["res://.godot/imported/slime.png-6c95f0dedbd235796c6b94737af7af6f.ctex"]
+source_file="res://assets/sprites/characters/npcs/amice_grover/idle_001.png"
+dest_files=["res://.godot/imported/idle_001.png-43ed9f932d95fc61eb8cfb16fb42ded4.ctex"]
 
 [params]
 

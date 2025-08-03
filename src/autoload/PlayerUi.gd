@@ -8,6 +8,7 @@ extends CanvasLayer
 @onready var level_label: Label = $MainPanel/MainContainer/HBoxContainer2/LevelLabel
 @onready var time_label: Label = $MainPanel/MainContainer/HBoxContainer2/TimeLabel
 @onready var inventory_ui: Control = $CenterContainer3/InventoryUI
+@onready var dialogue_ui: DialogueUi = $CenterContainer4/DialogueUi
 
 var last_displayed_minute := -1
 var inventory_visible := false
@@ -17,6 +18,10 @@ func _ready():
 	_connect_stats_signals()
 	_connect_player_signals()
 	_update_status_bars()
+	
+	### ✅ THÊM DÒNG NÀY
+	dialogue_ui.connect("dialogue_advance", Callable(DialogueManager, "show_next"))
+	dialogue_ui.connect("dialogue_option_chosen", Callable(DialogueManager, "select_option"))	
 
 func _process(_delta: float) -> void:
 	_update_avatar_state()
@@ -48,9 +53,9 @@ func _update_status_bars():
 	health_bar.max_value = stats.max_hp
 	health_bar.value = stats.hp
 
-	if "max_sp" in stats and "sp" in stats:
-		mana_bar.max_value = stats.max_sp
-		mana_bar.value = stats.sp
+	if "max_mp" in stats and "mp" in stats:
+		mana_bar.max_value = stats.max_mp
+		mana_bar.value = stats.mp
 	else:
 		mana_bar.visible = false
 
