@@ -2,4 +2,5 @@ extends Node
 
 
 func _ready():
-	Global.attach_player_to($SceneContainer, $PlayerSpawn.global_position)
+	print("_attach_player_later Edit 002....")
+	#Global.attach_player_to($SceneContainer, $PlayerSpawn.global_position)

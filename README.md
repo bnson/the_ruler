@@ -4,10 +4,10 @@
 ## 📄 Tài liệu kỹ thuật
 - [docs/Log.md](./docs/Log.md): Hướng dẫn cấu hình và sử dụng hệ thống log.
 - [docs/NamingConvention.md](./docs/NamingConvention.md): Quy chuẩn đặt tên cho project.
+- [docs/SaveSystem.md](./docs/SaveSystem.md): Hướng dẫn lưu và tải game.
 
 
 ## 🧩 Phân tích cấu hình Layer tiêu chuẩn cho game RPG (mở rộng)
-
 | Layer | Tên Layer               | Mục đích sử dụng | Ghi chú |
 |-------|-------------------------|------------------|--------|
 | 1     | `Player`                | Hiển thị nhân vật người chơi | Sprite, animation, Y-sort |
@@ -32,7 +32,6 @@
 
 
 ## 🧱 Tiêu chuẩn phân lớp TileMapLayer cho game RPG
-
 | Lớp TileMapLayer     | Mục đích sử dụng                         | Ghi chú thêm                              |
 |----------------------|------------------------------------------|-------------------------------------------|
 | `TileMapGround`      | Nền đất, cỏ, đường đi                    | Lớp thấp nhất, không có collision         |

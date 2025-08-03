@@ -1,7 +1,7 @@
 extends Node
 
 # ✅ Bật/tắt toàn bộ debug
-var DEBUG := false
+var DEBUG := true
 
 # ✅ Bật/tắt ghi log ra file
 var WRITE_TO_FILE := false
@@ -11,13 +11,13 @@ const LOG_PATH := "user://debug_log.txt"
 
 # ✅ Bật/tắt theo nhóm
 var DEBUG_GROUPS := {
-	"General": true,
-	"Enemy": true,
-	"Player": true,
-	"Combat": true,
-	"UI": true,
-	"Item": true,
-	"Skill": true,
+	"General": false,
+	"Enemy": false,
+	"Player": false,
+	"Combat": false,
+	"UI": false,
+	"Item": false,
+	"Skill": false,
 	"System": true,
 }
 

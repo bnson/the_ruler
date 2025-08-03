@@ -18,4 +18,12 @@ func attach_player_to(container: Node, spawn_position: Vector2) -> void:
 	detach_player()
 	#container.add_child(player)
 	container.call_deferred("add_child", player)
-	player.global_position = spawn_position
+	#player.global_position = spawn_position
+	print("attach_player_to...")
+	print(GameState.player_position)
+	
+	if GameState.player_position != Vector2.ZERO:
+		player.global_position = GameState.player_position
+		GameState.player_position = Vector2.ZERO
+	else:
+		player.global_position = spawn_position

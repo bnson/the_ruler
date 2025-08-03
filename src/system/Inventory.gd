@@ -9,7 +9,7 @@ var items: Dictionary = {}
 # Giới hạn slot inventory (nếu cần Grid)
 @export var max_slots := 20
 
-func add_item(item: Item, amount := 1):
+func add_item(item: Item, amount : int = 1):
 	if items.has(item.id):
 		items[item.id]["quantity"] += amount
 	else:
@@ -18,9 +18,10 @@ func add_item(item: Item, amount := 1):
 			push_warning("Inventory full!")
 			return
 		items[item.id] = {"item": item, "quantity": amount}
+
 	emit_signal("inventory_changed")
 
-func remove_item(item_id: String, amount := 1):
+func remove_item(item_id: String, amount : int = 1):
 	if not items.has(item_id):
 		return
 	items[item_id]["quantity"] -= amount
@@ -35,12 +36,17 @@ func to_dict() -> Dictionary:
 	var data := {}
 	for id in items.keys():
 		data[id] = items[id]["quantity"]
+
+	print("Inventory to_dict.....")
+	print(data)
 	return data
 
 func from_dict(data: Dictionary):
 	items.clear()
+	
 	for id in data.keys():
 		var item = ItemDatabase.items.get(id)
 		if item:
-			items[id] = {"item": item, "quantity": data[id]}
+			items[id] = {"item": item, "quantity": int(data[id])}
+
 	emit_signal("inventory_changed")

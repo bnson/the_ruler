@@ -150,4 +150,4 @@ tile_set = SubResource("TileSet_4n2hf")
 [node name="SceneContainer" type="Node" parent="."]
 
 [node name="PlayerSpawn" parent="." instance=ExtResource("3_4n2hf")]
-position = Vector2(80, -1)
+position = Vector2(181, -9)

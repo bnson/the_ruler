@@ -29,7 +29,6 @@ func _ready():
 func _on_timer_timeout():
 	if is_paused:
 		return
-	Logger.debug_log("Tick", "TimeManager", "System")
 	advance_time()
 
 # -------------------------------
@@ -52,7 +51,7 @@ func advance_hour():
 	# ⏳ Tự động lưu mỗi 1 giờ
 	if hour != last_saved_hour:
 		last_saved_hour = hour
-		save_time()
+		#SaveManager.save_game()
 
 func advance_day():
 	current_day_index = (current_day_index + 1) % day_names.size()
@@ -88,38 +87,45 @@ func set_time_speed(new_speed: float):
 # -------------------------------
 # 💾 Lưu và khôi phục thời gian
 # -------------------------------
-
 func save_time(path: String = SAVE_PATH):
-	var state = {
-		"day_index": current_day_index,
-		"hour": hour,
-		"minute": minute
-	}
 	var file = FileAccess.open(path, FileAccess.WRITE)
-	file.store_string(JSON.stringify(state))
-	file.close()
+	file.store_string(JSON.stringify(to_dict()))
+	file.close()	
 	Logger.debug_log("Time saved to file", "TimeManager", "System")
 
 func load_time(path: String = SAVE_PATH):
 	if not FileAccess.file_exists(path):
 		Logger.debug_warn("No time save file found", "TimeManager", "System")
 		return
-
 	var file = FileAccess.open(path, FileAccess.READ)
 	var content = file.get_as_text()
 	file.close()
 
 	var state = JSON.parse_string(content)
 	if typeof(state) == TYPE_DICTIONARY:
-		current_day_index = state.get("day_index", 0)
-		hour = state.get("hour", 6)
-		minute = state.get("minute", 0)
-		last_saved_hour = hour
-		emit_time_updated()
+		#current_day_index = state.get("day_index", 0)
+		#hour = state.get("hour", 6)
+		#minute = state.get("minute", 0)
+		#last_saved_hour = hour
+		#emit_time_updated()
+		from_dict(state)
 		Logger.debug_log("Time loaded from file", "TimeManager", "System")
 	else:
 		Logger.debug_error("Failed to parse time save file", "TimeManager", "System")
 
+func to_dict() -> Dictionary:
+	return {
+		"day_index": current_day_index,
+		"hour": hour,
+		"minute": minute
+	}
+
+func from_dict(data: Dictionary):
+	current_day_index = data.get("day_index", 0)
+	hour = data.get("hour", 6)
+	minute = data.get("minute", 0)
+	last_saved_hour = hour
+	emit_time_updated()
 # -------------------------------
 # 🕒 Thông tin thời gian
 # -------------------------------
