@@ -4,6 +4,8 @@ class_name DialogueUi
 signal dialogue_advance
 signal dialogue_option_chosen(option_data: Dictionary)
 
+@export var option_button_scene: PackedScene
+
 @onready var speaker_label = $Panel/VBoxContainer/SpeakerLabel
 @onready var text_label = $Panel/VBoxContainer/TextLabel
 @onready var options_container = $Panel/VBoxContainer/OptionsContainer
@@ -35,7 +37,9 @@ func show_options(options: Array) -> void:
 	queue_free_children(options_container)
 
 	for opt in options:
-		var btn := Button.new()
+		#var btn := Button.new()
+		
+		var btn := option_button_scene.instantiate()
 		btn.text = opt.get("text", "...")
 		btn.pressed.connect(func(): _on_option_pressed(opt))
 		options_container.add_child(btn)
