@@ -1,7 +1,42 @@
-[gd_scene load_steps=3 format=3 uid="uid://b6c34ptj7fxqe"]
+[gd_scene load_steps=9 format=3 uid="uid://b6c34ptj7fxqe"]
 
 [ext_resource type="Script" uid="uid://0njfbjbh5sr4" path="res://src/scenes/ui/hud/InventoryUi.gd" id="1_cqhmj"]
 [ext_resource type="PackedScene" uid="uid://4acfqyigneek" path="res://src/scenes/ui/hud/SlotTemplate.tscn" id="2_85kqp"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4n13n"]
+content_margin_left = 10.0
+content_margin_right = 10.0
+bg_color = Color(0.243137, 0.156863, 0.196078, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_elmam"]
+content_margin_left = 10.0
+content_margin_right = 10.0
+bg_color = Color(0.243137, 0.156863, 0.196078, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vajf1"]
+content_margin_left = 10.0
+content_margin_right = 10.0
+bg_color = Color(0.401098, 0.275313, 0.331617, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6svoj"]
+content_margin_left = 10.0
+content_margin_right = 10.0
+bg_color = Color(0.150546, 0.0906234, 0.11789, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nsjed"]
+bg_color = Color(0.243137, 0.156863, 0.196078, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1krlv"]
+bg_color = Color(0.917647, 0.835294, 0.666667, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.223529, 0.12549, 0.113725, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
 
 [node name="InventoryUI" type="Control"]
 layout_mode = 3
@@ -21,30 +56,144 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -200.0
-offset_top = -100.0
+offset_top = -110.0
 offset_right = 200.0
-offset_bottom = 100.0
+offset_bottom = 110.0
 grow_horizontal = 2
 grow_vertical = 2
 
 [node name="TabContainer" type="TabContainer" parent="Panel"]
 layout_mode = 2
 offset_right = 400.0
-offset_bottom = 200.0
+offset_bottom = 220.0
 size_flags_vertical = 3
+theme_override_styles/tab_focus = SubResource("StyleBoxFlat_4n13n")
+theme_override_styles/tab_selected = SubResource("StyleBoxFlat_elmam")
+theme_override_styles/tab_hovered = SubResource("StyleBoxFlat_vajf1")
+theme_override_styles/tab_unselected = SubResource("StyleBoxFlat_6svoj")
 current_tab = 0
 
-[node name="Inventory" type="GridContainer" parent="Panel/TabContainer"]
+[node name="General" type="Panel" parent="Panel/TabContainer"]
 layout_mode = 2
-theme_override_constants/h_separation = 4
-theme_override_constants/v_separation = 4
-columns = 5
+theme_override_styles/panel = SubResource("StyleBoxFlat_nsjed")
 metadata/_tab_index = 0
 
-[node name="Special" type="GridContainer" parent="Panel/TabContainer"]
-visible = false
+[node name="MarginContainer" type="MarginContainer" parent="Panel/TabContainer/General"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/TabContainer/General/MarginContainer"]
 layout_mode = 2
+
+[node name="GridContainer" type="GridContainer" parent="Panel/TabContainer/General/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+size_flags_stretch_ratio = 3.0
 theme_override_constants/h_separation = 4
 theme_override_constants/v_separation = 4
 columns = 5
+
+[node name="Panel" type="Panel" parent="Panel/TabContainer/General/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_1krlv")
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel/TabContainer/General/MarginContainer/HBoxContainer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 10
+
+[node name="DescriptionLabel" type="RichTextLabel" parent="Panel/TabContainer/General/MarginContainer/HBoxContainer/Panel/MarginContainer"]
+layout_mode = 2
+theme_override_colors/default_color = Color(0.136826, 0.136826, 0.136826, 1)
+theme_override_font_sizes/normal_font_size = 14
+text = "General item description."
+
+[node name="Special" type="Panel" parent="Panel/TabContainer"]
+visible = false
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_nsjed")
 metadata/_tab_index = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel/TabContainer/Special"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/TabContainer/Special/MarginContainer"]
+layout_mode = 2
+
+[node name="GridContainer" type="GridContainer" parent="Panel/TabContainer/Special/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+size_flags_stretch_ratio = 3.0
+theme_override_constants/h_separation = 4
+theme_override_constants/v_separation = 4
+columns = 5
+
+[node name="Panel" type="Panel" parent="Panel/TabContainer/Special/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_1krlv")
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel/TabContainer/Special/MarginContainer/HBoxContainer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="DescriptionLabel" type="RichTextLabel" parent="Panel/TabContainer/Special/MarginContainer/HBoxContainer/Panel/MarginContainer"]
+layout_mode = 2
+theme_override_colors/default_color = Color(0.137255, 0.137255, 0.137255, 1)
+theme_override_font_sizes/normal_font_size = 14
+text = "Special item description."
+
+[node name="Button" type="Button" parent="Panel"]
+custom_minimum_size = Vector2(35, 0)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -18.0
+offset_bottom = 31.0
+grow_horizontal = 0
+theme_override_colors/font_hover_pressed_color = Color(0.921569, 0.792157, 0.0862745, 1)
+theme_override_colors/font_hover_color = Color(0.921569, 0.792157, 0.0862745, 1)
+theme_override_colors/font_outline_color = Color(0.921569, 0.792157, 0.0862745, 1)
+theme_override_colors/font_color = Color(0.92281, 0.79395, 0.0870322, 1)
+theme_override_constants/outline_size = 4
+text = "X"
+
+[connection signal="pressed" from="Panel/Button" to="." method="_on_button_pressed"]
