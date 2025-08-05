@@ -1,3 +1,5 @@
 [gd_scene format=3 uid="uid://ta6j87a8brin"]
 
 [node name="DialogueOptionButton" type="Button"]
+custom_minimum_size = Vector2(70, 30)
+theme_override_font_sizes/font_size = 14
