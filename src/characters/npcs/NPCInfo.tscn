@@ -1,0 +1,45 @@
+[gd_scene load_steps=2 format=3 uid="uid://cgga0xmjh6vpo"]
+
+[ext_resource type="Script" uid="uid://c3mkuk3kdbw0v" path="res://src/characters/npcs/NPCInfo.gd" id="1_q78gg"]
+
+[node name="NPCInfo" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("1_q78gg")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel"]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="TextureRect" type="TextureRect" parent="Panel/HBoxContainer"]
+layout_mode = 2
+stretch_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/HBoxContainer"]
+layout_mode = 2
+
+[node name="NameLabel" type="Label" parent="Panel/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Tên:"
+
+[node name="LoveLabel" type="Label" parent="Panel/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Tình cảm:"
+
+[node name="TrustLabel" type="Label" parent="Panel/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Tin tưởng:"
+
+[node name="FavoriteGiftList" type="ItemList" parent="Panel/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="GivenGiftList" type="ItemList" parent="Panel/HBoxContainer/VBoxContainer"]
+layout_mode = 2
