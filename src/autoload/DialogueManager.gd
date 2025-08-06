@@ -37,6 +37,7 @@ func select_option(option: Dictionary):
 	var next_id : String = option.get("next", "")
 	if next_id != "":
 		current_node_id = next_id
+		await get_tree().process_frame # ⏳ chờ 1 frame để DialogueUi xử lý UI cũ
 		_show_current_node()
 	else:
 		end()
