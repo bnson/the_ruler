@@ -30,7 +30,10 @@ func _ready():
 	# Kết nối signal nội bộ
 	if not is_connected("player_entered", Callable(self, "_on_player_entered")):
 		connect("player_entered", Callable(self, "_on_player_entered"))
-
+		
+	if not is_connected("player_exited", Callable(self, "_on_player_exited")):
+		connect("player_exited", Callable(self, "_on_player_exited"))
+		
 	# Nhận tín hiệu lựa chọn từ DialogueManager
 	if DialogueManager and not DialogueManager.is_connected("dialogue_option_selected", Callable(self, "_on_option_selected")):
 		DialogueManager.connect("dialogue_option_selected", Callable(self, "_on_option_selected"))
@@ -43,6 +46,7 @@ func _on_body_entered(body: Node) -> void:
 
 func _on_body_exited(body: Node) -> void:
 	if body.is_in_group("Player"):
+		print("🚪 Player exited detection area")
 		emit_signal("player_exited")
 
 func _on_player_entered():
@@ -53,6 +57,13 @@ func _on_player_entered():
 		DialogueManager.start(dialogue_resource, self, start_node_id)
 	else:
 		push_warning("⚠ NPC '%s' chưa gán dialogue_resource." % display_name)
+
+func _on_player_exited():
+	print("👋 Player rời khỏi vùng của NPC:", display_name)
+	if DialogueManager.active and DialogueManager.npc_node == self:
+		print("🔕 Kết thúc hội thoại vì player đã rời vùng")
+		DialogueManager.end()
+
 
 func _on_option_selected(option: Dictionary):
 	if DialogueManager.npc_node != self:
