@@ -7,18 +7,21 @@ script = ExtResource("1_d2rd1")
 nodes = Array[Dictionary]([{
 "id": "start",
 "options": [{
-"event": "buy",
-"text": "Mua vật phẩm"
+"event": "buy_sell",
+"text": "Buy / Sell"
 }, {
 "event": "gift",
-"text": "Tặng quà"
+"text": "Gift"
 }, {
 "event": "chat",
 "next": "chat_1",
-"text": "Trò chuyện"
+"text": "Chat"
+}, {
+"event": "love",
+"text": "Love"
 }, {
 "event": "bye",
-"text": "Tạm biệt"
+"text": "Bye"
 }],
 "speaker": "Amice",
 "text": "Chào bạn, tôi có thể giúp gì?"
