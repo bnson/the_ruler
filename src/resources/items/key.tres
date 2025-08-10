@@ -14,5 +14,6 @@ name = "Key"
 description = ""
 type = "misc"
 value = 0
+is_unique = false
 atlas_texture = SubResource("AtlasTexture_26h6g")
 metadata/_custom_type_script = "uid://cox730a8e7rqs"
