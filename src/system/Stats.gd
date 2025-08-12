@@ -34,8 +34,10 @@ var max_mp := 100:
 		max_mp = value
 		emit_signal("stats_changed")
 
-var strength := 10
-var defense := 5
+var strength := 10 #str
+var dexterity := 5 #dex
+var intelligence := 5 #int
+var agility := 5 #agi
 
 # EXP logic
 func gain_experience(amount: int):
@@ -63,7 +65,9 @@ func to_dict() -> Dictionary:
 		"mp": mp,
 		"max_mp": max_mp,
 		"strength": strength,
-		"defense": defense
+		"dexterity": dexterity,
+		"intelligence": intelligence,
+		"agility": agility
 	}
 
 func from_dict(data: Dictionary):
@@ -74,4 +78,6 @@ func from_dict(data: Dictionary):
 	mp = data.get("mp", mp)
 	max_mp = data.get("max_mp", max_mp)
 	strength = data.get("strength", strength)
-	defense = data.get("defense", defense)
+	dexterity = data.get("dexterity", dexterity)
+	intelligence = data.get("intelligence", intelligence)
+	agility = data.get("agility", agility)
