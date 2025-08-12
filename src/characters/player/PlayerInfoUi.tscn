@@ -1,6 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://suf1pcplwyfr"]
+[gd_scene load_steps=9 format=3 uid="uid://suf1pcplwyfr"]
 
-[ext_resource type="Script" uid="uid://67gr1x007w4a" path="res://src/characters/player/PlayerInfoUi.gd" id="1_3f8lm"]
+[ext_resource type="Script" uid="uid://d2t1wj3osjtum" path="res://src/characters/player/PlayerInfoUi.gd" id="1_3f8lm"]
+[ext_resource type="Texture2D" uid="uid://dadms7mucpmnk" path="res://assets/sprites/characters/player/001.png" id="2_4yf6f"]
+[ext_resource type="FontFile" uid="uid://bt1mweo4rbjf0" path="res://assets/fonts/Lato-Bold.ttf" id="2_hfgqo"]
+[ext_resource type="FontFile" uid="uid://di6ws6uwx6486" path="res://assets/fonts/OpenSans_Condensed-Bold.ttf" id="4_vfh0t"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v5bnu"]
 bg_color = Color(0.243137, 0.156863, 0.196078, 1)
@@ -85,13 +88,22 @@ grow_vertical = 2
 [node name="Label" type="Label" parent="Main/Margin/HBoxContainer/Panel1/VBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.297145, 0.16773, 0.103051, 1)
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.54902)
+theme_override_fonts/font = ExtResource("2_hfgqo")
+theme_override_font_sizes/font_size = 14
 theme_override_styles/normal = SubResource("StyleBoxFlat_4yf6f")
 text = "PLAYER NAME - LV 1"
+horizontal_alignment = 1
 
-[node name="CenterContainer" type="CenterContainer" parent="Main/Margin/HBoxContainer/Panel1/VBoxContainer"]
+[node name="CenterContainer" type="MarginContainer" parent="Main/Margin/HBoxContainer/Panel1/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_constants/margin_bottom = 10
+
+[node name="TextureRect" type="TextureRect" parent="Main/Margin/HBoxContainer/Panel1/VBoxContainer/CenterContainer"]
+layout_mode = 2
+texture = ExtResource("2_4yf6f")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="Panel2" type="Panel" parent="Main/Margin/HBoxContainer"]
 layout_mode = 2
@@ -122,53 +134,73 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="Label" type="Label" parent="Main/Margin/HBoxContainer/Panel2/VBoxContainer/MarginContainer1/VBoxContainer/HP"]
-custom_minimum_size = Vector2(35, 0)
+custom_minimum_size = Vector2(25, 0)
 layout_mode = 2
 size_flags_vertical = 0
+theme_override_colors/font_color = Color(0.313726, 0.188235, 0.117647, 1)
+theme_override_fonts/font = ExtResource("4_vfh0t")
+theme_override_font_sizes/font_size = 14
 text = "HP"
 
 [node name="ProgressBar" type="ProgressBar" parent="Main/Margin/HBoxContainer/Panel2/VBoxContainer/MarginContainer1/VBoxContainer/HP"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("4_vfh0t")
+theme_override_font_sizes/font_size = 10
 
 [node name="MP" type="HBoxContainer" parent="Main/Margin/HBoxContainer/Panel2/VBoxContainer/MarginContainer1/VBoxContainer"]
 layout_mode = 2
 
 [node name="Label" type="Label" parent="Main/Margin/HBoxContainer/Panel2/VBoxContainer/MarginContainer1/VBoxContainer/MP"]
-custom_minimum_size = Vector2(35, 0)
+custom_minimum_size = Vector2(25, 0)
 layout_mode = 2
 size_flags_vertical = 0
+theme_override_colors/font_color = Color(0.313726, 0.188235, 0.117647, 1)
+theme_override_fonts/font = ExtResource("4_vfh0t")
+theme_override_font_sizes/font_size = 14
 text = "MP"
 
 [node name="ProgressBar" type="ProgressBar" parent="Main/Margin/HBoxContainer/Panel2/VBoxContainer/MarginContainer1/VBoxContainer/MP"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("4_vfh0t")
+theme_override_font_sizes/font_size = 10
 
 [node name="STA" type="HBoxContainer" parent="Main/Margin/HBoxContainer/Panel2/VBoxContainer/MarginContainer1/VBoxContainer"]
 layout_mode = 2
 
 [node name="Label" type="Label" parent="Main/Margin/HBoxContainer/Panel2/VBoxContainer/MarginContainer1/VBoxContainer/STA"]
-custom_minimum_size = Vector2(35, 0)
+custom_minimum_size = Vector2(25, 0)
 layout_mode = 2
 size_flags_vertical = 0
+theme_override_colors/font_color = Color(0.313726, 0.188235, 0.117647, 1)
+theme_override_fonts/font = ExtResource("4_vfh0t")
+theme_override_font_sizes/font_size = 14
 text = "STA"
 
 [node name="ProgressBar" type="ProgressBar" parent="Main/Margin/HBoxContainer/Panel2/VBoxContainer/MarginContainer1/VBoxContainer/STA"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("4_vfh0t")
+theme_override_font_sizes/font_size = 10
 
 [node name="EXP" type="HBoxContainer" parent="Main/Margin/HBoxContainer/Panel2/VBoxContainer/MarginContainer1/VBoxContainer"]
 layout_mode = 2
 
 [node name="Label" type="Label" parent="Main/Margin/HBoxContainer/Panel2/VBoxContainer/MarginContainer1/VBoxContainer/EXP"]
-custom_minimum_size = Vector2(35, 0)
+custom_minimum_size = Vector2(25, 0)
 layout_mode = 2
 size_flags_vertical = 0
+theme_override_colors/font_color = Color(0.313726, 0.188235, 0.117647, 1)
+theme_override_fonts/font = ExtResource("4_vfh0t")
+theme_override_font_sizes/font_size = 14
 text = "EXP"
 
 [node name="ProgressBar" type="ProgressBar" parent="Main/Margin/HBoxContainer/Panel2/VBoxContainer/MarginContainer1/VBoxContainer/EXP"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("4_vfh0t")
+theme_override_font_sizes/font_size = 10
 
 [node name="MarginContainer2" type="MarginContainer" parent="Main/Margin/HBoxContainer/Panel2/VBoxContainer"]
 layout_mode = 2
