@@ -1,8 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://suf1pcplwyfr"]
+[gd_scene load_steps=18 format=3 uid="uid://suf1pcplwyfr"]
 
 [ext_resource type="Script" uid="uid://d2t1wj3osjtum" path="res://src/characters/player/PlayerInfoUi.gd" id="1_3f8lm"]
 [ext_resource type="Texture2D" uid="uid://dadms7mucpmnk" path="res://assets/sprites/characters/player/001.png" id="2_4yf6f"]
-[ext_resource type="FontFile" uid="uid://bt1mweo4rbjf0" path="res://assets/fonts/Lato-Bold.ttf" id="2_hfgqo"]
 [ext_resource type="FontFile" uid="uid://di6ws6uwx6486" path="res://assets/fonts/OpenSans_Condensed-Bold.ttf" id="4_vfh0t"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v5bnu"]
@@ -47,13 +46,56 @@ corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
 shadow_size = 1
 
-[node name="PlayerInfoUi" type="Node2D"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ditrg"]
+bg_color = Color(0, 0, 0, 0)
+border_width_bottom = 2
+border_color = Color(0.313726, 0.188235, 0.117647, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vfh0t"]
+bg_color = Color(0, 0, 0, 0.666667)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1qhtn"]
+bg_color = Color(0.545098, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yys4q"]
+bg_color = Color(0, 0, 0, 0.666667)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_740vy"]
+bg_color = Color(0.231373, 0.486275, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jtw7e"]
+bg_color = Color(0, 0, 0, 0.666667)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kc4es"]
+bg_color = Color(0.718028, 0.718028, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q7pku"]
+bg_color = Color(0, 0, 0, 0.666667)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2v3we"]
+bg_color = Color(0.576471, 0.439216, 0.858824, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_13s2l"]
+bg_color = Color(0, 0, 0, 0)
+border_width_bottom = 2
+border_color = Color(0.313726, 0.188235, 0.117647, 1)
+
+[node name="PlayerInfoUi" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_3f8lm")
 
 [node name="Main" type="Panel" parent="."]
-custom_minimum_size = Vector2(480, 270)
-offset_right = 480.0
-offset_bottom = 270.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_v5bnu")
 
 [node name="Margin" type="MarginContainer" parent="Main"]
@@ -85,21 +127,31 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Label" type="Label" parent="Main/Margin/HBoxContainer/Panel1/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Main/Margin/HBoxContainer/Panel1/VBoxContainer"]
+layout_mode = 2
+
+[node name="PlayerName" type="Label" parent="Main/Margin/HBoxContainer/Panel1/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.297145, 0.16773, 0.103051, 1)
-theme_override_fonts/font = ExtResource("2_hfgqo")
+theme_override_fonts/font = ExtResource("4_vfh0t")
 theme_override_font_sizes/font_size = 14
 theme_override_styles/normal = SubResource("StyleBoxFlat_4yf6f")
-text = "PLAYER NAME - LV 1"
+text = "MALTHERUS"
 horizontal_alignment = 1
+
+[node name="PlayerLevel" type="Label" parent="Main/Margin/HBoxContainer/Panel1/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.298039, 0.168627, 0.101961, 1)
+theme_override_fonts/font = ExtResource("4_vfh0t")
+theme_override_font_sizes/font_size = 14
+text = "LEVEL 1"
 
 [node name="CenterContainer" type="MarginContainer" parent="Main/Margin/HBoxContainer/Panel1/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/margin_bottom = 10
 
-[node name="TextureRect" type="TextureRect" parent="Main/Margin/HBoxContainer/Panel1/VBoxContainer/CenterContainer"]
+[node name="PlayerPortrait" type="TextureRect" parent="Main/Margin/HBoxContainer/Panel1/VBoxContainer/CenterContainer"]
 layout_mode = 2
 texture = ExtResource("2_4yf6f")
 expand_mode = 1
@@ -119,21 +171,38 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MarginContainer1" type="MarginContainer" parent="Main/Margin/HBoxContainer/Panel2/VBoxContainer"]
+[node name="VitalsContainer" type="MarginContainer" parent="Main/Margin/HBoxContainer/Panel2/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_constants/margin_left = 10
+theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
+theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 10
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Main/Margin/HBoxContainer/Panel2/VBoxContainer/MarginContainer1"]
+[node name="VitalsBox" type="VBoxContainer" parent="Main/Margin/HBoxContainer/Panel2/VBoxContainer/VitalsContainer"]
 layout_mode = 2
 
-[node name="HP" type="HBoxContainer" parent="Main/Margin/HBoxContainer/Panel2/VBoxContainer/MarginContainer1/VBoxContainer"]
+[node name="Title" type="MarginContainer" parent="Main/Margin/HBoxContainer/Panel2/VBoxContainer/VitalsContainer/VitalsBox"]
+layout_mode = 2
+theme_override_constants/margin_left = -10
+
+[node name="Name" type="Label" parent="Main/Margin/HBoxContainer/Panel2/VBoxContainer/VitalsContainer/VitalsBox/Title"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.313726, 0.188235, 0.117647, 1)
+theme_override_fonts/font = ExtResource("4_vfh0t")
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxFlat_ditrg")
+text = "VITAL STATS"
+
+[node name="Body" type="GridContainer" parent="Main/Margin/HBoxContainer/Panel2/VBoxContainer/VitalsContainer/VitalsBox"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Main/Margin/HBoxContainer/Panel2/VBoxContainer/MarginContainer1/VBoxContainer/HP"]
+[node name="Hp" type="HBoxContainer" parent="Main/Margin/HBoxContainer/Panel2/VBoxContainer/VitalsContainer/VitalsBox/Body"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Name" type="Label" parent="Main/Margin/HBoxContainer/Panel2/VBoxContainer/VitalsContainer/VitalsBox/Body/Hp"]
 custom_minimum_size = Vector2(25, 0)
 layout_mode = 2
 size_flags_vertical = 0
@@ -142,16 +211,33 @@ theme_override_fonts/font = ExtResource("4_vfh0t")
 theme_override_font_sizes/font_size = 14
 text = "HP"
 
-[node name="ProgressBar" type="ProgressBar" parent="Main/Margin/HBoxContainer/Panel2/VBoxContainer/MarginContainer1/VBoxContainer/HP"]
+[node name="Progress" type="MarginContainer" parent="Main/Margin/HBoxContainer/Panel2/VBoxContainer/VitalsContainer/VitalsBox/Body/Hp"]
 layout_mode = 2
 size_flags_horizontal = 3
+
+[node name="Bar" type="ProgressBar" parent="Main/Margin/HBoxContainer/Panel2/VBoxContainer/VitalsContainer/VitalsBox/Body/Hp/Progress"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
 theme_override_fonts/font = ExtResource("4_vfh0t")
 theme_override_font_sizes/font_size = 10
+theme_override_styles/background = SubResource("StyleBoxFlat_vfh0t")
+theme_override_styles/fill = SubResource("StyleBoxFlat_1qhtn")
+value = 50.0
+show_percentage = false
 
-[node name="MP" type="HBoxContainer" parent="Main/Margin/HBoxContainer/Panel2/VBoxContainer/MarginContainer1/VBoxContainer"]
+[node name="Value" type="Label" parent="Main/Margin/HBoxContainer/Panel2/VBoxContainer/VitalsContainer/VitalsBox/Body/Hp/Progress"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "50 / 100"
+horizontal_alignment = 1
 
-[node name="Label" type="Label" parent="Main/Margin/HBoxContainer/Panel2/VBoxContainer/MarginContainer1/VBoxContainer/MP"]
+[node name="Mp" type="HBoxContainer" parent="Main/Margin/HBoxContainer/Panel2/VBoxContainer/VitalsContainer/VitalsBox/Body"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Name" type="Label" parent="Main/Margin/HBoxContainer/Panel2/VBoxContainer/VitalsContainer/VitalsBox/Body/Mp"]
 custom_minimum_size = Vector2(25, 0)
 layout_mode = 2
 size_flags_vertical = 0
@@ -160,16 +246,33 @@ theme_override_fonts/font = ExtResource("4_vfh0t")
 theme_override_font_sizes/font_size = 14
 text = "MP"
 
-[node name="ProgressBar" type="ProgressBar" parent="Main/Margin/HBoxContainer/Panel2/VBoxContainer/MarginContainer1/VBoxContainer/MP"]
+[node name="Progress" type="MarginContainer" parent="Main/Margin/HBoxContainer/Panel2/VBoxContainer/VitalsContainer/VitalsBox/Body/Mp"]
 layout_mode = 2
 size_flags_horizontal = 3
+
+[node name="Bar" type="ProgressBar" parent="Main/Margin/HBoxContainer/Panel2/VBoxContainer/VitalsContainer/VitalsBox/Body/Mp/Progress"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
 theme_override_fonts/font = ExtResource("4_vfh0t")
 theme_override_font_sizes/font_size = 10
+theme_override_styles/background = SubResource("StyleBoxFlat_yys4q")
+theme_override_styles/fill = SubResource("StyleBoxFlat_740vy")
+value = 50.0
+show_percentage = false
 
-[node name="STA" type="HBoxContainer" parent="Main/Margin/HBoxContainer/Panel2/VBoxContainer/MarginContainer1/VBoxContainer"]
+[node name="Value" type="Label" parent="Main/Margin/HBoxContainer/Panel2/VBoxContainer/VitalsContainer/VitalsBox/Body/Mp/Progress"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "50 / 100"
+horizontal_alignment = 1
 
-[node name="Label" type="Label" parent="Main/Margin/HBoxContainer/Panel2/VBoxContainer/MarginContainer1/VBoxContainer/STA"]
+[node name="Sta" type="HBoxContainer" parent="Main/Margin/HBoxContainer/Panel2/VBoxContainer/VitalsContainer/VitalsBox/Body"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Name" type="Label" parent="Main/Margin/HBoxContainer/Panel2/VBoxContainer/VitalsContainer/VitalsBox/Body/Sta"]
 custom_minimum_size = Vector2(25, 0)
 layout_mode = 2
 size_flags_vertical = 0
@@ -178,16 +281,33 @@ theme_override_fonts/font = ExtResource("4_vfh0t")
 theme_override_font_sizes/font_size = 14
 text = "STA"
 
-[node name="ProgressBar" type="ProgressBar" parent="Main/Margin/HBoxContainer/Panel2/VBoxContainer/MarginContainer1/VBoxContainer/STA"]
+[node name="Progress" type="MarginContainer" parent="Main/Margin/HBoxContainer/Panel2/VBoxContainer/VitalsContainer/VitalsBox/Body/Sta"]
 layout_mode = 2
 size_flags_horizontal = 3
+
+[node name="Bar" type="ProgressBar" parent="Main/Margin/HBoxContainer/Panel2/VBoxContainer/VitalsContainer/VitalsBox/Body/Sta/Progress"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
 theme_override_fonts/font = ExtResource("4_vfh0t")
 theme_override_font_sizes/font_size = 10
+theme_override_styles/background = SubResource("StyleBoxFlat_jtw7e")
+theme_override_styles/fill = SubResource("StyleBoxFlat_kc4es")
+value = 50.0
+show_percentage = false
 
-[node name="EXP" type="HBoxContainer" parent="Main/Margin/HBoxContainer/Panel2/VBoxContainer/MarginContainer1/VBoxContainer"]
+[node name="Value" type="Label" parent="Main/Margin/HBoxContainer/Panel2/VBoxContainer/VitalsContainer/VitalsBox/Body/Sta/Progress"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "50 / 100"
+horizontal_alignment = 1
 
-[node name="Label" type="Label" parent="Main/Margin/HBoxContainer/Panel2/VBoxContainer/MarginContainer1/VBoxContainer/EXP"]
+[node name="Exp" type="HBoxContainer" parent="Main/Margin/HBoxContainer/Panel2/VBoxContainer/VitalsContainer/VitalsBox/Body"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="Main/Margin/HBoxContainer/Panel2/VBoxContainer/VitalsContainer/VitalsBox/Body/Exp"]
 custom_minimum_size = Vector2(25, 0)
 layout_mode = 2
 size_flags_vertical = 0
@@ -196,54 +316,112 @@ theme_override_fonts/font = ExtResource("4_vfh0t")
 theme_override_font_sizes/font_size = 14
 text = "EXP"
 
-[node name="ProgressBar" type="ProgressBar" parent="Main/Margin/HBoxContainer/Panel2/VBoxContainer/MarginContainer1/VBoxContainer/EXP"]
+[node name="Progress" type="MarginContainer" parent="Main/Margin/HBoxContainer/Panel2/VBoxContainer/VitalsContainer/VitalsBox/Body/Exp"]
 layout_mode = 2
 size_flags_horizontal = 3
+
+[node name="Bar" type="ProgressBar" parent="Main/Margin/HBoxContainer/Panel2/VBoxContainer/VitalsContainer/VitalsBox/Body/Exp/Progress"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
 theme_override_fonts/font = ExtResource("4_vfh0t")
 theme_override_font_sizes/font_size = 10
+theme_override_styles/background = SubResource("StyleBoxFlat_q7pku")
+theme_override_styles/fill = SubResource("StyleBoxFlat_2v3we")
+value = 50.0
+show_percentage = false
 
-[node name="MarginContainer2" type="MarginContainer" parent="Main/Margin/HBoxContainer/Panel2/VBoxContainer"]
+[node name="Value" type="Label" parent="Main/Margin/HBoxContainer/Panel2/VBoxContainer/VitalsContainer/VitalsBox/Body/Exp/Progress"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "50 /100"
+horizontal_alignment = 1
+
+[node name="AttributesContainer" type="MarginContainer" parent="Main/Margin/HBoxContainer/Panel2/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
+theme_override_constants/margin_bottom = 5
 
-[node name="GridContainer" type="GridContainer" parent="Main/Margin/HBoxContainer/Panel2/VBoxContainer/MarginContainer2"]
+[node name="AttributesBox" type="VBoxContainer" parent="Main/Margin/HBoxContainer/Panel2/VBoxContainer/AttributesContainer"]
+layout_mode = 2
+
+[node name="Title" type="MarginContainer" parent="Main/Margin/HBoxContainer/Panel2/VBoxContainer/AttributesContainer/AttributesBox"]
+layout_mode = 2
+theme_override_constants/margin_left = -10
+
+[node name="Name" type="Label" parent="Main/Margin/HBoxContainer/Panel2/VBoxContainer/AttributesContainer/AttributesBox/Title"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.313726, 0.188235, 0.117647, 1)
+theme_override_fonts/font = ExtResource("4_vfh0t")
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxFlat_13s2l")
+text = "BASE ATTRIBUTES"
+
+[node name="Body" type="GridContainer" parent="Main/Margin/HBoxContainer/Panel2/VBoxContainer/AttributesContainer/AttributesBox"]
 layout_mode = 2
 theme_override_constants/h_separation = 10
 theme_override_constants/v_separation = 10
-columns = 4
+columns = 2
 
-[node name="StrLabel" type="Label" parent="Main/Margin/HBoxContainer/Panel2/VBoxContainer/MarginContainer2/GridContainer"]
+[node name="Strength" type="HBoxContainer" parent="Main/Margin/HBoxContainer/Panel2/VBoxContainer/AttributesContainer/AttributesBox/Body"]
 layout_mode = 2
+
+[node name="Name" type="Label" parent="Main/Margin/HBoxContainer/Panel2/VBoxContainer/AttributesContainer/AttributesBox/Body/Strength"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.313726, 0.188235, 0.117647, 1)
+theme_override_fonts/font = ExtResource("4_vfh0t")
 text = "STR:"
 
-[node name="StrNumber" type="Label" parent="Main/Margin/HBoxContainer/Panel2/VBoxContainer/MarginContainer2/GridContainer"]
+[node name="Value" type="Label" parent="Main/Margin/HBoxContainer/Panel2/VBoxContainer/AttributesContainer/AttributesBox/Body/Strength"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.313726, 0.188235, 0.117647, 1)
+theme_override_fonts/font = ExtResource("4_vfh0t")
 text = "10"
 
-[node name="DexLabel" type="Label" parent="Main/Margin/HBoxContainer/Panel2/VBoxContainer/MarginContainer2/GridContainer"]
+[node name="Dexterity" type="HBoxContainer" parent="Main/Margin/HBoxContainer/Panel2/VBoxContainer/AttributesContainer/AttributesBox/Body"]
 layout_mode = 2
+
+[node name="Name" type="Label" parent="Main/Margin/HBoxContainer/Panel2/VBoxContainer/AttributesContainer/AttributesBox/Body/Dexterity"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.313726, 0.188235, 0.117647, 1)
+theme_override_fonts/font = ExtResource("4_vfh0t")
 text = "DEX:"
 
-[node name="DexNumber" type="Label" parent="Main/Margin/HBoxContainer/Panel2/VBoxContainer/MarginContainer2/GridContainer"]
+[node name="Value" type="Label" parent="Main/Margin/HBoxContainer/Panel2/VBoxContainer/AttributesContainer/AttributesBox/Body/Dexterity"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.313726, 0.188235, 0.117647, 1)
+theme_override_fonts/font = ExtResource("4_vfh0t")
 text = "5"
 
-[node name="IntLabel" type="Label" parent="Main/Margin/HBoxContainer/Panel2/VBoxContainer/MarginContainer2/GridContainer"]
+[node name="Intelligence" type="HBoxContainer" parent="Main/Margin/HBoxContainer/Panel2/VBoxContainer/AttributesContainer/AttributesBox/Body"]
 layout_mode = 2
+
+[node name="Name" type="Label" parent="Main/Margin/HBoxContainer/Panel2/VBoxContainer/AttributesContainer/AttributesBox/Body/Intelligence"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.313726, 0.188235, 0.117647, 1)
+theme_override_fonts/font = ExtResource("4_vfh0t")
 text = "INT:"
 
-[node name="IntNumber" type="Label" parent="Main/Margin/HBoxContainer/Panel2/VBoxContainer/MarginContainer2/GridContainer"]
+[node name="Value" type="Label" parent="Main/Margin/HBoxContainer/Panel2/VBoxContainer/AttributesContainer/AttributesBox/Body/Intelligence"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.313726, 0.188235, 0.117647, 1)
+theme_override_fonts/font = ExtResource("4_vfh0t")
 text = "5"
 
-[node name="AgiLabel" type="Label" parent="Main/Margin/HBoxContainer/Panel2/VBoxContainer/MarginContainer2/GridContainer"]
+[node name="Agility" type="HBoxContainer" parent="Main/Margin/HBoxContainer/Panel2/VBoxContainer/AttributesContainer/AttributesBox/Body"]
 layout_mode = 2
+
+[node name="Name" type="Label" parent="Main/Margin/HBoxContainer/Panel2/VBoxContainer/AttributesContainer/AttributesBox/Body/Agility"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.313726, 0.188235, 0.117647, 1)
+theme_override_fonts/font = ExtResource("4_vfh0t")
 text = "AGI:"
 
-[node name="AgiNumber" type="Label" parent="Main/Margin/HBoxContainer/Panel2/VBoxContainer/MarginContainer2/GridContainer"]
+[node name="Value" type="Label" parent="Main/Margin/HBoxContainer/Panel2/VBoxContainer/AttributesContainer/AttributesBox/Body/Agility"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.313726, 0.188235, 0.117647, 1)
+theme_override_fonts/font = ExtResource("4_vfh0t")
 text = "5"
