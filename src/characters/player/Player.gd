@@ -77,9 +77,9 @@ func update_hitbox_rotation(input: Vector2) -> void:
 		hitbox.rotation_degrees = 0 if input.y > 0 else -180
 
 func take_damage(amount: int) -> void:
-	state.stats.hp = max(0, state.stats.hp - amount)
+	state.stats.current_hp = max(0, state.stats.current_hp - amount)
 	emit_signal("damaged", amount)
-	if state.stats.hp <= 0:
+	if state.stats.current_hp <= 0:
 		die()
 
 func gain_experience(amount: int) -> void:
