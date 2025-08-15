@@ -6,5 +6,12 @@ class_name AmiceGrover
 func _ready():
 	super()
 	display_name = "Amice Grover"
-	sell_items = [ItemDatabase.items["apple"], ItemDatabase.items["potion"]]
-	accept_gift_item_ids = ["apple"]
+
+	# ✅ Chỉ gán nếu ItemDatabase đã sẵn sàng
+	if ItemDatabase.is_ready():
+		sell_items = [
+			ItemDatabase.get_item("apple")
+		]
+		accept_gift_item_ids = ["apple"]
+	else:
+		push_warning("⚠ ItemDatabase chưa sẵn sàng khi AmiceGrover khởi tạo.")
