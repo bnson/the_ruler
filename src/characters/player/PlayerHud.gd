@@ -1,11 +1,14 @@
 extends Node
 
-@onready var health_bar: ProgressBar = $MainPanel/MainContainer/HBoxContainer1/VBoxContainer2/HealthBar
-@onready var mana_bar: ProgressBar = $MainPanel/MainContainer/HBoxContainer1/VBoxContainer2/ManaBar
-@onready var exp_bar: ProgressBar = $MainPanel/MainContainer/HBoxContainer1/VBoxContainer2/ExpBar
-@onready var avatar_tree: AnimationTree = $MainPanel/MainContainer/HBoxContainer1/VBoxContainer1/Avatar/AnimationTree
-@onready var level_label: Label = $MainPanel/MainContainer/HBoxContainer2/LevelLabel
-@onready var time_label: Label = $MainPanel/MainContainer/HBoxContainer2/TimeLabel
+@onready var vitals_box := $Main/Container/HBox1/VitalsBox
+@onready var hp_bar: ProgressBar = vitals_box.get_node("HpBar")
+@onready var mp_bar: ProgressBar = vitals_box.get_node("MpBar")
+@onready var sta_bar: ProgressBar = vitals_box.get_node("StaBar")
+@onready var exp_bar: ProgressBar = vitals_box.get_node("ExpBar")
+
+@onready var avatar_tree: AnimationTree = $Main/Container/HBox1/PortraitBox/Avatar/AnimationTree
+@onready var level_label: Label = $Main/Container/HBox2/Level
+@onready var time_label: Label = $Main/Container/HBox2/Time
 
 var last_displayed_minute := -1
 
@@ -52,7 +55,7 @@ func _on_time_updated(_day_name: String, _hour: int, minute: int, _is_daytime: b
 	time_label.text = TimeManager.get_time_string()
 
 func _on_player_damaged(amount: int) -> void:
-	health_bar.value = GameState.player.stats.current_hp
+	hp_bar.value = GameState.player.stats.current_hp
 
 func _on_player_gained_exp(amount: int) -> void:
 	exp_bar.value = GameState.player.stats.experience
@@ -60,17 +63,19 @@ func _on_player_gained_exp(amount: int) -> void:
 
 func _update_status_bars():
 	var stats = GameState.player.stats
-	health_bar.max_value = stats.max_hp
-	health_bar.value = stats.current_hp
+	
+	hp_bar.max_value = stats.max_hp
+	hp_bar.value = stats.current_hp
 
-	if "max_mp" in stats and "mp" in stats:
-		mana_bar.max_value = stats.max_mp
-		mana_bar.value = stats.mp
-	else:
-		mana_bar.visible = false
+	mp_bar.max_value = stats.max_mp
+	mp_bar.value = stats.current_mp
+	
+	sta_bar.max_value = stats.max_sta
+	sta_bar.value = stats.current_sta
 
 	exp_bar.max_value = stats.get_exp_to_next_level(stats.level)
 	exp_bar.value = stats.experience
+	
 	level_label.text = "Level: %d" % stats.level
 
 func _update_avatar_state():
