@@ -8,18 +8,24 @@ signal gained_exp(amount: int)
 signal died()
 
 @export var speed: float = 200.0
-var state: PlayerState
 
+# State machines
 @onready var state_machine: Node = $StateMachine
 @onready var animation_tree: AnimationTree = $AnimationTree
 @onready var animation_state: AnimationNodeStateMachinePlayback = animation_tree.get("parameters/playback")
 @onready var attack_effect_animation_tree: AnimationTree = $Sprite2D/AttackEffectSprite/AttackEffectAnimationTree
 @onready var attack_effect_animation_state: AnimationNodeStateMachinePlayback = attack_effect_animation_tree.get("parameters/playback")
+
+# Collision
 @onready var hitbox: Area2D = $Hitbox
 @onready var hurtbox: Area2D = $Hurtbox
-@onready var joystick := Global.get_node_or_null("/root/PlayerUi/CenterContainer/Joystick")
-@onready var attack_buttons := Global.get_node_or_null("/root/PlayerUi/CenterContainer2/AttackButtons")
 
+# UI controls (sẽ được gán từ Global)
+var joystick: Joystick = null
+var attack_buttons: AttackButtons = null
+
+# Gameplay state
+var state: PlayerState
 var is_attacking := false
 var knockback_vector := Vector2.ZERO
 var knockback_timer := 0.0
@@ -36,6 +42,9 @@ func _ready() -> void:
 func connect_signals() -> void:
 	if attack_buttons:
 		attack_buttons.attack_triggered.connect(_on_attack_triggered)
+	else:
+		push_warning("Attack buttons chưa được gán vào Player.")
+	
 	hurtbox.connect("hit_received", _on_hit_received)
 
 func _physics_process(delta: float) -> void:
