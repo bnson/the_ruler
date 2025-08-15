@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://cf8c1vdwthaxy"]
+[gd_scene load_steps=9 format=3 uid="uid://cf8c1vdwthaxy"]
 
 [ext_resource type="Script" uid="uid://b6fv7lnrexiht" path="res://src/autoload/PlayerUi.gd" id="1_dribd"]
 [ext_resource type="PackedScene" uid="uid://xwgxwul70tr5" path="res://src/characters/player/PlayerHud.tscn" id="2_rjh28"]
 [ext_resource type="PackedScene" uid="uid://cg7jvbdfkggsf" path="res://src/components/joystick/Joystick.tscn" id="3_wlkt0"]
+[ext_resource type="PackedScene" uid="uid://5cd6y81grfcd" path="res://src/scenes/ui/hud/ShopUi.tscn" id="4_lu161"]
 [ext_resource type="PackedScene" uid="uid://dyn6u18j5ccn6" path="res://src/components/joystick/AttackButtons.tscn" id="4_tqk0u"]
 [ext_resource type="PackedScene" uid="uid://b6c34ptj7fxqe" path="res://src/scenes/ui/hud/InventoryUi.tscn" id="5_8yonx"]
 [ext_resource type="PackedScene" uid="uid://fkoit46sv3kg" path="res://src/scenes/ui/dialogue/DialogueUi.tscn" id="6_rjh28"]
@@ -12,17 +13,44 @@
 script = ExtResource("1_dribd")
 metadata/_edit_horizontal_guides_ = [257.0]
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="MarginContainer1" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 5
+
+[node name="PlayerHud" parent="MarginContainer1" instance=ExtResource("2_rjh28")]
+layout_mode = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="PlayerInfoUi" parent="MarginContainer2" instance=ExtResource("7_vxa1e")]
+layout_mode = 2
+
+[node name="MarginContainer3" type="MarginContainer" parent="."]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="PlayerHud" parent="MarginContainer" instance=ExtResource("2_rjh28")]
+[node name="ShopUi" parent="MarginContainer3" instance=ExtResource("4_lu161")]
+visible = false
 layout_mode = 2
 
-[node name="CenterContainer" type="CenterContainer" parent="."]
+[node name="CenterContainer1" type="CenterContainer" parent="."]
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
@@ -31,7 +59,7 @@ offset_right = 114.0
 grow_vertical = 0
 mouse_filter = 2
 
-[node name="Joystick" parent="CenterContainer" instance=ExtResource("3_wlkt0")]
+[node name="Joystick" parent="CenterContainer1" instance=ExtResource("3_wlkt0")]
 layout_mode = 2
 
 [node name="CenterContainer2" type="CenterContainer" parent="."]
@@ -75,19 +103,5 @@ offset_bottom = 40.0
 grow_horizontal = 0
 
 [node name="DialogueUi" parent="CenterContainer4" instance=ExtResource("6_rjh28")]
-layout_mode = 2
-
-[node name="MarginContainer2" type="MarginContainer" parent="."]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 20
-theme_override_constants/margin_top = 20
-theme_override_constants/margin_right = 20
-theme_override_constants/margin_bottom = 20
-
-[node name="PlayerInfoUi" parent="MarginContainer2" instance=ExtResource("7_vxa1e")]
 visible = false
 layout_mode = 2
