@@ -2,17 +2,28 @@
 extends CharacterBody2D
 class_name NPC
 
+signal player_entered()
+signal player_exited()
+
 @export var display_name: String = "Unnamed NPC"
 @export var dialogue_resource: DialogueResource
 @export var start_node_id: String = "start"
 @export var sell_items: Array[Item] = []
 @export var accept_gift_item_ids: Array[String] = []
 
-var love: int = 0
-var trust: int = 0
+var cur_love: int = 0
+var max_love: int = 100
+var cur_trust: int = 0
+var max_trust: int = 100
+var cur_lust: int = 0
+var max_lust: int = 100
+var cur_hp : float = 100
+var max_hp : float = 100
+var cur_mp : float = 0
+var max_mp : float = 0
+var cur_sta : float = 100
+var max_sta : float = 100
 
-signal player_entered()
-signal player_exited()
 
 func _ready():
 	print("🟢 NPC Ready:", display_name)
@@ -71,21 +82,11 @@ func _on_option_selected(option: Dictionary):
 
 	var event: String = option.get("event", "")
 	match event:
-		"buy":
-			if sell_items.size() > 0:
-				var item := sell_items[0]
-				GameState.player.inventory.add_item(item)
-				love += 1
-				trust += 1
-		"gift":
-			if accept_gift_item_ids.size() > 0:
-				var gift_id := accept_gift_item_ids[0]
-				if GameState.player.inventory.get_quantity(gift_id) > 0:
-					GameState.player.inventory.remove_item(gift_id)
-					love += 5
-					trust += 3
-		"chat":
-			love += 1
-			trust += 1
+		"buy_sell":
+			print("🛍️ Mở Shop từ NPC:", display_name)
+			PlayerUi.show_shop(self)
+			DialogueManager.end()
+		"talk":
+			pass
 		"bye":
 			DialogueManager.end()
