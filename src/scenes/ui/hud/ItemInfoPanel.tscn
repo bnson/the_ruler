@@ -1,0 +1,68 @@
+[gd_scene load_steps=3 format=3 uid="uid://bq53kqc67dfp3"]
+
+[ext_resource type="Script" uid="uid://clll6523ljj1p" path="res://src/scenes/ui/hud/ItemInfoPanel.gd" id="1_sianh"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sianh"]
+bg_color = Color(0.917647, 0.835294, 0.666667, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.223529, 0.12549, 0.113725, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[node name="ItemInfoPanel" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_sianh")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_sianh")
+
+[node name="Container" type="MarginContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 10
+
+[node name="Item" type="VBoxContainer" parent="Panel/Container"]
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="Panel/Container/Item"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Name" type="Label" parent="Panel/Container/Item"]
+layout_mode = 2
+text = "Item Name"
+horizontal_alignment = 1
+
+[node name="Description" type="RichTextLabel" parent="Panel/Container/Item"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/default_color = Color(0.136826, 0.136826, 0.136826, 1)
+theme_override_font_sizes/normal_font_size = 14
+text = "General item description."
