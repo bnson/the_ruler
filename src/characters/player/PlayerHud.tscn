@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://xwgxwul70tr5"]
+[gd_scene load_steps=22 format=3 uid="uid://xwgxwul70tr5"]
 
 [ext_resource type="Script" uid="uid://kjkahj7v6pck" path="res://src/characters/player/PlayerHud.gd" id="1_50xck"]
 [ext_resource type="Texture2D" uid="uid://cv4wnjqwtg0sn" path="res://assets/avatar/player_portrait.png" id="1_grnvv"]
@@ -94,7 +94,7 @@ expand_margin_right = 1.0
 expand_margin_bottom = 1.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6ae64"]
-bg_color = Color(1, 0, 0, 0.6)
+bg_color = Color(0.545098, 0, 0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lyxlb"]
 bg_color = Color(0.239, 0.239, 0.239, 0.4)
@@ -109,7 +109,7 @@ expand_margin_right = 1.0
 expand_margin_bottom = 1.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_akixn"]
-bg_color = Color(0, 0, 1, 0.6)
+bg_color = Color(0.231373, 0.486275, 1, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_an46w"]
 bg_color = Color(0.239, 0.239, 0.239, 0.4)
@@ -124,7 +124,10 @@ expand_margin_right = 1.0
 expand_margin_bottom = 1.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5y1hq"]
-bg_color = Color(0.6, 0.2, 0.8, 0.6)
+bg_color = Color(0.717647, 0.717647, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_getfj"]
+bg_color = Color(0.576471, 0.439216, 0.858824, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_om7bc"]
 bg_color = Color(0.239216, 0.239216, 0.239216, 0.4)
@@ -141,45 +144,46 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_50xck")
 
-[node name="MainPanel" type="Panel" parent="."]
+[node name="Main" type="Panel" parent="."]
+layout_mode = 0
 theme_override_styles/panel = SubResource("StyleBoxFlat_50xck")
 
-[node name="MainContainer" type="VBoxContainer" parent="MainPanel"]
+[node name="Container" type="VBoxContainer" parent="Main"]
 layout_mode = 1
 offset_right = 108.0
 offset_bottom = 48.0
 
-[node name="HBoxContainer1" type="HBoxContainer" parent="MainPanel/MainContainer"]
+[node name="HBox1" type="HBoxContainer" parent="Main/Container"]
 layout_mode = 2
 
-[node name="VBoxContainer1" type="VBoxContainer" parent="MainPanel/MainContainer/HBoxContainer1"]
+[node name="PortraitBox" type="VBoxContainer" parent="Main/Container/HBox1"]
 custom_minimum_size = Vector2(24, 32)
 layout_mode = 2
 
-[node name="Avatar" type="Node2D" parent="MainPanel/MainContainer/HBoxContainer1/VBoxContainer1"]
+[node name="Avatar" type="Node2D" parent="Main/Container/HBox1/PortraitBox"]
 
-[node name="Sprite2D" type="Sprite2D" parent="MainPanel/MainContainer/HBoxContainer1/VBoxContainer1/Avatar"]
+[node name="Sprite2D" type="Sprite2D" parent="Main/Container/HBox1/PortraitBox/Avatar"]
 position = Vector2(13, 17)
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("1_grnvv")
 hframes = 4
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="MainPanel/MainContainer/HBoxContainer1/VBoxContainer1/Avatar"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Main/Container/HBox1/PortraitBox/Avatar"]
 libraries = {
 &"": SubResource("AnimationLibrary_8lkxx")
 }
 
-[node name="AnimationTree" type="AnimationTree" parent="MainPanel/MainContainer/HBoxContainer1/VBoxContainer1/Avatar"]
+[node name="AnimationTree" type="AnimationTree" parent="Main/Container/HBox1/PortraitBox/Avatar"]
 tree_root = SubResource("AnimationNodeStateMachine_4762c")
 anim_player = NodePath("../AnimationPlayer")
 parameters/EmotionBlend/blend_position = 0.0
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="MainPanel/MainContainer/HBoxContainer1"]
+[node name="VitalsBox" type="VBoxContainer" parent="Main/Container/HBox1"]
 custom_minimum_size = Vector2(78, 0)
 layout_mode = 2
 alignment = 1
 
-[node name="HealthBar" type="ProgressBar" parent="MainPanel/MainContainer/HBoxContainer1/VBoxContainer2"]
+[node name="HpBar" type="ProgressBar" parent="Main/Container/HBox1/VitalsBox"]
 custom_minimum_size = Vector2(0, 5)
 layout_mode = 2
 theme_override_font_sizes/font_size = 10
@@ -188,7 +192,7 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_6ae64")
 value = 100.0
 show_percentage = false
 
-[node name="ManaBar" type="ProgressBar" parent="MainPanel/MainContainer/HBoxContainer1/VBoxContainer2"]
+[node name="MpBar" type="ProgressBar" parent="Main/Container/HBox1/VitalsBox"]
 custom_minimum_size = Vector2(0, 5)
 layout_mode = 2
 theme_override_font_sizes/font_size = 10
@@ -197,22 +201,28 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_akixn")
 value = 50.0
 show_percentage = false
 
-[node name="ExpBar" type="ProgressBar" parent="MainPanel/MainContainer/HBoxContainer1/VBoxContainer2"]
+[node name="StaBar" type="ProgressBar" parent="Main/Container/HBox1/VitalsBox"]
 custom_minimum_size = Vector2(0, 5)
 layout_mode = 2
 theme_override_font_sizes/font_size = 10
 theme_override_styles/background = SubResource("StyleBoxFlat_an46w")
 theme_override_styles/fill = SubResource("StyleBoxFlat_5y1hq")
+value = 50.0
 show_percentage = false
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="MainPanel/MainContainer"]
+[node name="ExpBar" type="ProgressBar" parent="Main/Container/HBox1/VitalsBox"]
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+theme_override_styles/background = SubResource("StyleBoxFlat_an46w")
+theme_override_styles/fill = SubResource("StyleBoxFlat_getfj")
+value = 50.0
+show_percentage = false
+
+[node name="HBox2" type="HBoxContainer" parent="Main/Container"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="MainPanel/MainContainer/HBoxContainer2"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 8
-
-[node name="LevelLabel" type="Label" parent="MainPanel/MainContainer/HBoxContainer2"]
+[node name="Level" type="Label" parent="Main/Container/HBox2"]
 custom_minimum_size = Vector2(35, 0)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -223,7 +233,7 @@ text = "Level 1"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="TimeLabel" type="Label" parent="MainPanel/MainContainer/HBoxContainer2"]
+[node name="Time" type="Label" parent="Main/Container/HBox2"]
 custom_minimum_size = Vector2(64, 0)
 layout_mode = 2
 size_flags_horizontal = 4
