@@ -99,9 +99,13 @@ func get_agility() -> int:
 ### LEVELING ###
 func gain_experience(amount: int):
 	experience += amount
+	var leveled_up := false
 	while experience >= get_exp_to_next_level(level):
-		experience -= get_exp_to_next_level(level)
-		_level_up()
+			experience -= get_exp_to_next_level(level)
+			_level_up()
+			leveled_up = true
+	if not leveled_up:
+			emit_signal("stats_changed")
 
 func _level_up():
 	level += 1

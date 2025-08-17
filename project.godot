@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="The_Ruler"
-run/main_scene="uid://dit4on0ghe461"
+run/main_scene="uid://b4yy56dam6dh6"
 config/features=PackedStringArray("4.4", "Mobile")
 config/icon="res://icon.svg"
 
