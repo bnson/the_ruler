@@ -15,9 +15,10 @@ func _ready():
 		push_error("⚠ NPCInfo: npc_state chưa được gán.")
 		return
 
-	name_label.text = "Tên: " + npc_state.name
-	love_label.text = "Tình cảm: " + str(npc_state.love)
-	trust_label.text = "Tin tưởng: " + str(npc_state.trust)
+	if npc_state.stats and not npc_state.stats.stats_changed.is_connected(_update_info):
+		npc_state.stats.stats_changed.connect(_update_info)
+
+	_update_info()
 
 	favorite_list.clear()
 	for gift in npc_state.favorite_gifts:
@@ -26,3 +27,8 @@ func _ready():
 	given_list.clear()
 	for gift in npc_state.given_gifts:
 		given_list.add_item(gift)
+
+func _update_info() -> void:
+	name_label.text = "Tên: " + npc_state.stats.name
+	love_label.text = "Tình cảm: " + str(npc_state.stats.love)
+	trust_label.text = "Tin tưởng: " + str(npc_state.stats.trust)
