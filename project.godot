@@ -29,6 +29,7 @@ TimeManager="*res://src/autoload/TimeManager.tscn"
 DayNightController="*res://src/autoload/DayNightController.tscn"
 PlayerUi="*res://src/autoload/PlayerUi.tscn"
 Global="*res://src/autoload/Global.gd"
+NpcInteractionManager="*res://src/autoload/NpcInteractionManager.gd"
 
 [display]
 

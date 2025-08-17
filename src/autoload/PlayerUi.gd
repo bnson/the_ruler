@@ -36,4 +36,4 @@ func toggle_player_info():
 	player_info_ui.visible = player_info_visible
 	
 func show_shop(npc: NPC):
-	shop_ui.open_shop(npc)	
+	shop_ui.open_shop(npc)

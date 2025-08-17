@@ -3,7 +3,9 @@ extends Node
 
 signal dialogue_started(speaker: String, text: String, options: Array[Dictionary])
 signal dialogue_ended
-signal dialogue_option_selected(option: Dictionary)
+#signal dialogue_option_selected(option: Dictionary)
+# Phát tín hiệu kèm NPC để hệ thống ngoài xử lý event tùy ý
+signal dialogue_option_selected(npc: Node, option: Dictionary)
 
 var dialogue_resource: DialogueResource
 var npc_node: Node = null
@@ -24,16 +26,25 @@ func _show_current_node():
 		return
 	emit_signal("dialogue_started", node.get("speaker", ""), node.get("text", ""), node.get("options", []))
 
+func show_next() -> void:
+	if not active:
+		return
+
+	var node := dialogue_resource.get_node_by_id(current_node_id)
+	var next_id : String = node.get("next", "")
+
+	if next_id != "":
+		current_node_id = next_id
+		await get_tree().process_frame
+		_show_current_node()
+	else:
+		end()
+
 func select_option(option: Dictionary):
 	if not active:
 		return
-	
-	emit_signal("dialogue_option_selected", option)
-
-	var event : String = option.get("event", "")
-	if npc_node and event != "":
-		npc_node._on_option_selected(option)
-
+	# Thông báo cho các hệ thống khác biết NPC và option vừa được chọn
+	emit_signal("dialogue_option_selected", npc_node, option)
 	var next_id : String = option.get("next", "")
 	if next_id != "":
 		current_node_id = next_id

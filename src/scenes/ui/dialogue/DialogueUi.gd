@@ -72,9 +72,9 @@ func _on_option_pressed(opt: Dictionary) -> void:
 	options_container.visible = false # Ngăn bấm tiếp
 	emit_signal("dialogue_option_chosen", opt)
 
-func _on_dialogue_option_selected(_opt): 
+func _on_dialogue_option_selected(_npc, _opt):
 	queue_free_children(options_container)
-	options_container.visible = false
+	options_container.visible = false	
 
 func _on_dialogue_ended() -> void:
 	is_dialogue_active = false
