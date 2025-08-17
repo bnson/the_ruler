@@ -10,7 +10,7 @@ size = Vector2(22, 49)
 [sub_resource type="CircleShape2D" id="CircleShape2D_f5yuf"]
 radius = 44.0114
 
-[node name="AmiceGrover" type="CharacterBody2D"]
+[node name="AmiceGrover" type="CharacterBody2D" groups=["NPCs"]]
 collision_layer = 2048
 script = ExtResource("1_djmux")
 display_name = "Amice Grover"
