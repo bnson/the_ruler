@@ -1,5 +1,5 @@
 # AmiceGroverScene1.gd (Godot 4.x)
-extends Node2D
+extends Node
 
 signal action_changed(new_action: String)
 signal tap_feedback(meter: float, count: int, tps: float)
@@ -35,6 +35,9 @@ var tap_count := 0
 var taps: Array[float] = []
 
 func _ready():
+	PlayerUi.visible = false
+	DayNightController.visible = false	
+	
 	_validate_setup()
 	_switch_action(action_names[0])
 	sprite.play()

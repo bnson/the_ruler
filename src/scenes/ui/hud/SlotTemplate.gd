@@ -17,18 +17,13 @@ func _ready():
 func set_item(item: Item, quantity: int):
 	current_item = item
 	set_selected(false)
-	
-	if icon and quantity_label:
-		if item:
-			print("AAAAAAAAAAAA")
-			icon.texture = item.atlas_texture
-			quantity_label.text = str(quantity)
-		else:
-			print("BBBBBBBBBBBB")
-			icon.texture = null
-			quantity_label.text = ""
+
+	if item:
+		icon.texture = item.atlas_texture
+		quantity_label.text = str(quantity)
 	else:
-		print("CCCCCCCCCCC")
+		icon.texture = null
+		quantity_label.text = ""
 
 func set_selected(selected: bool) -> void:
 	if selected_panel:

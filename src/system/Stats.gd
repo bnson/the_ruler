@@ -175,3 +175,42 @@ func get_all_stats() -> Dictionary:
 		"intelligence": get_intelligence(),
 		"agility": get_agility()
 	}
+
+func has_stat(key: String) -> bool:
+	return get_all_stats().has(key)
+
+func get_stat_value(key: String) -> float:
+	var d := get_all_stats()
+	return d.get(key, 0.0)
+
+func set_stat_value(key: String, value: float) -> void:
+	# Ưu tiên setter có sẵn để đảm bảo clamp + signal
+	match key:
+		"level": level = int(value)
+		"current_hp": current_hp = value
+		"max_hp": max_hp = value
+		"current_mp": current_mp = value
+		"max_mp": max_mp = value
+		"current_sta": current_sta = value
+		"max_sta": max_sta = value
+		"experience": experience = int(value)
+		# Thuộc tính gốc/bonus (nếu muốn chỉnh trực tiếp)
+		"base_strength": base_strength = int(value)
+		"base_dexterity": base_dexterity = int(value)
+		"base_intelligence": base_intelligence = int(value)
+		"base_agility": base_agility = int(value)
+		"bonus_strength": bonus_strength = int(value)
+		"bonus_dexterity": bonus_dexterity = int(value)
+		"bonus_intelligence": bonus_intelligence = int(value)
+		"bonus_agility": bonus_agility = int(value)
+		_:
+			push_warning("Unknown stat key: %s" % key)
+	emit_signal("stats_changed")
+
+func add_stat_value(key: String, delta: float) -> void:
+	set_stat_value(key, get_stat_value(key) + delta)
+
+# (Tuỳ chọn) Sức mạnh tổng hợp để so sánh nhanh “yếu hơn/mạnh hơn”
+func get_power_score() -> float:
+	return level * 10 + get_strength() * 2 + get_agility() + current_hp / 10.0
+	

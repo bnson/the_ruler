@@ -1,4 +1,5 @@
 extends Control
+class_name AttackButtons
 
 signal attack_triggered
 

@@ -1,4 +1,5 @@
 extends Control
+class_name Joystick
 
 const MAX_DISTANCE := 15.0  # Bán kính joystick
 

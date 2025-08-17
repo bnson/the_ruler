@@ -2,91 +2,100 @@
 extends CharacterBody2D
 class_name NPC
 
-signal player_entered()
-signal player_exited()
+## NPC scene chỉ chịu trách nhiệm:
+## - Phát hiện Player, phát tín hiệu "yêu cầu" (request_dialogue/shop/tooltip...)
+## - Gọi các hàm trong NPCState (nhận quà, trừ máu...) khi cần
+## - KHÔNG gọi trực tiếp UI hay DialogueManager → giảm coupling
 
+# ---- Signals để hệ thống ngoài lắng nghe ----
+signal player_entered(npc: NPC)
+signal player_exited(npc: NPC)
+signal request_dialogue(npc: NPC, res: DialogueResource, start_node_id: String)
+signal request_shop(npc: NPC)
+signal gift_received(npc: NPC, item_id: String, is_favorite: bool)
+
+# ---- Config/UI/Dialogue ----
 @export var display_name: String = "Unnamed NPC"
 @export var dialogue_resource: DialogueResource
 @export var start_node_id: String = "start"
-@export var sell_items: Array[Item] = []
-@export var accept_gift_item_ids: Array[String] = []
+@export var sell_items: Array[Item] = []               # nếu có shop
+@export var accept_gift_item_ids: Array[String] = []   # loại quà chấp nhận nhận
 
-var cur_love: int = 0
-var max_love: int = 100
-var cur_trust: int = 0
-var max_trust: int = 100
-var cur_lust: int = 0
-var max_lust: int = 100
-var cur_hp : float = 100
-var max_hp : float = 100
-var cur_mp : float = 0
-var max_mp : float = 0
-var cur_sta : float = 100
-var max_sta : float = 100
+# ---- State (ôm Stats) ----
+@export var state: NPCState = NPCState.new()
 
+# ---- Nodes ----
+@onready var detection_area: Area2D = $DetectionArea
 
-func _ready():
+func _ready() -> void:
+	# Bảo vệ
+	if state == null:
+		state = NPCState.new()
+	state.setup_signals_once()
+
+	# Kết nối detection
+	if detection_area:
+		if not detection_area.body_entered.is_connected(_on_body_entered):
+			detection_area.body_entered.connect(_on_body_entered)
+		if not detection_area.body_exited.is_connected(_on_body_exited):
+			detection_area.body_exited.connect(_on_body_exited)
+	else:
+		push_warning("NPC '%s' missing DetectionArea." % display_name)
+
+	# (tuỳ chọn) group để World/Controller tự động connect
+	if not is_in_group("NPCs"):
+		add_to_group("NPCs")
+
+	# Debug nhẹ
 	print("🟢 NPC Ready:", display_name)
 
-	if not $CollisionShape2D or $CollisionShape2D.shape == null:
-		push_warning("⚠ NPC '%s' thiếu hoặc không có shape trong CollisionShape2D." % display_name)
-
-	if not $DetectionArea or not $DetectionArea.get_node("CollisionShape2D"):
-		push_warning("⚠ NPC '%s' thiếu hoặc không có Area2D để phát hiện Player." % display_name)
-
-	# ✅ Kết nối đúng vào Area2D con
-	$DetectionArea.connect("body_entered", Callable(self, "_on_body_entered"))
-	$DetectionArea.connect("body_exited", Callable(self, "_on_body_exited"))
-
-	# Kết nối signal nội bộ
-	if not is_connected("player_entered", Callable(self, "_on_player_entered")):
-		connect("player_entered", Callable(self, "_on_player_entered"))
-		
-	if not is_connected("player_exited", Callable(self, "_on_player_exited")):
-		connect("player_exited", Callable(self, "_on_player_exited"))
-		
-	# Nhận tín hiệu lựa chọn từ DialogueManager
-	if DialogueManager and not DialogueManager.is_connected("dialogue_option_selected", Callable(self, "_on_option_selected")):
-		DialogueManager.connect("dialogue_option_selected", Callable(self, "_on_option_selected"))
-
+# ---------- Detection ----------
 func _on_body_entered(body: Node) -> void:
-	print("🚶 NPC _on_body_entered:", body.name)
 	if body.is_in_group("Player"):
-		print("🎯 NPC phát player_entered")
-		emit_signal("player_entered")
+		player_entered.emit(self)
 
 func _on_body_exited(body: Node) -> void:
 	if body.is_in_group("Player"):
-		print("🚪 Player exited detection area")
-		emit_signal("player_exited")
+		player_exited.emit(self)
 
-func _on_player_entered():
-	print("💬 _on_player_entered từ NPC:", display_name)
-	print("📦 dialogue_resource = ", dialogue_resource)
+# ---------- Public API cho hệ thống ngoài gọi ----------
+func interact_open_dialogue() -> void:
 	if dialogue_resource:
-		print("📜 Bắt đầu hội thoại cho %s (node: %s)" % [display_name, start_node_id])
-		DialogueManager.start(dialogue_resource, self, start_node_id)
+		request_dialogue.emit(self, dialogue_resource, start_node_id)
 	else:
-		push_warning("⚠ NPC '%s' chưa gán dialogue_resource." % display_name)
+		push_warning("NPC '%s' chưa gán dialogue_resource." % display_name)
 
-func _on_player_exited():
-	print("👋 Player rời khỏi vùng của NPC:", display_name)
-	if DialogueManager.active and DialogueManager.npc_node == self:
-		print("🔕 Kết thúc hội thoại vì player đã rời vùng")
-		DialogueManager.end()
+func interact_open_shop() -> void:
+	request_shop.emit(self)
 
-
-func _on_option_selected(option: Dictionary):
-	if DialogueManager.npc_node != self:
+func give_gift(item_id: String) -> void:
+	# Kiểm tra có nhận loại quà này không (nếu bạn muốn hạn chế)
+	if accept_gift_item_ids.size() > 0 and not (item_id in accept_gift_item_ids):
+		# Không nhận → có thể phát voice line/tooltip tuỳ bạn
 		return
+	var fav := item_id in state.favorite_gifts
+	state.receive_gift(item_id)
+	gift_received.emit(self, item_id, fav)
 
-	var event: String = option.get("event", "")
-	match event:
-		"buy_sell":
-			print("🛍️ Mở Shop từ NPC:", display_name)
-			PlayerUi.show_shop(self)
-			DialogueManager.end()
-		"talk":
-			pass
-		"bye":
-			DialogueManager.end()
+# ---------- Helpers (tiện UI/logic) ----------
+func get_stat(key: String) -> float:
+	return state.stats.get_stat_value(key)
+
+func set_stat(key: String, value: float) -> void:
+	state.stats.set_stat_value(key, value)
+
+func add_stat(key: String, delta: float) -> void:
+	state.stats.add_stat_value(key, delta)
+
+func hp_ratio() -> float:
+	var cur : float = get_stat("current_hp")
+	var mx : float = max(1.0, get_stat("max_hp"))
+	return cur / mx
+
+func love_ratio() -> float:
+	var cur : float = get_stat("love")
+	var mx : float = max(1.0, get_stat("max_love"))
+	return cur / mx
+
+func power_score() -> float:
+	return state.stats.get_power_score()
