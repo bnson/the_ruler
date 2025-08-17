@@ -69,11 +69,39 @@ func set_stat_value(key: String, value: float) -> void:
         _:
             super.set_stat_value(key, value)
 
-func get_all_stats() -> Dictionary:
-    var d = super.get_all_stats()
+func to_dict() -> Dictionary:
+    var d := super.to_dict()
     d.merge({
         "love": love, "max_love": max_love,
         "trust": trust, "max_trust": max_trust,
         "lust": lust, "max_lust": max_lust,
+    })
+    return d
+
+func from_dict(data: Dictionary) -> void:
+    super.from_dict(data)
+    love = data.get("love", love)
+    max_love = data.get("max_love", max_love)
+    trust = data.get("trust", trust)
+    max_trust = data.get("max_trust", max_trust)
+    lust = data.get("lust", lust)
+    max_lust = data.get("max_lust", max_lust)
+
+func get_all_stats() -> Dictionary:
+    var d = super.get_all_stats()
+    # Include social stats for convenience
+    d.merge({
+        "love": love, "max_love": max_love,
+        "trust": trust, "max_trust": max_trust,
+        "lust": lust, "max_lust": max_lust,
+        # Base and bonus attributes for serialization consumers
+        "base_strength": base_strength,
+        "base_dexterity": base_dexterity,
+        "base_intelligence": base_intelligence,
+        "base_agility": base_agility,
+        "bonus_strength": bonus_strength,
+        "bonus_dexterity": bonus_dexterity,
+        "bonus_intelligence": bonus_intelligence,
+        "bonus_agility": bonus_agility,
     })
     return d
