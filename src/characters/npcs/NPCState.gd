@@ -62,21 +62,21 @@ func spend_sta(cost: float) -> bool:
 
 # ---------- Save/Load ----------
 func to_dict() -> Dictionary:
-        return {
-                "npc_id": npc_id,
-                "stats": stats.to_dict(),
-                "favorite_gifts": favorite_gifts.duplicate(),
-                "given_gifts": given_gifts.duplicate()
-        }
+		return {
+				"npc_id": npc_id,
+				"stats": stats.to_dict(),
+				"favorite_gifts": favorite_gifts.duplicate(),
+				"given_gifts": given_gifts.duplicate()
+		}
 
 func from_dict(d: Dictionary) -> void:
-        npc_id = d.get("npc_id", npc_id)
-        if d.has("stats"):
-                stats.from_dict(d["stats"])
-        favorite_gifts = d.get("favorite_gifts", favorite_gifts)
-        given_gifts = d.get("given_gifts", given_gifts)
-        # đảm bảo signal đã nối
-        setup_signals_once()
+		npc_id = d.get("npc_id", npc_id)
+		if d.has("stats"):
+				stats.from_dict(d["stats"])
+		favorite_gifts = d.get("favorite_gifts", favorite_gifts)
+		given_gifts = d.get("given_gifts", given_gifts)
+		# đảm bảo signal đã nối
+		setup_signals_once()
 
 # ---------- Re-emit nội bộ ----------
 func _on_stats_changed() -> void:
