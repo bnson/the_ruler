@@ -2,7 +2,7 @@
 extends Resource
 class_name PlayerState
 
-var stats: Stats = Stats.new()
+var stats: PlayerStats = PlayerStats.new()
 var inventory: Inventory = Inventory.new()
 var quest_log: QuestLog = QuestLog.new()
 
