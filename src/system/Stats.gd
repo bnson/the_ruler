@@ -55,6 +55,7 @@ var max_hp:
 	get: return _max_hp
 	set(value):
 		_max_hp = value
+		current_hp = min(current_hp, _max_hp)
 		emit_signal("stats_changed")
 
 var current_mp:
@@ -68,6 +69,7 @@ var max_mp:
 	get: return _max_mp
 	set(value):
 		_max_mp = value
+		current_mp = min(current_mp, _max_mp)
 		emit_signal("stats_changed")
 
 var current_sta:
@@ -81,6 +83,7 @@ var max_sta:
 	get: return _max_sta
 	set(value):
 		_max_sta = value
+		current_sta = min(current_sta, _max_sta)
 		emit_signal("stats_changed")
 
 ### FINAL ATTRIBUTES ###
@@ -192,11 +195,17 @@ func set_stat_value(key: String, value: float) -> void:
 	match key:
 		"level": level = int(value)
 		"current_hp": current_hp = value
-		"max_hp": max_hp = value
+		"max_hp":
+				max_hp = value
+				current_hp = min(current_hp, max_hp)
 		"current_mp": current_mp = value
-		"max_mp": max_mp = value
+		"max_mp":
+				max_mp = value
+				current_mp = min(current_mp, max_mp)
 		"current_sta": current_sta = value
-		"max_sta": max_sta = value
+		"max_sta":
+				max_sta = value
+				current_sta = min(current_sta, max_sta)
 		"experience": experience = int(value)
 		# Thuộc tính gốc/bonus (nếu muốn chỉnh trực tiếp)
 		"base_strength": base_strength = int(value)
