@@ -92,7 +92,8 @@ func take_damage(amount: int) -> void:
 		die()
 
 func gain_experience(amount: int) -> void:
-	state.gain_experience(amount)
+	#state.gain_experience(amount)
+	state.stats.gain_experience(amount)
 	emit_signal("gained_exp", amount)
 
 func die() -> void:
