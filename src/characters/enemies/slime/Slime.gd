@@ -162,13 +162,13 @@ func drop_item(_auto_loot := false):
 	for i in range(drop_count):
 		var id = choose_random_item()
 		if id != "":
-                        var item = ItemDatabase.get_item(id)
-                        if item:
-                                var amount = randi_range(1, 3)  # mỗi item drop từ 1-3 stack
-                                if auto_loot:
-                                        GameState.player.inventory.add_item(item, amount)
-                                else:
-                                        spawn_item(item, amount)
+			var item = ItemDatabase.get_item(id)
+			if item:
+				var amount = randi_range(1, 3)  # mỗi item drop từ 1-3 stack
+				if auto_loot:
+					GameState.player.inventory.add_item(item, amount)
+				else:
+					spawn_item(item, amount)
 
 # Weighted random chọn item từ drop_table
 func choose_random_item() -> String:
