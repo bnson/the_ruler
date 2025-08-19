@@ -53,7 +53,7 @@ func can_sell_item(item: Item, amount: int = 1) -> bool:
 
 ### ✅ Lấy toàn bộ item để hiển thị UI, shop, v.v.
 func get_all_items() -> Array[Dictionary]:
-	var result: Array = []
+	var result : Array[Dictionary] = []
 	for id in items.keys():
 		result.append({
 			"item": items[id]["item"],
