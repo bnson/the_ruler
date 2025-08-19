@@ -17,26 +17,27 @@ func _refresh():
 	# Xoá slot cũ ở cả hai vùng
 	for child in general_grid.get_children():
 		child.queue_free()
+		
 	for child in special_grid.get_children():
 		child.queue_free()
 
-        var inventory = GameState.player.inventory
-        var count_general := 0
-        var count_special := 0
+	var inventory = GameState.player.inventory
+	var count_general := 0
+	var count_special := 0
 
-        for data in inventory.get_all_items():
-                var item: Item = data["item"]
-                var slot = slot_scene.instantiate()
+	for data in inventory.get_all_items():
+		var item: Item = data["item"]
+		var slot = slot_scene.instantiate()
 
-                if item.is_unique:
-                        special_grid.add_child(slot)
-                        count_special += 1
-                else:
-                        general_grid.add_child(slot)
-                        count_general += 1
+		if item.is_unique:
+			special_grid.add_child(slot)
+			count_special += 1
+		else:
+			general_grid.add_child(slot)
+			count_general += 1
 
-                slot.set_item(item, data["quantity"])
-                slot.connect("slot_clicked", Callable(self, "_on_slot_clicked"))
+		slot.set_item(item, data["quantity"])
+		slot.connect("slot_clicked", Callable(self, "_on_slot_clicked"))
 
 	# Thêm slot trống cho đủ max_slots
 	for i in range(inventory.max_slots - count_general):
