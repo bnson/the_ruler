@@ -13,6 +13,6 @@ id = "stick"
 name = "Stick"
 description = ""
 type = "misc"
-value = 0
+price = 0
 atlas_texture = SubResource("AtlasTexture_26h6g")
 metadata/_custom_type_script = "uid://cox730a8e7rqs"

@@ -1,7 +1,7 @@
 ### 📄 SlotTemplate.gd
 extends Panel
 
-signal slot_clicked(item: Item)
+signal slot_clicked(slot)
 
 @onready var selected_panel: Panel = $PanelSelected
 @onready var icon: TextureRect = $TextureButton/Icon
@@ -30,4 +30,4 @@ func set_selected(selected: bool) -> void:
 		selected_panel.visible = selected
 
 func _on_texture_button_pressed() -> void:
-	emit_signal("slot_clicked", self)
+        emit_signal("slot_clicked", self)
