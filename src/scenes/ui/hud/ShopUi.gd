@@ -29,32 +29,33 @@ func _refresh():
 	var count_item_shop := 0
 	var count_item_player := 0
 
-	for data in inventory.get_all_items():
-		var item: Item = data["item"]
-		var qty: int = data["quantity"]
-		count_item_player += 1
+	if current_npc:
+		for data in inventory.get_all_items():
+			var item: Item = data["item"]
+			var qty: int = data["quantity"]
+			count_item_player += 1
 
-		var slot = slot_scene.instantiate()
-		player_item_grid.add_child(slot)
-		slot.set_item(item, qty)
-		slot.connect("slot_clicked", Callable(self, "_on_sell_item"))
+			var slot = slot_scene.instantiate()
+			player_item_grid.add_child(slot)
+			slot.set_item(item, qty)
+			slot.connect("slot_clicked", Callable(self, "_on_sell_item"))
 
-	for i in range(inventory.max_slots - count_item_player):
-		var slot = slot_scene.instantiate()
-		player_item_grid.add_child(slot)
-		slot.set_item(null, 0)
+		for i in range(inventory.max_slots - count_item_player):
+			var slot = slot_scene.instantiate()
+			player_item_grid.add_child(slot)
+			slot.set_item(null, 0)
 
-	for item in current_npc.sell_items:
-		var slot = slot_scene.instantiate()
-		npc_item_grid.add_child(slot)
-		slot.set_item(item, 1)
-		slot.connect("slot_clicked", Callable(self, "_on_buy_item"))
-		count_item_shop += 1
+		for item in current_npc.sell_items:
+			var slot = slot_scene.instantiate()
+			npc_item_grid.add_child(slot)
+			slot.set_item(item, 1)
+			slot.connect("slot_clicked", Callable(self, "_on_buy_item"))
+			count_item_shop += 1
 
-	for i in range(shop_max_slots - count_item_shop):
-		var slot = slot_scene.instantiate()
-		npc_item_grid.add_child(slot)
-		slot.set_item(null, 0)
+		for i in range(shop_max_slots - count_item_shop):
+			var slot = slot_scene.instantiate()
+			npc_item_grid.add_child(slot)
+			slot.set_item(null, 0)
 
 func _on_buy_item(slot):
 	var item: Item = slot.current_item
