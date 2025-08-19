@@ -72,9 +72,9 @@ func to_dict() -> Dictionary:
 
 func from_dict(data: Dictionary):
 	items.clear()
-	for id in data.keys():
-		var item = ItemDatabase.items.get(id)
-		if item:
-			items[id] = { "item": item, "quantity": int(data[id]) }
+        for id in data.keys():
+                var item = ItemDatabase.get_item(id)
+                if item:
+                        items[id] = { "item": item, "quantity": int(data[id]) }
 
 	emit_signal("inventory_changed")
