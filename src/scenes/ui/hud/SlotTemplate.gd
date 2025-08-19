@@ -30,4 +30,4 @@ func set_selected(selected: bool) -> void:
 		selected_panel.visible = selected
 
 func _on_texture_button_pressed() -> void:
-        emit_signal("slot_clicked", self)
+	emit_signal("slot_clicked", self)
