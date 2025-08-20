@@ -6,18 +6,20 @@ signal dialogue_option_chosen(option_data: Dictionary)
 
 @export var option_button_scene: PackedScene
 
-@onready var speaker_label = $Panel/VBoxContainer/SpeakerLabel
-@onready var text_label = $Panel/VBoxContainer/TextLabel
-@onready var options_container = $Panel/VBoxContainer/OptionsContainer
+@onready var panel = $Main/Margin/Panel
+@onready var speaker_label = $Main/Margin/Panel/VBoxContainer/SpeakerLabel
+@onready var text_label = $Main/Margin/Panel/VBoxContainer/TextLabel
+@onready var options_container = $Main/Margin/Panel/VBoxContainer/OptionsContainer
 
 var is_dialogue_active: bool = false
 var base_panel_size: Vector2
 var base_options_container_size: Vector2
 
+
 func _ready():
 	hide()
 	
-	base_panel_size = $Panel.custom_minimum_size
+	base_panel_size = panel.custom_minimum_size
 	base_options_container_size = options_container.custom_minimum_size
 	
 	DialogueManager.connect("dialogue_started", _on_dialogue_started)
@@ -65,7 +67,7 @@ func show_options(options: Array) -> void:
 	var text_label_size = Vector2(0, text_label.get_combined_minimum_size().y)
 	var options_container_size = options_container.get_combined_minimum_size()
 	var padding_size = Vector2(10, 20)
-	$Panel.custom_minimum_size = speaker_label_size + text_label_size + options_container_size + padding_size
+	panel.custom_minimum_size = speaker_label_size + text_label_size + options_container_size + padding_size
 
 
 func _on_option_pressed(opt: Dictionary) -> void:
