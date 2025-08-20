@@ -1,13 +1,12 @@
 ### 📄 PlayerUi.gd
 extends CanvasLayer
 
-@onready var player_info_ui: Control = $MarginContainer2/PlayerInfoUi
-@onready var inventory_ui: Control = $CenterContainer3/InventoryUI
-@onready var dialogue_ui: DialogueUi = $CenterContainer4/DialogueUi
-@onready var shop_ui: Control = $MarginContainer3/ShopUi
-
-@onready var joystick : Joystick = $CenterContainer1/Joystick
-@onready var attack_buttons : AttackButtons = $CenterContainer2/AttackButtons
+@onready var dialogue_ui: DialogueUi = $CenterContainer/DialogueUi
+@onready var player_info_ui: Control = $CenterContainer/PlayerInfoUi
+@onready var inventory_ui: Control = $CenterContainer/InventoryUI
+@onready var shop_ui: Control = $CenterContainer/ShopUi
+@onready var joystick : Joystick = $BottomLeftContainer/Joystick
+@onready var attack_buttons : AttackButtons = $BottomRightContainer/AttackButtons
 
 var inventory_visible := false
 var player_info_visible := false
