@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://bq53kqc67dfp3"]
 
-[ext_resource type="Script" uid="uid://clll6523ljj1p" path="res://src/scenes/ui/hud/ItemInfoPanel.gd" id="1_sianh"]
+[ext_resource type="Script" uid="uid://dpaxtg1epho41" path="res://src/scenes/ui/hud/ItemInfoPanel.gd" id="1_sianh"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sianh"]
 bg_color = Color(0.917647, 0.835294, 0.666667, 1)
