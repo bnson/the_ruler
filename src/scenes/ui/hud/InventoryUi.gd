@@ -4,11 +4,11 @@ class_name InventoryUi
 
 @export var slot_scene: PackedScene
 
-@onready var general_grid: GridContainer = $Panel/MarginContainer/VBoxContainer/Panel2/TabContainer/General/MarginContainer/HBoxContainer/GridContainer
-@onready var special_grid: GridContainer = $Panel/MarginContainer/VBoxContainer/Panel2/TabContainer/Special/MarginContainer/HBoxContainer/GridContainer
-@onready var general_info_panel: ItemInfoPanel = $Panel/MarginContainer/VBoxContainer/Panel2/TabContainer/General/MarginContainer/HBoxContainer/ItemInfoPanel
-@onready var special_info_panel: ItemInfoPanel = $Panel/MarginContainer/VBoxContainer/Panel2/TabContainer/Special/MarginContainer/HBoxContainer/ItemInfoPanel
-@onready var gold_label: Label = $Panel/MarginContainer/VBoxContainer/Panel/HBoxContainer/GoldLabel
+@onready var general_grid: GridContainer = $Main/Margin/VBoxContainer/Panel2/TabContainer/General/MarginContainer/HBoxContainer/GridContainer
+@onready var special_grid: GridContainer = $Main/Margin/VBoxContainer/Panel2/TabContainer/Special/MarginContainer/HBoxContainer/GridContainer
+@onready var general_info_panel: ItemInfoPanel = $Main/Margin/VBoxContainer/Panel2/TabContainer/General/MarginContainer/HBoxContainer/ItemInfoPanel
+@onready var special_info_panel: ItemInfoPanel = $Main/Margin/VBoxContainer/Panel2/TabContainer/Special/MarginContainer/HBoxContainer/ItemInfoPanel
+@onready var gold_label: Label = $Main/Margin/VBoxContainer/Panel/HBoxContainer/GoldLabel
 
 
 func _ready():
