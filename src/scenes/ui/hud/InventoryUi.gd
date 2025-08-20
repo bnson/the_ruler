@@ -4,26 +4,30 @@ class_name InventoryUi
 
 @export var slot_scene: PackedScene
 
-@onready var general_grid: GridContainer = $Panel/TabContainer/General/MarginContainer/HBoxContainer/GridContainer
-@onready var special_grid: GridContainer = $Panel/TabContainer/Special/MarginContainer/HBoxContainer/GridContainer
-@onready var general_info_panel: ItemInfoPanel = $Panel/TabContainer/General/MarginContainer/HBoxContainer/ItemInfoPanel
-@onready var special_info_panel: ItemInfoPanel = $Panel/TabContainer/Special/MarginContainer/HBoxContainer/ItemInfoPanel
+@onready var general_grid: GridContainer = $Panel/MarginContainer/VBoxContainer/Panel2/TabContainer/General/MarginContainer/HBoxContainer/GridContainer
+@onready var special_grid: GridContainer = $Panel/MarginContainer/VBoxContainer/Panel2/TabContainer/Special/MarginContainer/HBoxContainer/GridContainer
+@onready var general_info_panel: ItemInfoPanel = $Panel/MarginContainer/VBoxContainer/Panel2/TabContainer/General/MarginContainer/HBoxContainer/ItemInfoPanel
+@onready var special_info_panel: ItemInfoPanel = $Panel/MarginContainer/VBoxContainer/Panel2/TabContainer/Special/MarginContainer/HBoxContainer/ItemInfoPanel
+@onready var gold_label: Label = $Panel/MarginContainer/VBoxContainer/Panel/HBoxContainer/GoldLabel
+
 
 func _ready():
 	GameState.connect("inventory_changed", Callable(self, "_refresh"))
 	_refresh()
 
 func _refresh():
+	var inventory = GameState.player.inventory
+	var count_general := 0
+	var count_special := 0
+	
+	gold_label.text = str(GameState.player.gold)
+	
 	# Xoá slot cũ ở cả hai vùng
 	for child in general_grid.get_children():
 		child.queue_free()
 		
 	for child in special_grid.get_children():
 		child.queue_free()
-
-	var inventory = GameState.player.inventory
-	var count_general := 0
-	var count_special := 0
 
 	for data in inventory.get_all_items():
 		var item: Item = data["item"]
