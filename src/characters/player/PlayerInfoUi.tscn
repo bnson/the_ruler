@@ -152,6 +152,7 @@ size_flags_vertical = 3
 theme_override_constants/margin_bottom = 10
 
 [node name="PlayerPortrait" type="TextureRect" parent="Main/Margin/HBoxContainer/Panel1/VBoxContainer/CenterContainer"]
+visible = false
 layout_mode = 2
 texture = ExtResource("2_4yf6f")
 expand_mode = 1
@@ -425,3 +426,18 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0.313726, 0.188235, 0.117647, 1)
 theme_override_fonts/font = ExtResource("4_vfh0t")
 text = "5"
+
+[node name="CloseButton" type="Button" parent="Main/Margin"]
+custom_minimum_size = Vector2(60, 30)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+theme_override_colors/font_disabled_color = Color(0.921569, 0.792157, 0.0862745, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.921569, 0.792157, 0.0862745, 1)
+theme_override_colors/font_outline_color = Color(0.921569, 0.792157, 0.0862745, 1)
+theme_override_colors/font_color = Color(0.921569, 0.792157, 0.0862745, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 14
+text = "X"
+
+[connection signal="pressed" from="Main/Margin/CloseButton" to="." method="_on_close_button_pressed"]
