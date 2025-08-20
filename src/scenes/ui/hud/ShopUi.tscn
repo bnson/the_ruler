@@ -46,60 +46,77 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/panel = ExtResource("4_5lu6k")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Main/Container/HBoxContainer/Panel1"]
-layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-grow_horizontal = 2
-
-[node name="Label" type="Label" parent="Main/Container/HBoxContainer/Panel1/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 1
-theme_override_colors/font_color = Color(0.298039, 0.168627, 0.101961, 1)
-theme_override_font_sizes/font_size = 14
-theme_override_styles/normal = ExtResource("5_vsk5k")
-text = "Your Items"
-horizontal_alignment = 1
-
-[node name="PlayerItemGrid" type="GridContainer" parent="Main/Container/HBoxContainer/Panel1/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 6
-size_flags_vertical = 4
-size_flags_stretch_ratio = 3.0
-theme_override_constants/h_separation = 4
-theme_override_constants/v_separation = 4
-columns = 5
-
-[node name="Panel2" type="Panel" parent="Main/Container/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_styles/panel = ExtResource("4_5lu6k")
-
-[node name="VBoxContainer2" type="VBoxContainer" parent="Main/Container/HBoxContainer/Panel2"]
+[node name="MarginContainer" type="MarginContainer" parent="Main/Container/HBoxContainer/Panel1"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
 
-[node name="Label" type="Label" parent="Main/Container/HBoxContainer/Panel2/VBoxContainer2"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Main/Container/HBoxContainer/Panel1/MarginContainer"]
 layout_mode = 2
-size_flags_vertical = 1
+theme_override_constants/separation = 5
+
+[node name="Label" type="Label" parent="Main/Container/HBoxContainer/Panel1/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.298039, 0.168627, 0.101961, 1)
+theme_override_font_sizes/font_size = 14
+theme_override_styles/normal = ExtResource("5_vsk5k")
+text = "Your Items"
+horizontal_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Main/Container/HBoxContainer/Panel1/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="PlayerItemGrid" type="GridContainer" parent="Main/Container/HBoxContainer/Panel1/MarginContainer/VBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/h_separation = 4
+theme_override_constants/v_separation = 4
+columns = 3
+
+[node name="Panel2" type="Panel" parent="Main/Container/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = ExtResource("4_5lu6k")
+
+[node name="MarginContainer" type="MarginContainer" parent="Main/Container/HBoxContainer/Panel2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Main/Container/HBoxContainer/Panel2/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Main/Container/HBoxContainer/Panel2/MarginContainer/VBoxContainer2"]
+layout_mode = 2
 theme_override_colors/font_color = Color(0.298039, 0.168627, 0.101961, 1)
 theme_override_font_sizes/font_size = 14
 theme_override_styles/normal = ExtResource("5_vsk5k")
 text = "Shop Items"
 horizontal_alignment = 1
 
-[node name="NpcItemGrid" type="GridContainer" parent="Main/Container/HBoxContainer/Panel2/VBoxContainer2"]
+[node name="NpcItemGrid" type="GridContainer" parent="Main/Container/HBoxContainer/Panel2/MarginContainer/VBoxContainer2"]
 layout_mode = 2
-size_flags_horizontal = 6
-size_flags_vertical = 4
+size_flags_vertical = 3
 size_flags_stretch_ratio = 3.0
 theme_override_constants/h_separation = 4
 theme_override_constants/v_separation = 4
-columns = 5
+columns = 3
 
 [node name="Panel3" type="Panel" parent="Main/Container/HBoxContainer"]
 layout_mode = 2
