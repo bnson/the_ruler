@@ -9,7 +9,7 @@ func drop_loot() -> Array[Item]:
 		var item_id = entry.get("id", "")
 		var chance = entry.get("chance", 0.0)
 		if randf() < chance:
-                        var item = ItemDatabase.get_item(item_id)
-                        if item:
-                                dropped_items.append(item)
+			var item = ItemDatabase.get_item(item_id)
+			if item:
+				dropped_items.append(item)
 	return dropped_items
