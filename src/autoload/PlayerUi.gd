@@ -3,6 +3,7 @@ extends CanvasLayer
 
 @onready var dialogue_ui: DialogueUi = $CenterContainer/DialogueUi
 @onready var player_info_ui: Control = $CenterContainer/PlayerInfoUi
+@onready var npc_info_ui: NPCInfo = $CenterContainer/NPCInfo
 @onready var inventory_ui: Control = $CenterContainer/InventoryUI
 @onready var shop_ui: Control = $CenterContainer/ShopUi
 @onready var joystick : Joystick = $BottomLeftContainer/Joystick
@@ -36,3 +37,6 @@ func toggle_player_info():
 	
 func show_shop(npc: NPC):
 	shop_ui.open_shop(npc)
+
+func show_npc_info(npc: NPC):
+	pass
