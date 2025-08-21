@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://cf8c1vdwthaxy"]
+[gd_scene load_steps=10 format=3 uid="uid://cf8c1vdwthaxy"]
 
 [ext_resource type="Script" uid="uid://b6fv7lnrexiht" path="res://src/autoload/PlayerUi.gd" id="1_dribd"]
 [ext_resource type="PackedScene" uid="uid://xwgxwul70tr5" path="res://src/characters/player/PlayerHud.tscn" id="2_rjh28"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://b6c34ptj7fxqe" path="res://src/scenes/ui/hud/InventoryUi.tscn" id="5_8yonx"]
 [ext_resource type="PackedScene" uid="uid://fkoit46sv3kg" path="res://src/scenes/ui/dialogue/DialogueUi.tscn" id="6_rjh28"]
 [ext_resource type="PackedScene" uid="uid://suf1pcplwyfr" path="res://src/characters/player/PlayerInfoUi.tscn" id="7_vxa1e"]
+[ext_resource type="PackedScene" uid="uid://cgga0xmjh6vpo" path="res://src/characters/npcs/NPCInfo.tscn" id="9_1gmj2"]
 
 [node name="PlayerUi" type="CanvasLayer"]
 script = ExtResource("1_dribd")
@@ -75,5 +76,9 @@ visible = false
 layout_mode = 2
 
 [node name="DialogueUi" parent="CenterContainer" instance=ExtResource("6_rjh28")]
+visible = false
+layout_mode = 2
+
+[node name="NPCInfo" parent="CenterContainer" instance=ExtResource("9_1gmj2")]
 visible = false
 layout_mode = 2
