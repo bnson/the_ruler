@@ -63,11 +63,15 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
+[node name="DialogueUi" parent="CenterContainer" instance=ExtResource("6_rjh28")]
+visible = false
+layout_mode = 2
+
 [node name="PlayerInfoUi" parent="CenterContainer" instance=ExtResource("7_vxa1e")]
 visible = false
 layout_mode = 2
 
-[node name="ShopUi" parent="CenterContainer" instance=ExtResource("4_lu161")]
+[node name="NPCInfo" parent="CenterContainer" instance=ExtResource("9_1gmj2")]
 visible = false
 layout_mode = 2
 
@@ -75,10 +79,6 @@ layout_mode = 2
 visible = false
 layout_mode = 2
 
-[node name="DialogueUi" parent="CenterContainer" instance=ExtResource("6_rjh28")]
-visible = false
-layout_mode = 2
-
-[node name="NPCInfo" parent="CenterContainer" instance=ExtResource("9_1gmj2")]
+[node name="ShopUi" parent="CenterContainer" instance=ExtResource("4_lu161")]
 visible = false
 layout_mode = 2
