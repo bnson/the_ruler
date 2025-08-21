@@ -39,4 +39,7 @@ func show_shop(npc: NPC):
 	shop_ui.open_shop(npc)
 
 func show_npc_info(npc: NPC):
-	pass
+	if npc == null:
+		return
+	
+	npc_info_ui.open(npc)
