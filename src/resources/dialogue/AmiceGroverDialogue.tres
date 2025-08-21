@@ -16,6 +16,9 @@ nodes = Array[Dictionary]([{
 "event": "love",
 "text": "Love"
 }, {
+"event": "Info",
+"text": "Info"
+}, {
 "event": "bye",
 "text": "Bye"
 }],
