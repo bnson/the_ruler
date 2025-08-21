@@ -8,7 +8,8 @@ class_name ShopUi
 @onready var item_info_panel: ItemInfoPanel = $Main/Container/HBoxContainer/Panel3/VBoxContainer/ItemInfoPanel
 
 var current_npc: NPC = null
-
+var clicked_buy_slot = null
+var clicked_sell_slot = null
 
 func _ready():
 	GameState.inventory_changed.connect(_refresh)
@@ -30,7 +31,7 @@ func _refresh():
 	var shop_max_slots = 10
 	var count_item_shop := 0
 	var count_item_player := 0
-
+	
 	if current_npc:
 		for data in inventory.get_all_items():
 			var item: Item = data["item"]
@@ -58,8 +59,19 @@ func _refresh():
 			var slot = slot_scene.instantiate()
 			npc_item_grid.add_child(slot)
 			slot.set_item(null, 0)
+			
+		if clicked_buy_slot:
+			_highlight_slot(clicked_buy_slot, "buy")
+			
+		if clicked_sell_slot:
+			_highlight_slot(clicked_sell_slot, "sell")			
 
 func _on_buy_item(slot):
+	#_highlight_slot(slot)
+	clicked_buy_slot = slot
+	_highlight_slot(clicked_buy_slot, "buy")
+	item_info_panel.clear()
+	
 	var item: Item = slot.current_item
 	if not item:
 		return
@@ -73,20 +85,51 @@ func _on_buy_item(slot):
 	if not GameState.player.inventory.can_add_item(item):
 		push_warning("Inventory full!")
 		return
+
 	GameState.player.gold -= item.price
 	GameState.player.inventory.add_item(item, 1)
 
 func _on_sell_item(slot):
+	#_highlight_slot(slot)
+	clicked_sell_slot = slot
+	_highlight_slot(clicked_sell_slot, "sell")
+	item_info_panel.clear()
+	
 	var item: Item = slot.current_item
 	if not item:
 		return
+
 	item_info_panel.show_item(item)
+	
 	if not GameState.player.inventory.can_sell_item(item, 1):
 		push_warning("Cannot sell item")
 		return
+	
 	GameState.player.inventory.remove_item(item, 1)
 	GameState.player.gold += item.price
 
 func _on_close_button_pressed() -> void:
 	visible = false
 	item_info_panel.clear()
+
+func _highlight_slot(clicked_slot, action):
+	var clicked_item = clicked_slot.current_item
+	
+	if action == "buy":
+		for slot in npc_item_grid.get_children():
+			if slot.has_method("set_selected"):
+				var slot_item = slot.current_item
+				if (clicked_item and slot_item and slot_item.id == clicked_item.id):
+					slot.set_selected(true)
+				else:
+					slot.set_selected(false)	
+	
+	if action == "sell":
+		for slot in player_item_grid.get_children():
+			if slot.has_method("set_selected"):
+				var slot_item = slot.current_item
+				if (clicked_item and slot_item and slot_item.id == clicked_item.id):
+					slot.set_selected(true)
+				else:
+					slot.set_selected(false)
+	
