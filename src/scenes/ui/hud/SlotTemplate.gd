@@ -3,7 +3,7 @@ extends Panel
 
 signal slot_clicked(slot)
 
-@onready var selected_panel: Panel = $PanelSelected
+@onready var selected_panel: Panel = $SelectedPanel
 @onready var icon: TextureRect = $TextureButton/Icon
 @onready var quantity_label: Label = $TextureButton/Quantity
 
