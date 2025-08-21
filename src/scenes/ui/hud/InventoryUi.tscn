@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://b6c34ptj7fxqe"]
+[gd_scene load_steps=10 format=3 uid="uid://b6c34ptj7fxqe"]
 
 [ext_resource type="Script" uid="uid://0njfbjbh5sr4" path="res://src/scenes/ui/hud/InventoryUi.gd" id="1_cqhmj"]
 [ext_resource type="PackedScene" uid="uid://4acfqyigneek" path="res://src/scenes/ui/hud/SlotTemplate.tscn" id="2_85kqp"]
 [ext_resource type="PackedScene" uid="uid://bq53kqc67dfp3" path="res://src/scenes/ui/hud/ItemInfoPanel.tscn" id="3_nsjed"]
+[ext_resource type="Texture2D" uid="uid://cxoacenk7jysw" path="res://assets/sprites/coins/gold_coin.png" id="4_elmam"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4n13n"]
 content_margin_left = 10.0
@@ -153,9 +154,23 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="MarginContainer" type="MarginContainer" parent="Main/Margin/VBoxContainer/Panel/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_right = 5
+
+[node name="TextureRect" type="TextureRect" parent="Main/Margin/VBoxContainer/Panel/HBoxContainer/MarginContainer"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("4_elmam")
+expand_mode = 1
+stretch_mode = 5
+
 [node name="GoldLabel" type="Label" parent="Main/Margin/VBoxContainer/Panel/HBoxContainer"]
 layout_mode = 2
-text = "Gold: 100"
+text = "100"
 
 [node name="CloseButton" type="Button" parent="Main/Margin"]
 custom_minimum_size = Vector2(60, 0)
