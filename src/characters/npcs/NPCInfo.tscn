@@ -73,6 +73,13 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0.313726, 0.188235, 0.117647, 1)
 theme_override_fonts/font = ExtResource("4_dx603")
 theme_override_font_sizes/font_size = 14
+text = "- Level:"
+
+[node name="LevelValue" type="Label" parent="Main/Margin/HBox/LeftPanel/Margin/Container/Header"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.313726, 0.188235, 0.117647, 1)
+theme_override_fonts/font = ExtResource("4_dx603")
+theme_override_font_sizes/font_size = 14
 text = "Level"
 
 [node name="Body" type="CenterContainer" parent="Main/Margin/HBox/LeftPanel/Margin/Container"]
@@ -145,6 +152,7 @@ size_flags_stretch_ratio = 2.0
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 2.0
+theme_override_constants/separation = 10
 
 [node name="VitalStatsBox" type="VBoxContainer" parent="Main/Margin/HBox/RightPanel/Margin/Container/IndexPanel"]
 layout_mode = 2
