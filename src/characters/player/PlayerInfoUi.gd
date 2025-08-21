@@ -64,6 +64,5 @@ func _on_level_changed(new_level):
 	# Khi level thay đổi, cập nhật lại EXP bar (vì max_exp mới)
 	_update_all()
 
-
 func _on_close_button_pressed() -> void:
 	visible = false
