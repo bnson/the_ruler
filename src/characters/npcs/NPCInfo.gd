@@ -52,3 +52,6 @@ func _update_info() -> void:
 	dex_value.text = str(npc_state.stats.get_dexterity())
 	int_value.text = str(npc_state.stats.get_intelligence())
 	agi_value.text = str(npc_state.stats.get_agility())
+
+func _on_close_button_pressed() -> void:
+	visible = false
