@@ -43,4 +43,4 @@ func _on_dialogue_option_selected(npc: NPC, option: Dictionary) -> void:
 	if event_name == "buy_sell":
 		npc.interact_open_shop()
 	elif event_name == "info":
-		pass
+		PlayerUi.show_npc_info(npc)
