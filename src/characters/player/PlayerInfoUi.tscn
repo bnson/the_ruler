@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://d2t1wj3osjtum" path="res://src/characters/player/PlayerInfoUi.gd" id="1_3f8lm"]
 [ext_resource type="Texture2D" uid="uid://dadms7mucpmnk" path="res://assets/sprites/characters/player/001.png" id="2_4yf6f"]
+[ext_resource type="StyleBox" uid="uid://c5ycuhopav2av" path="res://themes/header_style_001.tres" id="4_1qhtn"]
 [ext_resource type="FontFile" uid="uid://di6ws6uwx6486" path="res://assets/fonts/OpenSans_Condensed-Bold.ttf" id="4_vfh0t"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v5bnu"]
@@ -45,11 +46,6 @@ corner_radius_top_right = 2
 corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
 shadow_size = 1
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ditrg"]
-bg_color = Color(0, 0, 0, 0)
-border_width_bottom = 2
-border_color = Color(0.313726, 0.188235, 0.117647, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vfh0t"]
 bg_color = Color(0, 0, 0, 0.666667)
@@ -192,7 +188,7 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0.313726, 0.188235, 0.117647, 1)
 theme_override_fonts/font = ExtResource("4_vfh0t")
 theme_override_font_sizes/font_size = 16
-theme_override_styles/normal = SubResource("StyleBoxFlat_ditrg")
+theme_override_styles/normal = ExtResource("4_1qhtn")
 text = "VITAL STATS"
 
 [node name="Body" type="GridContainer" parent="Main/Margin/HBoxContainer/Panel2/VBoxContainer/VitalsContainer/VitalsBox"]
