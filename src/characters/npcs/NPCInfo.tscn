@@ -1,8 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://cgga0xmjh6vpo"]
+[gd_scene load_steps=6 format=3 uid="uid://cgga0xmjh6vpo"]
 
 [ext_resource type="Script" uid="uid://cwb64n6wjhfv8" path="res://src/characters/npcs/NPCInfo.gd" id="1_q78gg"]
 [ext_resource type="StyleBox" uid="uid://wbl2afd25hh5" path="res://themes/main_panel_style.tres" id="2_y4lld"]
 [ext_resource type="StyleBox" uid="uid://dgibhjalocopd" path="res://themes/sub_panel_style_001.tres" id="3_v0i3n"]
+[ext_resource type="FontFile" uid="uid://di6ws6uwx6486" path="res://assets/fonts/OpenSans_Condensed-Bold.ttf" id="4_dx603"]
+[ext_resource type="StyleBox" uid="uid://c5ycuhopav2av" path="res://themes/header_style_001.tres" id="5_v0gue"]
 
 [node name="NPCInfo" type="Control"]
 layout_mode = 3
@@ -37,10 +39,76 @@ layout_mode = 2
 [node name="LeftPanel" type="Panel" parent="Main/Margin/HBox"]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_stretch_ratio = 3.0
+size_flags_stretch_ratio = 4.0
 theme_override_styles/panel = ExtResource("3_v0i3n")
 
 [node name="Margin" type="MarginContainer" parent="Main/Margin/HBox/LeftPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 5
+
+[node name="Container" type="VBoxContainer" parent="Main/Margin/HBox/LeftPanel/Margin"]
+layout_mode = 2
+
+[node name="Header" type="HBoxContainer" parent="Main/Margin/HBox/LeftPanel/Margin/Container"]
+layout_mode = 2
+alignment = 1
+
+[node name="NameLabel" type="Label" parent="Main/Margin/HBox/LeftPanel/Margin/Container/Header"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.313726, 0.188235, 0.117647, 1)
+theme_override_fonts/font = ExtResource("4_dx603")
+theme_override_font_sizes/font_size = 14
+text = "Name"
+
+[node name="LevelLabel" type="Label" parent="Main/Margin/HBox/LeftPanel/Margin/Container/Header"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.313726, 0.188235, 0.117647, 1)
+theme_override_fonts/font = ExtResource("4_dx603")
+theme_override_font_sizes/font_size = 14
+text = "Level"
+
+[node name="Body" type="CenterContainer" parent="Main/Margin/HBox/LeftPanel/Margin/Container"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Portrait" type="TextureRect" parent="Main/Margin/HBox/LeftPanel/Margin/Container/Body"]
+layout_mode = 2
+size_flags_vertical = 3
+stretch_mode = 2
+
+[node name="Footer" type="HBoxContainer" parent="Main/Margin/HBox/LeftPanel/Margin/Container"]
+layout_mode = 2
+alignment = 1
+
+[node name="ExpLabel" type="Label" parent="Main/Margin/HBox/LeftPanel/Margin/Container/Footer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.313726, 0.188235, 0.117647, 1)
+theme_override_fonts/font = ExtResource("4_dx603")
+theme_override_font_sizes/font_size = 14
+text = "EXP:"
+
+[node name="ExpValue" type="Label" parent="Main/Margin/HBox/LeftPanel/Margin/Container/Footer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.313726, 0.188235, 0.117647, 1)
+theme_override_fonts/font = ExtResource("4_dx603")
+theme_override_font_sizes/font_size = 14
+text = "100"
+
+[node name="RightPanel" type="Panel" parent="Main/Margin/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 6.0
+theme_override_styles/panel = ExtResource("3_v0i3n")
+
+[node name="Margin" type="MarginContainer" parent="Main/Margin/HBox/RightPanel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -52,102 +120,206 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Main/Margin/HBox/LeftPanel/Margin"]
+[node name="Container" type="VBoxContainer" parent="Main/Margin/HBox/RightPanel/Margin"]
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="Main/Margin/HBox/LeftPanel/Margin/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-stretch_mode = 2
-
-[node name="NameLabel" type="Label" parent="Main/Margin/HBox/LeftPanel/Margin/VBoxContainer"]
-layout_mode = 2
-text = "Name"
-
-[node name="LevelLabel" type="Label" parent="Main/Margin/HBox/LeftPanel/Margin/VBoxContainer"]
-layout_mode = 2
-text = "Level"
-
-[node name="LoveLabel" type="Label" parent="Main/Margin/HBox/LeftPanel/Margin/VBoxContainer"]
-layout_mode = 2
-text = "Love"
-
-[node name="TrustLabel" type="Label" parent="Main/Margin/HBox/LeftPanel/Margin/VBoxContainer"]
-layout_mode = 2
-text = "Trust"
-
-[node name="LustLabel" type="Label" parent="Main/Margin/HBox/LeftPanel/Margin/VBoxContainer"]
-layout_mode = 2
-text = "Lust"
-
-[node name="CenterPanel" type="Panel" parent="Main/Margin/HBox"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 3.0
-theme_override_styles/panel = ExtResource("3_v0i3n")
-
-[node name="Margin" type="MarginContainer" parent="Main/Margin/HBox/CenterPanel"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Main/Margin/HBox/CenterPanel/Margin"]
-layout_mode = 2
-
-[node name="DialogueBox" type="RichTextLabel" parent="Main/Margin/HBox/CenterPanel/Margin/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-size_flags_stretch_ratio = 4.0
-
-[node name="LineEdit" type="LineEdit" parent="Main/Margin/HBox/CenterPanel/Margin/VBoxContainer"]
+[node name="InfoPanel" type="VBoxContainer" parent="Main/Margin/HBox/RightPanel/Margin/Container"]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 2.0
-text = "Hello,"
 
-[node name="RightPanel" type="Panel" parent="Main/Margin/HBox"]
+[node name="InfoLabel" type="Label" parent="Main/Margin/HBox/RightPanel/Margin/Container/InfoPanel"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.313726, 0.188235, 0.117647, 1)
+theme_override_fonts/font = ExtResource("4_dx603")
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = ExtResource("5_v0gue")
+text = "INFORMATION"
+
+[node name="InfoText" type="RichTextLabel" parent="Main/Margin/HBox/RightPanel/Margin/Container/InfoPanel"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.0
+
+[node name="IndexPanel" type="HBoxContainer" parent="Main/Margin/HBox/RightPanel/Margin/Container"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.0
+
+[node name="VitalStatsBox" type="VBoxContainer" parent="Main/Margin/HBox/RightPanel/Margin/Container/IndexPanel"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Main/Margin/HBox/RightPanel"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Panel" type="Panel" parent="Main/Margin/HBox/RightPanel/VBoxContainer"]
+[node name="Header" type="Label" parent="Main/Margin/HBox/RightPanel/Margin/Container/IndexPanel/VitalStatsBox"]
 layout_mode = 2
-size_flags_vertical = 3
-theme_override_styles/panel = ExtResource("3_v0i3n")
+theme_override_colors/font_color = Color(0.313726, 0.188235, 0.117647, 1)
+theme_override_fonts/font = ExtResource("4_dx603")
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = ExtResource("5_v0gue")
+text = "VITAL STATS"
 
-[node name="MarginContainer" type="MarginContainer" parent="Main/Margin/HBox/RightPanel/VBoxContainer/Panel"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="ScrollContainer" type="ScrollContainer" parent="Main/Margin/HBox/RightPanel/VBoxContainer/Panel/MarginContainer"]
+[node name="Grid" type="GridContainer" parent="Main/Margin/HBox/RightPanel/Margin/Container/IndexPanel/VitalStatsBox"]
 layout_mode = 2
-size_flags_vertical = 3
-size_flags_stretch_ratio = 2.0
+theme_override_constants/h_separation = 7
+theme_override_constants/v_separation = 5
+columns = 4
 
-[node name="GridContainer" type="GridContainer" parent="Main/Margin/HBox/RightPanel/VBoxContainer/Panel/MarginContainer/ScrollContainer"]
+[node name="HpLabel" type="Label" parent="Main/Margin/HBox/RightPanel/Margin/Container/IndexPanel/VitalStatsBox/Grid"]
 layout_mode = 2
-
-[node name="CloseButton" type="Button" parent="Main/Margin/HBox/RightPanel/VBoxContainer"]
-layout_mode = 2
-theme_override_colors/font_disabled_color = Color(0.921569, 0.792157, 0.0862745, 1)
-theme_override_colors/font_hover_pressed_color = Color(0.921569, 0.792157, 0.0862745, 1)
-theme_override_colors/font_outline_color = Color(0.921569, 0.792157, 0.0862745, 1)
-theme_override_colors/font_color = Color(0.921569, 0.792157, 0.0862745, 1)
-theme_override_constants/outline_size = 4
+theme_override_colors/font_color = Color(0.313726, 0.188235, 0.117647, 1)
+theme_override_fonts/font = ExtResource("4_dx603")
 theme_override_font_sizes/font_size = 14
-text = "X"
+text = "HP:"
+
+[node name="HpValue" type="Label" parent="Main/Margin/HBox/RightPanel/Margin/Container/IndexPanel/VitalStatsBox/Grid"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.313726, 0.188235, 0.117647, 1)
+theme_override_fonts/font = ExtResource("4_dx603")
+theme_override_font_sizes/font_size = 14
+text = "100"
+
+[node name="LoveLabel" type="Label" parent="Main/Margin/HBox/RightPanel/Margin/Container/IndexPanel/VitalStatsBox/Grid"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.313726, 0.188235, 0.117647, 1)
+theme_override_fonts/font = ExtResource("4_dx603")
+theme_override_font_sizes/font_size = 14
+text = "Love:"
+
+[node name="LoveValue" type="Label" parent="Main/Margin/HBox/RightPanel/Margin/Container/IndexPanel/VitalStatsBox/Grid"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.313726, 0.188235, 0.117647, 1)
+theme_override_fonts/font = ExtResource("4_dx603")
+theme_override_font_sizes/font_size = 14
+text = "100"
+
+[node name="MpLabel" type="Label" parent="Main/Margin/HBox/RightPanel/Margin/Container/IndexPanel/VitalStatsBox/Grid"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.313726, 0.188235, 0.117647, 1)
+theme_override_fonts/font = ExtResource("4_dx603")
+theme_override_font_sizes/font_size = 14
+text = "MP:"
+
+[node name="MpValue" type="Label" parent="Main/Margin/HBox/RightPanel/Margin/Container/IndexPanel/VitalStatsBox/Grid"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.313726, 0.188235, 0.117647, 1)
+theme_override_fonts/font = ExtResource("4_dx603")
+theme_override_font_sizes/font_size = 14
+text = "100"
+
+[node name="TrustLabel" type="Label" parent="Main/Margin/HBox/RightPanel/Margin/Container/IndexPanel/VitalStatsBox/Grid"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.313726, 0.188235, 0.117647, 1)
+theme_override_fonts/font = ExtResource("4_dx603")
+theme_override_font_sizes/font_size = 14
+text = "Trust:"
+
+[node name="TrustValue" type="Label" parent="Main/Margin/HBox/RightPanel/Margin/Container/IndexPanel/VitalStatsBox/Grid"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.313726, 0.188235, 0.117647, 1)
+theme_override_fonts/font = ExtResource("4_dx603")
+theme_override_font_sizes/font_size = 14
+text = "100"
+
+[node name="StaLabel" type="Label" parent="Main/Margin/HBox/RightPanel/Margin/Container/IndexPanel/VitalStatsBox/Grid"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.313726, 0.188235, 0.117647, 1)
+theme_override_fonts/font = ExtResource("4_dx603")
+theme_override_font_sizes/font_size = 14
+text = "STA:"
+
+[node name="StaValue" type="Label" parent="Main/Margin/HBox/RightPanel/Margin/Container/IndexPanel/VitalStatsBox/Grid"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.313726, 0.188235, 0.117647, 1)
+theme_override_fonts/font = ExtResource("4_dx603")
+theme_override_font_sizes/font_size = 14
+text = "100"
+
+[node name="LustLabel" type="Label" parent="Main/Margin/HBox/RightPanel/Margin/Container/IndexPanel/VitalStatsBox/Grid"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.313726, 0.188235, 0.117647, 1)
+theme_override_fonts/font = ExtResource("4_dx603")
+theme_override_font_sizes/font_size = 14
+text = "Lust:"
+
+[node name="LustValue" type="Label" parent="Main/Margin/HBox/RightPanel/Margin/Container/IndexPanel/VitalStatsBox/Grid"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.313726, 0.188235, 0.117647, 1)
+theme_override_fonts/font = ExtResource("4_dx603")
+theme_override_font_sizes/font_size = 14
+text = "100"
+
+[node name="BaseAttBox" type="VBoxContainer" parent="Main/Margin/HBox/RightPanel/Margin/Container/IndexPanel"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+
+[node name="Header" type="Label" parent="Main/Margin/HBox/RightPanel/Margin/Container/IndexPanel/BaseAttBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.313726, 0.188235, 0.117647, 1)
+theme_override_fonts/font = ExtResource("4_dx603")
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = ExtResource("5_v0gue")
+text = "BASE ATTRIBUTES"
+
+[node name="Grid" type="GridContainer" parent="Main/Margin/HBox/RightPanel/Margin/Container/IndexPanel/BaseAttBox"]
+layout_mode = 2
+theme_override_constants/h_separation = 7
+theme_override_constants/v_separation = 5
+columns = 4
+
+[node name="StrLabel" type="Label" parent="Main/Margin/HBox/RightPanel/Margin/Container/IndexPanel/BaseAttBox/Grid"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.313726, 0.188235, 0.117647, 1)
+theme_override_fonts/font = ExtResource("4_dx603")
+theme_override_font_sizes/font_size = 14
+text = "STR:"
+
+[node name="StrValue" type="Label" parent="Main/Margin/HBox/RightPanel/Margin/Container/IndexPanel/BaseAttBox/Grid"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.313726, 0.188235, 0.117647, 1)
+theme_override_fonts/font = ExtResource("4_dx603")
+theme_override_font_sizes/font_size = 14
+text = "100"
+
+[node name="DexLabel" type="Label" parent="Main/Margin/HBox/RightPanel/Margin/Container/IndexPanel/BaseAttBox/Grid"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.313726, 0.188235, 0.117647, 1)
+theme_override_fonts/font = ExtResource("4_dx603")
+theme_override_font_sizes/font_size = 14
+text = "DEX:"
+
+[node name="DexValue" type="Label" parent="Main/Margin/HBox/RightPanel/Margin/Container/IndexPanel/BaseAttBox/Grid"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.313726, 0.188235, 0.117647, 1)
+theme_override_fonts/font = ExtResource("4_dx603")
+theme_override_font_sizes/font_size = 14
+text = "100"
+
+[node name="IntLabel" type="Label" parent="Main/Margin/HBox/RightPanel/Margin/Container/IndexPanel/BaseAttBox/Grid"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.313726, 0.188235, 0.117647, 1)
+theme_override_fonts/font = ExtResource("4_dx603")
+theme_override_font_sizes/font_size = 14
+text = "INT:"
+
+[node name="IntValue" type="Label" parent="Main/Margin/HBox/RightPanel/Margin/Container/IndexPanel/BaseAttBox/Grid"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.313726, 0.188235, 0.117647, 1)
+theme_override_fonts/font = ExtResource("4_dx603")
+theme_override_font_sizes/font_size = 14
+text = "100"
+
+[node name="AgiLabel" type="Label" parent="Main/Margin/HBox/RightPanel/Margin/Container/IndexPanel/BaseAttBox/Grid"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.313726, 0.188235, 0.117647, 1)
+theme_override_fonts/font = ExtResource("4_dx603")
+theme_override_font_sizes/font_size = 14
+text = "AGI:"
+
+[node name="AgiValue" type="Label" parent="Main/Margin/HBox/RightPanel/Margin/Container/IndexPanel/BaseAttBox/Grid"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.313726, 0.188235, 0.117647, 1)
+theme_override_fonts/font = ExtResource("4_dx603")
+theme_override_font_sizes/font_size = 14
+text = "100"
