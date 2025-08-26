@@ -12,14 +12,12 @@ signal player_entered(npc: NPC)
 signal player_exited(npc: NPC)
 signal request_dialogue(npc: NPC, res: DialogueResource, start_node_id: String)
 signal request_shop(npc: NPC)
-signal gift_received(npc: NPC, item_id: String, is_favorite: bool)
 
 # ---- Config/UI/Dialogue ----
 @export var display_name: String = "Unnamed NPC"
 @export var dialogue_resource: DialogueResource
 @export var start_node_id: String = "start"
-@export var sell_items: Array[Item] = []               # nếu có shop
-@export var accept_gift_item_ids: Array[String] = []   # loại quà chấp nhận nhận
+@export var sell_items: Array[Item] = [] # nếu có shop
 
 # ---- State (ôm Stats) ----
 @export var state: NPCState = NPCState.new()
@@ -28,13 +26,14 @@ signal gift_received(npc: NPC, item_id: String, is_favorite: bool)
 @onready var detection_area: Area2D = $DetectionArea
 
 func _ready() -> void:
-        # Bảo vệ
-        if state == null:
-                state = NPCState.new()
-        if state.npc_id.is_empty():
-                state.npc_id = name
-        state = NpcStateManager.register_state(state.npc_id, state)
-        state.setup_signals_once()
+	# Bảo vệ
+	if state == null:
+		state = NPCState.new()
+	if state.npc_id.is_empty():
+		state.npc_id = name
+	
+	state = NpcStateManager.register_state(state.npc_id, state)
+	state.setup_signals_once()
 
 	# Kết nối detection
 	if detection_area:
@@ -70,15 +69,6 @@ func interact_open_dialogue() -> void:
 
 func interact_open_shop() -> void:
 	request_shop.emit(self)
-
-func give_gift(item_id: String) -> void:
-	# Kiểm tra có nhận loại quà này không (nếu bạn muốn hạn chế)
-	if accept_gift_item_ids.size() > 0 and not (item_id in accept_gift_item_ids):
-		# Không nhận → có thể phát voice line/tooltip tuỳ bạn
-		return
-	var fav := item_id in state.favorite_gifts
-	state.receive_gift(item_id)
-	gift_received.emit(self, item_id, fav)
 
 # ---------- Helpers (tiện UI/logic) ----------
 func get_stat(key: String) -> float:
