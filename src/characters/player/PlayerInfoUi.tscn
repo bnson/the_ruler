@@ -174,7 +174,7 @@ size_flags_vertical = 3
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 20
-theme_override_constants/margin_bottom = 10
+theme_override_constants/margin_bottom = 5
 
 [node name="VitalsBox" type="VBoxContainer" parent="Main/Margin/HBoxContainer/Panel2/VBoxContainer/VitalsContainer"]
 layout_mode = 2
@@ -193,6 +193,7 @@ text = "VITAL STATS"
 
 [node name="Body" type="GridContainer" parent="Main/Margin/HBoxContainer/Panel2/VBoxContainer/VitalsContainer/VitalsBox"]
 layout_mode = 2
+theme_override_constants/v_separation = 1
 
 [node name="Hp" type="HBoxContainer" parent="Main/Margin/HBoxContainer/Panel2/VBoxContainer/VitalsContainer/VitalsBox/Body"]
 layout_mode = 2
@@ -211,6 +212,7 @@ text = "HP"
 [node name="Progress" type="MarginContainer" parent="Main/Margin/HBoxContainer/Panel2/VBoxContainer/VitalsContainer/VitalsBox/Body/Hp"]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 4
 
 [node name="Bar" type="ProgressBar" parent="Main/Margin/HBoxContainer/Panel2/VBoxContainer/VitalsContainer/VitalsBox/Body/Hp/Progress"]
 layout_mode = 2
@@ -246,10 +248,10 @@ text = "MP"
 [node name="Progress" type="MarginContainer" parent="Main/Margin/HBoxContainer/Panel2/VBoxContainer/VitalsContainer/VitalsBox/Body/Mp"]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 4
 
 [node name="Bar" type="ProgressBar" parent="Main/Margin/HBoxContainer/Panel2/VBoxContainer/VitalsContainer/VitalsBox/Body/Mp/Progress"]
 layout_mode = 2
-size_flags_horizontal = 3
 size_flags_vertical = 1
 theme_override_fonts/font = ExtResource("4_vfh0t")
 theme_override_font_sizes/font_size = 10
@@ -281,6 +283,7 @@ text = "STA"
 [node name="Progress" type="MarginContainer" parent="Main/Margin/HBoxContainer/Panel2/VBoxContainer/VitalsContainer/VitalsBox/Body/Sta"]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 4
 
 [node name="Bar" type="ProgressBar" parent="Main/Margin/HBoxContainer/Panel2/VBoxContainer/VitalsContainer/VitalsBox/Body/Sta/Progress"]
 layout_mode = 2
@@ -316,6 +319,7 @@ text = "EXP"
 [node name="Progress" type="MarginContainer" parent="Main/Margin/HBoxContainer/Panel2/VBoxContainer/VitalsContainer/VitalsBox/Body/Exp"]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 4
 
 [node name="Bar" type="ProgressBar" parent="Main/Margin/HBoxContainer/Panel2/VBoxContainer/VitalsContainer/VitalsBox/Body/Exp/Progress"]
 layout_mode = 2
