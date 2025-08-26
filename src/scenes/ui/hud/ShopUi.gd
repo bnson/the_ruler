@@ -159,6 +159,8 @@ func _on_buy_item(slot) -> void:
 
 	GameState.player.gold -= buy_price
 	GameState.player.inventory.add_item(item, 1)
+	# ==
+	current_npc.state.stats.trust += 1
 	# Refresh nhưng giữ nguyên lựa chọn ở SHOP để tiếp tục mua
 	_refresh()
 
@@ -212,7 +214,6 @@ func _on_buy_button_pressed() -> void:
 		return
 
 	_on_buy_item(target_slot)
-	current_npc.state.stats.trust += 1
 
 
 func _on_sell_button_pressed() -> void:
