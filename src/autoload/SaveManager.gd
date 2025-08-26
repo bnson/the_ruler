@@ -13,12 +13,10 @@ func _ready():
 func _on_time_updated(day_name, hour, minute, is_daytime, time_period):
 	if minute == 0 and hour != last_autosave_hour:
 		last_autosave_hour = hour
-		#save_game()
+		save_game()
 
 func save_game(path: String = SAVE_PATH):
 	var player_state := GameState.player.to_dict()
-	#print(player_state)
-	#player_state.erase("inventory")
 	var pos : Vector2 = Global.player.global_position if Global.player else Vector2.ZERO
 	
 	var state := {
