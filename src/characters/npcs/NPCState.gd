@@ -12,8 +12,7 @@ signal stats_changed(npc_id: String) # tổng quát, tiện cho UI refresh
 
 @export var npc_id: String = ""
 @export var stats: NPCStats = NPCStats.new()
-@export var favorite_gifts: Array[String] = []   # quà ưa thích (ID/Name tuỳ bạn)
-@export var given_gifts: Array[String] = []      # lịch sử quà đã tặng
+
 
 func _init() -> void:
 	# Đảm bảo Stats có giá trị mặc định hợp lý (nếu cần)
@@ -26,15 +25,6 @@ func setup_signals_once() -> void:
 		stats.stats_changed.connect(_on_stats_changed)
 	if not stats.is_connected("affection_changed", _on_affection_changed):
 		stats.affection_changed.connect(_on_affection_changed)
-
-func receive_gift(item_id: String) -> void:
-	# Logic quà → tăng chỉ số social
-	var love_delta : float = 5.0 if item_id in favorite_gifts else 1.0
-	var trust_delta : float = 3.0 if item_id in favorite_gifts else 1.0
-	stats.add_stat_value("love", love_delta)
-	stats.add_stat_value("trust", trust_delta)
-	given_gifts.append(item_id)
-	# (signals đã phát từ NPCStats → _on_affection_changed sẽ re-emit)
 
 func take_damage(amount: float) -> void:
 	var cur := stats.get_stat_value("current_hp")
@@ -62,21 +52,17 @@ func spend_sta(cost: float) -> bool:
 
 # ---------- Save/Load ----------
 func to_dict() -> Dictionary:
-		return {
-				"npc_id": npc_id,
-				"stats": stats.to_dict(),
-				"favorite_gifts": favorite_gifts.duplicate(),
-				"given_gifts": given_gifts.duplicate()
-		}
+	return {
+		"npc_id": npc_id,
+		"stats": stats.to_dict()
+	}
 
 func from_dict(d: Dictionary) -> void:
-		npc_id = d.get("npc_id", npc_id)
-		if d.has("stats"):
-				stats.from_dict(d["stats"])
-		favorite_gifts = d.get("favorite_gifts", favorite_gifts)
-		given_gifts = d.get("given_gifts", given_gifts)
-		# đảm bảo signal đã nối
-		setup_signals_once()
+	npc_id = d.get("npc_id", npc_id)
+	if d.has("stats"):
+		stats.from_dict(d["stats"])
+	# đảm bảo signal đã nối
+	setup_signals_once()
 
 # ---------- Re-emit nội bộ ----------
 func _on_stats_changed() -> void:
