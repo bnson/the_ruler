@@ -256,6 +256,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
 
 [node name="ScrollContainer" type="ScrollContainer" parent="Panel/Margin/HBox/VBox/GiftPanel/VBoxContainer/Panel/MarginContainer"]
 layout_mode = 2
@@ -264,6 +268,9 @@ size_flags_stretch_ratio = 2.0
 
 [node name="GridContainer" type="GridContainer" parent="Panel/Margin/HBox/VBox/GiftPanel/VBoxContainer/Panel/MarginContainer/ScrollContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+columns = 5
 
 [node name="ChatPanel" type="Panel" parent="Panel/Margin/HBox/VBox"]
 layout_mode = 2
