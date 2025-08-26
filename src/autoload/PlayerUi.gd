@@ -6,6 +6,7 @@ extends CanvasLayer
 @onready var npc_info_ui: NPCInfo = $CenterContainer/NPCInfo
 @onready var inventory_ui: Control = $CenterContainer/InventoryUI
 @onready var shop_ui: Control = $CenterContainer/ShopUi
+@onready var npc_chat_ui: NPCChatUi = $CenterContainer/NPCChatUi
 @onready var joystick : Joystick = $BottomLeftContainer/Joystick
 @onready var attack_buttons : AttackButtons = $BottomRightContainer/AttackButtons
 
@@ -41,5 +42,10 @@ func show_shop(npc: NPC):
 func show_npc_info(npc: NPC):
 	if npc == null:
 		return
-	
 	npc_info_ui.open(npc)
+
+func show_npc_chat(npc: NPC) -> void:
+	if npc == null:
+		return
+	npc_chat_ui.open(npc)
+	
