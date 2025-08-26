@@ -12,6 +12,5 @@ func _ready():
 		sell_items = [
 			ItemDatabase.get_item("apple")
 		]
-		accept_gift_item_ids = ["apple"]
 	else:
 		push_warning("⚠ ItemDatabase chưa sẵn sàng khi AmiceGrover khởi tạo.")
