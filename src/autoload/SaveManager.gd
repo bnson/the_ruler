@@ -19,13 +19,14 @@ func save_game(path: String = SAVE_PATH):
 	var player_state := GameState.player.to_dict()
 	var pos : Vector2 = Global.player.global_position if Global.player else Vector2.ZERO
 	
-        var state := {
-                "player": player_state,
-                "time": TimeManager.to_dict(),
-                "npcs": NpcStateManager.to_dict(),
-                "player_position": [pos.x, pos.y],
-                "saved_at": Time.get_datetime_string_from_system()
-        }
+	var state := {
+		"player": player_state,
+		"time": TimeManager.to_dict(),
+		"npcs": NpcStateManager.to_dict(),
+		"player_position": [pos.x, pos.y],
+		"saved_at": Time.get_datetime_string_from_system()
+	}
+	
 	var file := FileAccess.open(path, FileAccess.WRITE)
 	file.store_string(JSON.stringify(state))
 	file.close()
@@ -44,13 +45,14 @@ func load_game(path: String = SAVE_PATH) -> bool:
 	if typeof(state) != TYPE_DICTIONARY:
 		Logger.debug_error("Failed to parse save file", "SaveManager", "System")
 		return false
-
-        var player_data : Variant = state.get("player", {})
-        GameState.player.from_dict(player_data)
-
-        TimeManager.from_dict(state.get("time", {}))
-        NpcStateManager.from_dict(state.get("npcs", {}))
 	
+	#--
+	var player_data : Variant = state.get("player", {})
+	GameState.player.from_dict(player_data)
+	TimeManager.from_dict(state.get("time", {}))
+	NpcStateManager.from_dict(state.get("npcs", {}))
+	
+	#--
 	var pos = state.get("player_position", null)
 	if pos is Array and pos.size() == 2:
 		GameState.player_position = Vector2(pos[0], pos[1])
