@@ -22,6 +22,9 @@ func _refresh():
 	
 	gold_label.text = str(GameState.player.gold)
 	
+	# Clear cả hai bảng info
+	general_info_panel.clear()
+	special_info_panel.clear()
 	# Xoá slot cũ ở cả hai vùng
 	for child in general_grid.get_children():
 		child.queue_free()
