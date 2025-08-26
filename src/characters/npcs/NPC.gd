@@ -28,10 +28,13 @@ signal gift_received(npc: NPC, item_id: String, is_favorite: bool)
 @onready var detection_area: Area2D = $DetectionArea
 
 func _ready() -> void:
-	# Bảo vệ
-	if state == null:
-		state = NPCState.new()
-	state.setup_signals_once()
+        # Bảo vệ
+        if state == null:
+                state = NPCState.new()
+        if state.npc_id.is_empty():
+                state.npc_id = name
+        state = NpcStateManager.register_state(state.npc_id, state)
+        state.setup_signals_once()
 
 	# Kết nối detection
 	if detection_area:
