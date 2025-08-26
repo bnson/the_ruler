@@ -7,11 +7,11 @@ signal affection_changed(love, trust, lust)
 
 # Social stats
 var _love: float = 0
-var _max_love: float = 100
+var _max_love: float = 999
 var _trust: float = 0
-var _max_trust: float = 100
+var _max_trust: float = 999
 var _lust: float = 0
-var _max_lust: float = 100
+var _max_lust: float = 999
 
 var love:
 	get: return _love
