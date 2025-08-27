@@ -13,6 +13,8 @@ signal stats_changed(npc_id: String) # tổng quát, tiện cho UI refresh
 @export var npc_id: String = ""
 @export var stats: NPCStats = NPCStats.new()
 
+var last_chat_day: String = ""
+
 
 func _init() -> void:
 	# Đảm bảo Stats có giá trị mặc định hợp lý (nếu cần)
@@ -54,13 +56,15 @@ func spend_sta(cost: float) -> bool:
 func to_dict() -> Dictionary:
 	return {
 		"npc_id": npc_id,
-		"stats": stats.to_dict()
+		"stats": stats.to_dict(),
+		"last_chat_day": last_chat_day
 	}
 
 func from_dict(d: Dictionary) -> void:
 	npc_id = d.get("npc_id", npc_id)
 	if d.has("stats"):
 		stats.from_dict(d["stats"])
+	last_chat_day = d.get("last_chat_day", last_chat_day)
 	# đảm bảo signal đã nối
 	setup_signals_once()
 
