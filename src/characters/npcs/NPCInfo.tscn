@@ -147,6 +147,8 @@ text = "INFORMATION"
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 2.0
+theme_override_colors/default_color = Color(0.329412, 0.207843, 0.133333, 1)
+theme_override_font_sizes/normal_font_size = 12
 
 [node name="IndexPanel" type="HBoxContainer" parent="Main/Margin/HBox/RightPanel/Margin/Container"]
 layout_mode = 2
