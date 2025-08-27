@@ -3,6 +3,7 @@ extends Control
 class_name NPCInfo
 
 @onready var name_label := $Main/Margin/HBox/LeftPanel/Margin/Container/Header/NameLabel
+@onready var info_text := $Main/Margin/HBox/RightPanel/Margin/Container/InfoPanel/InfoText
 @onready var level_value := $Main/Margin/HBox/LeftPanel/Margin/Container/Header/LevelValue
 @onready var exp_value := $Main/Margin/HBox/LeftPanel/Margin/Container/Footer/ExpValue
 
@@ -49,6 +50,7 @@ func close() -> void:
 
 func _update_info() -> void:
 	name_label.text = current_npc.display_name
+	info_text.text = current_npc.display_info
 	
 	var exp_to_next = current_npc.state.stats.get_exp_to_next_level(current_npc.state.stats.level)
 	level_value.text = str(current_npc.state.stats.level)
