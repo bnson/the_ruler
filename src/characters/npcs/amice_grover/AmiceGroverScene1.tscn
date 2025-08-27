@@ -1,4 +1,4 @@
-[gd_scene load_steps=189 format=3 uid="uid://c45s5ch02b0k0"]
+[gd_scene load_steps=188 format=3 uid="uid://c45s5ch02b0k0"]
 
 [ext_resource type="Script" uid="uid://vyjqvcu850eh" path="res://src/characters/npcs/amice_grover/AmiceGroverScene1.gd" id="1_hyvf1"]
 [ext_resource type="Texture2D" uid="uid://cqdmscqoj30bv" path="res://assets/sprites/characters/npcs/amice_grover/scene_1/act1/0000.jpg" id="2_olo8a"]
@@ -758,19 +758,18 @@ bg_color = Color(0, 0, 0, 0)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5ikf4"]
 bg_color = Color(0, 0, 0, 0)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_orb8o"]
-bg_color = Color(0, 0, 0, 0)
-
 [node name="AmiceGroverScene1" type="Node"]
 script = ExtResource("1_hyvf1")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+visible = false
 position = Vector2(242.075, 166.625)
 scale = Vector2(0.718229, 0.718229)
 sprite_frames = SubResource("SpriteFrames_j8ee2")
 animation = &"action_3"
 
 [node name="InfoLabel" type="Label" parent="."]
+visible = false
 offset_right = 40.0
 offset_bottom = 23.0
 
@@ -782,35 +781,34 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_y1aig")
 
-[node name="MarginContainer" type="MarginContainer" parent="Panel"]
+[node name="Margin" type="MarginContainer" parent="Panel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Panel/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/Margin"]
 layout_mode = 2
 
-[node name="Panel1" type="Panel" parent="Panel/MarginContainer/HBoxContainer"]
+[node name="Panel1" type="Panel" parent="Panel/Margin/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_5ikf4")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer/HBoxContainer/Panel1"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/Margin/HBoxContainer/Panel1"]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="MoodBar" type="ProgressBar" parent="Panel/MarginContainer/HBoxContainer/Panel1/VBoxContainer"]
+[node name="LoveBar" type="ProgressBar" parent="Panel/Margin/HBoxContainer/Panel1/VBoxContainer"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 8
-max_value = 200.0
-value = 200.0
 
-[node name="Panel2" type="Panel" parent="Panel/MarginContainer/HBoxContainer"]
+[node name="TensionBar" type="ProgressBar" parent="Panel/Margin/HBoxContainer/Panel1/VBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 3
-theme_override_styles/panel = SubResource("StyleBoxFlat_orb8o")
+theme_override_font_sizes/font_size = 8
