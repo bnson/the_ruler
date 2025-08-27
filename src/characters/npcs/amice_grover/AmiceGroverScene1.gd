@@ -35,35 +35,45 @@ signal tap_feedback(meter: float, count: int, tps: float)
 var tap_meter := 0.0
 var tap_count := 0
 var taps: Array[float] = []
-#--
-var current_npc_lust : float = 0
-var current_npc_power_score : float = 0
-#--
-var player_power_score : float = 0
-var player_stamina_player : float = 0
+# Gameplay stats ---------------------------------------------------------
+# NPC stats are passed in from elsewhere (e.g. the dialogue system)
+var current_npc_lust : float = 0.0
+var current_npc_power_score : float = 0.0
+var current_npc_love : float = 0.0
+
+# Player stats
+var player_power_score : float = 0.0
+var player_stamina_player : float = 0.0
+
+# Runtime meters used for the LOVE/TENSION mini‑game
+var love := 0.0
+var tension := 0.0
+var overheated_threshold := 90.0
 
 
 func _ready():
 	PlayerUi.visible = false
-	DayNightController.visible = false	
+	DayNightController.visible = false
 	
 	_validate_setup()
 	_switch_action(action_names[0])
 	sprite.play()
 
-	# Tạo label nếu chưa có
-	if show_info and info_label == null:
-		info_label = Label.new()
-		info_label.name = "InfoLabel"
-		info_label.position = info_position
-		info_label.autowrap_mode = TextServer.AUTOWRAP_WORD
-		add_child(info_label)
+	# Initialise UI meters
+	if love_bar:
+		love_bar.value = love
+	if tension_bar:
+		tension_bar.value = tension
+
 
 func _process(delta: float) -> void:
 	# Giảm meter & cập nhật speed
 	tap_meter = max(0.0, tap_meter - decay * delta)
 	var t = clamp(tap_meter / 5.0, 0.0, 1.0)
 	sprite.speed_scale = lerp(speed_min, speed_max, t)
+
+	# Update LOVE/TENSION mini-game meters
+	_update_meters(delta)
 
 	# Quyết định action
 	var tps := _current_tps()
@@ -98,6 +108,76 @@ func _unhandled_input(event: InputEvent) -> void:
 		tap_meter += tap_boost
 		tap_count += 1
 		_push_tap_time()
+		_apply_tap_effects()
+		
+# ---------- LOVE/TENSION mini-game logic ----------
+func _apply_tap_effects() -> void:
+	var lust_bonus := 1.0 + current_npc_lust * 0.1
+	var stamina_reduction := 1.0 - player_stamina_player * 0.05
+	var tension_gain := 5.0 * stamina_reduction * (1.0 - current_npc_lust * 0.05)
+	var love_gain := 5.0 * lust_bonus
+	if _is_unwinnable_round():
+		tension_gain *= 2.0
+		love_gain *= 0.5
+	tension += tension_gain
+	love += love_gain
+	_clamp_and_update_bars()
+
+func _update_meters(delta: float) -> void:
+	# Passive love gain when tension is in comfort zone
+	var comfort_width := 20.0 + current_npc_lust * 5.0
+	var lower := 50.0 - comfort_width / 2.0
+	var upper := 50.0 + comfort_width / 2.0
+	if tension >= lower and tension <= upper:
+		love += (2.0 * (1.0 + current_npc_lust * 0.2)) * delta
+
+	# Tension decay over time (unless overheated)
+	if tension < overheated_threshold:
+		tension = max(0.0, tension - (3.0 * (1.0 + player_stamina_player * 0.2)) * delta)
+
+	_clamp_and_update_bars()
+
+	var unwinnable := _is_unwinnable_round()
+	var love_max := love_bar.max_value if love_bar else 100.0
+	var tension_max := tension_bar.max_value if tension_bar else 100.0
+	if love >= love_max:
+		_resolve_round(true, unwinnable)
+	elif tension >= tension_max:
+		_resolve_round(false, unwinnable)
+
+func _resolve_round(player_won: bool, unwinnable: bool) -> void:
+	if unwinnable:
+		player_won = false
+	if player_won:
+		current_npc_love += 1.0
+		current_npc_lust += 1.0
+	else:
+		current_npc_love = max(0.0, current_npc_love - 1.0)
+		current_npc_lust = max(0.0, current_npc_lust - 1.0)
+	_reset_round()
+
+func _reset_round() -> void:
+	love = 0.0
+	tension = 0.0
+	tap_count = 0
+	taps.clear()
+	_clamp_and_update_bars()
+
+func _clamp_and_update_bars() -> void:
+	var love_max := love_bar.max_value if love_bar else 100.0
+	var tension_max := tension_bar.max_value if tension_bar else 100.0
+	love = clamp(love, 0.0, love_max)
+	tension = clamp(tension, 0.0, tension_max)
+	if love_bar:
+		love_bar.value = love
+	if tension_bar:
+		tension_bar.value = tension
+
+func _is_unwinnable_round() -> bool:
+	if player_power_score <= 0.0:
+		return true
+	var epr : float = current_npc_power_score / max(player_power_score, 0.001)
+	return epr >= 2.0
 
 # ---------- Helpers ----------
 func _apply_action_by_total() -> void:
