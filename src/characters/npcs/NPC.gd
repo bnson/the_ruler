@@ -15,6 +15,7 @@ signal request_shop(npc: NPC)
 
 # ---- Config/UI/Dialogue ----
 @export var display_name: String = "Unnamed NPC"
+@export var display_info: String = ""
 @export var dialogue_resource: DialogueResource
 @export var start_node_id: String = "start"
 @export var sell_items: Array[Item] = [] # nếu có shop
