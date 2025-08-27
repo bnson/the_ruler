@@ -15,20 +15,20 @@ var bonus_intelligence := 0
 var bonus_agility := 0
 
 # Level and EXP
-var _level := 1
-var _experience := 0
+var _level : int = 1
+var _experience : float = 0
 
 # HP
-var _current_hp: float = 100
-var _max_hp: float = 100
+var _current_hp : float = 100
+var _max_hp : float = 100
 
 # MP
-var _current_mp: float = 100
-var _max_mp: float = 100
+var _current_mp : float = 100
+var _max_mp : float = 100
 
 # STA (Stamina)
-var _current_sta: float = 100
-var _max_sta: float = 100
+var _current_sta : float = 100
+var _max_sta : float = 100
 
 func _on_stat_updated(_stat_name: String) -> void:
 	pass
@@ -88,16 +88,16 @@ var max_sta:
 		_on_stat_updated("max_sta")
 
 ### FINAL ATTRIBUTES ###
-func get_strength() -> int:
+func get_strength() -> float:
 	return base_strength + bonus_strength
 
-func get_dexterity() -> int:
+func get_dexterity() -> float:
 	return base_dexterity + bonus_dexterity
 
-func get_intelligence() -> int:
+func get_intelligence() -> float:
 	return base_intelligence + bonus_intelligence
 
-func get_agility() -> int:
+func get_agility() -> float:
 	return base_agility + bonus_agility
 
 ### SERIALIZATION ###
@@ -170,8 +170,8 @@ func get_stat_value(key: String) -> float:
 
 func set_stat_value(key: String, value: float) -> void:
 	match key:
-		"level": level = int(value)
-		"experience": experience = int(value)
+		"level": level = value
+		"experience": experience = value
 		"current_hp": current_hp = value
 		"max_hp": max_hp = value
 		"current_mp": current_mp = value
@@ -179,28 +179,28 @@ func set_stat_value(key: String, value: float) -> void:
 		"current_sta": current_sta = value
 		"max_sta": max_sta = value
 		"base_strength":
-			base_strength = int(value)
+			base_strength = value
 			_on_stat_updated("base_strength")
 		"base_dexterity":
-			base_dexterity = int(value)
+			base_dexterity = value
 			_on_stat_updated("base_dexterity")
 		"base_intelligence":
-			base_intelligence = int(value)
+			base_intelligence = value
 			_on_stat_updated("base_intelligence")
 		"base_agility":
-			base_agility = int(value)
+			base_agility = value
 			_on_stat_updated("base_agility")
 		"bonus_strength":
-			bonus_strength = int(value)
+			bonus_strength = value
 			_on_stat_updated("bonus_strength")
 		"bonus_dexterity":
-			bonus_dexterity = int(value)
+			bonus_dexterity = value
 			_on_stat_updated("bonus_dexterity")
 		"bonus_intelligence":
-			bonus_intelligence = int(value)
+			bonus_intelligence = value
 			_on_stat_updated("bonus_intelligence")
 		"bonus_agility":
-			bonus_agility = int(value)
+			bonus_agility = value
 			_on_stat_updated("bonus_agility")
 		_:
 			push_warning("Unknown stat key: %s" % key)
