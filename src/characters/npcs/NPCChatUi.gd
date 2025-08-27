@@ -18,12 +18,15 @@ class_name NPCChatUi
 
 @onready var gift_item_grid: GridContainer = $Panel/Margin/HBox/VBox/GiftPanel/VBoxContainer/Panel/MarginContainer/ScrollContainer/GridContainer
 @onready var dialogue_box: RichTextLabel = $Panel/Margin/HBox/VBox/ChatPanel/Margin/VBoxContainer/DialogueBox
+@onready var chat_input: LineEdit = $Panel/Margin/HBox/VBox/ChatPanel/Margin/VBoxContainer/LineEdit
 
 const GIFT_MAX_SLOTS := 10
 const LOVE_PER_GIFT := 1
 
 var current_npc: NPC
 
+func _ready() -> void:
+	chat_input.connect("text_submitted", Callable(self, "_on_chat_submitted"))
 
 func open(npc: NPC) -> void:
 	current_npc = npc
@@ -81,6 +84,24 @@ func _on_gift_slot_clicked(slot) -> void:
 		_update_stats()
 		_refresh_gifts()
 
+func _on_chat_submitted(text: String) -> void:
+	if current_npc == null:
+		return
+	
+	var result := ChatManager.process_chat(current_npc, text)
+	var gain = result.get("love", 0)
+	print(gain)
+	
+	var reply := String(result.get("reply", ""))
+	dialogue_box.text = text
+	if reply != "":
+		dialogue_box.text += "\n" + reply
+	if gain > 0:
+		current_npc.add_stat("love", gain)
+		dialogue_box.text += " (+%.1f love)" % gain
+		_update_stats()
+	chat_input.text = ""
+
 func _on_affection_changed(_love: float, _trust: float, _lust: float) -> void:
 	_update_stats()
 
@@ -94,9 +115,9 @@ func _update_stats() -> void:
 	trust_progress_bar.value = stats.trust
 	lust_progress_bar.max_value = stats.max_lust
 	lust_progress_bar.value = stats.lust
-	love_progress_value.text = "%d / %d" % [stats.love, stats.max_love]
-	trust_progress_value.text = "%d / %d" % [stats.trust, stats.max_trust]
-	lust_progress_value.text = "%d / %d" % [stats.lust, stats.max_lust]
+	love_progress_value.text = "%.1f / %.1f" % [stats.love, stats.max_love]
+	trust_progress_value.text = "%.1f / %.1f" % [stats.trust, stats.max_trust]
+	lust_progress_value.text = "%.1f / %.1f" % [stats.lust, stats.max_lust]
 
 func _on_close_button_pressed() -> void:
 	close()
