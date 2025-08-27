@@ -4,8 +4,10 @@ extends Node
 signal action_changed(new_action: String)
 signal tap_feedback(meter: float, count: int, tps: float)
 
-@onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
-@onready var info_label: Label = get_node_or_null("InfoLabel")
+@onready var sprite : AnimatedSprite2D = $AnimatedSprite2D
+@onready var info_label : Label = get_node_or_null("InfoLabel")
+@onready var love_bar : ProgressBar = get_node_or_null("LoveBar")
+@onready var tension_bar : ProgressBar = get_node_or_null("TensionBar")
 
 @export var action_names := ["action_1", "action_2", "action_3"]
 
@@ -27,12 +29,19 @@ signal tap_feedback(meter: float, count: int, tps: float)
 @export var tap_action_name := "amice_tap"
 
 # UI
-@export var show_info := true              # ẩn/hiện bảng thông tin
+@export var show_info := false              # ẩn/hiện bảng thông tin
 @export var info_position := Vector2(12, 12)
 
 var tap_meter := 0.0
 var tap_count := 0
 var taps: Array[float] = []
+#--
+var current_npc_lust : float = 0
+var current_npc_power_score : float = 0
+#--
+var player_power_score : float = 0
+var player_stamina_player : float = 0
+
 
 func _ready():
 	PlayerUi.visible = false
