@@ -29,12 +29,20 @@ func _input(event):
 		toggle_player_info()
 
 func toggle_inventory():
-	inventory_visible = !inventory_visible
-	inventory_ui.visible = inventory_visible
-	
+	#inventory_visible = !inventory_visible
+	#inventory_ui.visible = inventory_visible	
+	if inventory_ui.visible:
+		inventory_ui.visible = false
+	else:
+		inventory_ui.visible = true
+
 func toggle_player_info():
-	player_info_visible = !player_info_visible
-	player_info_ui.visible = player_info_visible
+	#player_info_visible = !player_info_visible
+	#player_info_ui.visible = player_info_visible
+	if player_info_ui.visible:
+		player_info_ui.visible = false
+	else:
+		player_info_ui.visible = true
 	
 func show_shop(npc: NPC):
 	shop_ui.open_shop(npc)
