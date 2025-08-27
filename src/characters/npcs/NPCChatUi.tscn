@@ -2,7 +2,7 @@
 
 [ext_resource type="StyleBox" uid="uid://wbl2afd25hh5" path="res://themes/main_panel_style.tres" id="1_b2uxh"]
 [ext_resource type="StyleBox" uid="uid://dgibhjalocopd" path="res://themes/sub_panel_style_001.tres" id="1_rpxdj"]
-[ext_resource type="Script" uid="uid://buqdwii2pkmky" path="res://src/characters/npcs/NPCChatUi.gd" id="1_yhlqj"]
+[ext_resource type="Script" uid="uid://b4su08tj5iiaf" path="res://src/characters/npcs/NPCChatUi.gd" id="1_yhlqj"]
 [ext_resource type="PackedScene" uid="uid://4acfqyigneek" path="res://src/scenes/ui/hud/SlotTemplate.tscn" id="2_xh5ss"]
 [ext_resource type="FontFile" uid="uid://di6ws6uwx6486" path="res://assets/fonts/OpenSans_Condensed-Bold.ttf" id="3_2kypf"]
 
@@ -286,6 +286,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Panel/Margin/HBox/VBox/ChatPanel/Margin"]
 layout_mode = 2
@@ -294,12 +298,13 @@ layout_mode = 2
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 4.0
+theme_override_colors/default_color = Color(0.313726, 0.188235, 0.117647, 1)
+theme_override_font_sizes/normal_font_size = 12
 
 [node name="LineEdit" type="LineEdit" parent="Panel/Margin/HBox/VBox/ChatPanel/Margin/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 2.0
-text = "Hello,"
 
 [node name="CloseButton" type="Button" parent="Panel/Margin"]
 custom_minimum_size = Vector2(60, 30)
