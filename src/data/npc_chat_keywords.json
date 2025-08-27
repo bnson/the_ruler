@@ -1,0 +1,33 @@
+{
+	"AmiceGrover": {
+		"keywords": {
+			"hello":        {"love": 0.1, "reply": "Oh, hello there!"},
+			"thanks":       {"love": 0.2, "reply": "Thank you! Not everyone remembers their manners."},
+			"hardworking":  {"love": 0.3, "reply": "Heh, you noticed? This store doesn’t run itself, you know."},
+			"smile":        {"love": 0.2, "reply": "Stop it, you’ll make me blush in front of the customers."},
+			"fair":         {"love": 0.3, "reply": "Fair trade is the heart of good business. Glad you see it too."},
+			"best deal":    {"love": 0.3, "reply": "Ha! Flattery works on me. Maybe I’ll throw in a discount."},
+			"gossip":       {"love": 0.2, "reply": "Oh, you like gossip? I heard the baker burned a whole batch of bread yesterday."},
+			"news":         {"love": 0.1, "reply": "News? I know plenty… though some of it might just be rumors."},
+			"funny":        {"love": 0.2, "reply": "Finally, someone who gets my sense of humor."},
+			"honest":       {"love": 0.3, "reply": "Honesty is worth more than gold in my book."},
+			"trust":        {"love": 0.2, "reply": "Trust is earned, but you’re on the right track."},
+			"delicious":    {"love": 0.2, "reply": "Glad you like it! Quality goods keep people coming back."},
+			"quality":      {"love": 0.2, "reply": "Only the best on these shelves—my pride and joy!"},
+			"appreciate":   {"love": 0.2, "reply": "That’s sweet of you to say. Makes the work worthwhile."},
+			"lazy":         {"love": -0.3, "reply": "Lazy? You try lifting sacks of flour all day."},
+			"ugly":         {"love": -0.3, "reply": "Excuse me?! You’d better watch that tongue."},
+			"boring":       {"love": -0.2, "reply": "Boring? If you want excitement, go wrestle a boar."},
+			"useless":      {"love": -0.3, "reply": "Say that again and see if you’re still welcome here."},
+			"cheat":        {"love": -0.3, "reply": "Cheat? My reputation means everything—I won’t hear it."},
+			"scam":         {"love": -0.3, "reply": "Scam?! Outrageous. If you don’t like my prices, shop elsewhere."},
+			"greedy":       {"love": -0.2, "reply": "Maybe, but at least I work for what I earn."},
+			"liar":         {"love": -0.3, "reply": "I’ve built this store on honesty. Don’t throw ugly words around."},
+			"annoying":     {"love": -0.2, "reply": "If I annoy you, perhaps you should leave my store."},
+			"talk too much":{"love": -0.2, "reply": "Ha! That’s rich—people come here just for my stories."},
+			"not funny":    {"love": -0.2, "reply": "Well, at least I tried. Tough crowd today, huh?"}
+		},
+		"daily_bonus": 1,
+		"default_reply": "I don’t have much to say about that. Care to talk business instead?"
+	}
+}
