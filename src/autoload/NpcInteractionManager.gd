@@ -2,6 +2,11 @@
 # Tự động kết nối tín hiệu của NPC để mở hội thoại khi người chơi tới gần
 extends Node
 
+# NPC đang ở love scene (lưu bằng npc_id)
+var love_scene_npc_id: String = ""
+# scene trước khi chuyển sang love scene
+var _previous_scene_path: String = ""
+
 func _ready() -> void:
 	# Kết nối các NPC đã có trong scene
 	for npc in get_tree().get_nodes_in_group("NPCs"):
@@ -47,4 +52,23 @@ func _on_dialogue_option_selected(npc: NPC, option: Dictionary) -> void:
 	elif event_name == "talk":
 		PlayerUi.show_npc_chat(npc)
 	elif event_name == "love":
-		pass
+		_start_love_scene(npc)
+
+# Bắt đầu love scene với NPC
+func _start_love_scene(npc: NPC) -> void:
+	love_scene_npc_id = npc.state.npc_id
+	_previous_scene_path = get_tree().current_scene.scene_file_path if get_tree().current_scene else ""
+
+	var folder := npc.state.npc_id.to_snake_case()
+	var scene_path := "res://src/characters/npcs/%s/%sScene1.tscn" % [folder, npc.state.npc_id]
+	if ResourceLoader.exists(scene_path):
+		SceneManager.change_scene(scene_path)
+	else:
+		push_warning("Love scene not found for %s" % npc.state.npc_id)
+
+# Quay lại scene trước đó
+func return_to_previous_scene() -> void:
+	love_scene_npc_id = ""
+	if _previous_scene_path != "":
+		SceneManager.change_scene(_previous_scene_path)
+		_previous_scene_path = ""
