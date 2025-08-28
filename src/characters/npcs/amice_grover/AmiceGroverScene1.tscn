@@ -1,4 +1,4 @@
-[gd_scene load_steps=188 format=3 uid="uid://c45s5ch02b0k0"]
+[gd_scene load_steps=193 format=3 uid="uid://c45s5ch02b0k0"]
 
 [ext_resource type="Script" uid="uid://vyjqvcu850eh" path="res://src/characters/npcs/amice_grover/AmiceGroverScene1.gd" id="1_hyvf1"]
 [ext_resource type="Texture2D" uid="uid://cqdmscqoj30bv" path="res://assets/sprites/characters/npcs/amice_grover/scene_1/act1/0000.jpg" id="2_olo8a"]
@@ -184,6 +184,11 @@
 [ext_resource type="Texture2D" uid="uid://crg7fwulhgxtc" path="res://assets/sprites/characters/npcs/amice_grover/scene_1/act3/0058.jpg" id="182_5athm"]
 [ext_resource type="Texture2D" uid="uid://bigf2glo3tf6b" path="res://assets/sprites/characters/npcs/amice_grover/scene_1/act3/0059.jpg" id="183_ljk8n"]
 [ext_resource type="Texture2D" uid="uid://dxldxwjslquj5" path="res://assets/sprites/characters/npcs/amice_grover/scene_1/act3/0060.jpg" id="184_lse4r"]
+[ext_resource type="StyleBox" uid="uid://dgibhjalocopd" path="res://themes/sub_panel_style_001.tres" id="185_orb8o"]
+[ext_resource type="StyleBox" uid="uid://dvce07ljveo78" path="res://themes/button_style_001_hover.tres" id="186_0vshu"]
+[ext_resource type="StyleBox" uid="uid://baaph61ssrxa2" path="res://themes/button_style_001_normal.tres" id="186_1lhga"]
+[ext_resource type="StyleBox" uid="uid://43fs0cb34mdd" path="res://themes/button_style_001_focus.tres" id="186_4bgb5"]
+[ext_resource type="StyleBox" uid="uid://clnqn105qvbx0" path="res://themes/button_style_001_pressed.tres" id="188_t1jrx"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_j8ee2"]
 animations = [{
@@ -769,7 +774,6 @@ sprite_frames = SubResource("SpriteFrames_j8ee2")
 animation = &"action_3"
 
 [node name="InfoLabel" type="Label" parent="."]
-visible = false
 offset_right = 40.0
 offset_bottom = 23.0
 
@@ -812,3 +816,48 @@ theme_override_font_sizes/font_size = 8
 [node name="TensionBar" type="ProgressBar" parent="Panel/Margin/HBoxContainer/Panel1/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 8
+
+[node name="MessageBox" type="Panel" parent="Panel/Margin"]
+visible = false
+custom_minimum_size = Vector2(250, 150)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/panel = ExtResource("185_orb8o")
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel/Margin/MessageBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/Margin/MessageBox/MarginContainer"]
+layout_mode = 2
+
+[node name="MessageText" type="Label" parent="Panel/Margin/MessageBox/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.313726, 0.188235, 0.117647, 1)
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button" type="Button" parent="Panel/Margin/MessageBox/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_disabled_color = Color(0.27451, 0.156863, 0, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.27451, 0.156863, 0, 1)
+theme_override_colors/font_hover_color = Color(0.27451, 0.156863, 0, 1)
+theme_override_colors/font_color = Color(0.27451, 0.156863, 0, 1)
+theme_override_colors/font_focus_color = Color(0.27451, 0.156863, 0, 1)
+theme_override_colors/font_pressed_color = Color(0.27451, 0.156863, 0, 1)
+theme_override_font_sizes/font_size = 14
+theme_override_styles/focus = ExtResource("186_4bgb5")
+theme_override_styles/hover = ExtResource("186_0vshu")
+theme_override_styles/pressed = ExtResource("188_t1jrx")
+theme_override_styles/normal = ExtResource("186_1lhga")
+text = "OK"
