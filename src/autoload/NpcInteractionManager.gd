@@ -6,6 +6,7 @@ extends Node
 var love_scene_npc_id: String = ""
 # scene trước khi chuyển sang love scene
 var _previous_scene_path: String = ""
+var _previous_player_position: Vector2 = Vector2.ZERO
 
 func _ready() -> void:
 	# Kết nối các NPC đã có trong scene
@@ -58,9 +59,15 @@ func _on_dialogue_option_selected(npc: NPC, option: Dictionary) -> void:
 func _start_love_scene(npc: NPC) -> void:
 	love_scene_npc_id = npc.state.npc_id
 	_previous_scene_path = get_tree().current_scene.scene_file_path if get_tree().current_scene else ""
-
+	_previous_player_position = Global.player.global_position if Global.player else Vector2.ZERO
+	GameState.player_position = _previous_player_position
+	
+	if DialogueManager.active:
+		DialogueManager.end()
+	
 	var folder := npc.state.npc_id.to_snake_case()
 	var scene_path := "res://src/characters/npcs/%s/%sScene1.tscn" % [folder, npc.state.npc_id]
+	
 	if ResourceLoader.exists(scene_path):
 		SceneManager.change_scene(scene_path)
 	else:
@@ -70,5 +77,6 @@ func _start_love_scene(npc: NPC) -> void:
 func return_to_previous_scene() -> void:
 	love_scene_npc_id = ""
 	if _previous_scene_path != "":
+		GameState.player_position = _previous_player_position
 		SceneManager.change_scene(_previous_scene_path)
 		_previous_scene_path = ""
