@@ -46,3 +46,5 @@ func _on_dialogue_option_selected(npc: NPC, option: Dictionary) -> void:
 		PlayerUi.show_npc_info(npc)
 	elif event_name == "talk":
 		PlayerUi.show_npc_chat(npc)
+	elif event_name == "love":
+		pass
