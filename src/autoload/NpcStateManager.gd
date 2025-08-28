@@ -15,6 +15,15 @@ func register_state(npc_id: String, state: NPCState) -> NPCState:
 func get_state(npc_id: String) -> NPCState:
 	return npc_states.get(npc_id)
 
+# Thay đổi chỉ số tình cảm của NPC
+func add_affection(npc_id: String, love_delta: float, lust_delta: float = love_delta) -> void:
+	var st := get_state(npc_id)
+	if st == null:
+		push_warning("NPCState not found for '%s'" % npc_id)
+		return
+	st.stats.add_stat_value("love", love_delta)
+	st.stats.add_stat_value("lust", lust_delta)
+
 func to_dict() -> Dictionary:
 	var data := {}
 	for id in npc_states.keys():
