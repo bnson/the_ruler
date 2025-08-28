@@ -24,17 +24,19 @@ class_name NPCInfo
 var current_npc: NPC = null
 
 func _ready():
-	if current_npc and current_npc.state.stats and not current_npc.stats.stats_changed.is_connected(_update_info):
+	#if current_npc and current_npc.state.stats and not current_npc.stats.stats_changed.is_connected(_update_info):
+	if current_npc and is_instance_valid(current_npc) and current_npc.state.stats and not current_npc.state.stats.stats_changed.is_connected(_update_info):
 		current_npc.stats.stats_changed.connect(_update_info)
 		_update_info()
 
 func open(npc: NPC) -> void:
+	# Disconnect previous signal if any
+	#if current_npc and current_npc.state.stats and current_npc.state.stats.stats_changed.is_connected(_update_info):
+	if current_npc and is_instance_valid(current_npc) and current_npc.state.stats and current_npc.state.stats.stats_changed.is_connected(_update_info):
+		current_npc.state.stats.stats_changed.disconnect(_update_info)
+
 	# Assign new state
 	current_npc = npc
-	
-	# Disconnect previous signal if any
-	if current_npc and current_npc.state.stats and current_npc.state.stats.stats_changed.is_connected(_update_info):
-		current_npc.state.stats.stats_changed.disconnect(_update_info)
 
 	if current_npc and current_npc.state.stats:
 		var stats : NPCStats = current_npc.state.stats
@@ -49,6 +51,9 @@ func close() -> void:
 		visible = false
 
 func _update_info() -> void:
+	if not current_npc or not is_instance_valid(current_npc):
+		return
+	
 	name_label.text = current_npc.display_name
 	info_text.text = current_npc.display_info
 	
