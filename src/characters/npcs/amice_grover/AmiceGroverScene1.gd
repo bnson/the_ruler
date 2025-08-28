@@ -197,9 +197,13 @@ func _end_session(apply_result: bool = true) -> void:
 
 
 func _apply_npc_delta(delta: int) -> void:
-	current_npc_love = clamp(current_npc_love + delta, 0.0, 100.0)
-	current_npc_lust = clamp(current_npc_lust + delta, 0.0, 100.0)
-	
+	if npc_state:
+		NpcStateManager.add_affection(npc_state.npc_id, delta, delta)
+		current_npc_love = npc_state.stats.love
+		current_npc_lust = npc_state.stats.lust
+	else:
+		current_npc_love = clamp(current_npc_love + delta, 0.0, 100.0)
+		current_npc_lust = clamp(current_npc_lust + delta, 0.0, 100.0)
 
 
 # =========================================================
