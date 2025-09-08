@@ -20,6 +20,7 @@ func attach_player_to(container: Node, spawn_position: Vector2) -> void:
 	container.call_deferred("add_child", player)
 
 	# Đặt vị trí spawn
+	player.spawn_position = spawn_position
 	if GameState.player_position != Vector2.ZERO:
 		player.global_position = GameState.player_position
 		GameState.player_position = Vector2.ZERO
