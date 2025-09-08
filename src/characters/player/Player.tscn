@@ -1,4 +1,4 @@
-[gd_scene load_steps=67 format=3 uid="uid://c07c34lylop2i"]
+[gd_scene load_steps=68 format=3 uid="uid://c07c34lylop2i"]
 
 [ext_resource type="Script" uid="uid://wc5wljtcgcfp" path="res://src/characters/player/Player.gd" id="1_mv25b"]
 [ext_resource type="Texture2D" uid="uid://n8i4ygco5fjm" path="res://assets/sprites/characters/player/base/player_base.png" id="2_ratqf"]
@@ -12,6 +12,7 @@
 [ext_resource type="Script" uid="uid://b8mo87jt01ymq" path="res://src/characters/player/states/PlayerIdleState.gd" id="10_u7nq2"]
 [ext_resource type="Script" uid="uid://dxr0kui5jm78v" path="res://src/characters/player/states/PlayerWalkState.gd" id="11_iabyh"]
 [ext_resource type="Script" uid="uid://v71btqgfeilc" path="res://src/characters/player/states/PlayerAttackState.gd" id="12_r4f2b"]
+[ext_resource type="Script" uid="uid://d4a3q232yujbo" path="res://src/characters/player/states/PlayerDeathState.gd" id="13_oew6k"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_wr5hl"]
 
@@ -932,3 +933,6 @@ script = ExtResource("11_iabyh")
 
 [node name="AttackState" type="Node" parent="StateMachine"]
 script = ExtResource("12_r4f2b")
+
+[node name="DeathState" type="Node" parent="StateMachine"]
+script = ExtResource("13_oew6k")
