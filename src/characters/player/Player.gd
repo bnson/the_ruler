@@ -32,6 +32,8 @@ var knockback_timer := 0.0
 const KNOCKBACK_DURATION := 0.2
 var attack_requested := false
 var look_direction: Vector2 = Vector2.RIGHT
+var spawn_position: Vector2 = Vector2.ZERO
+
 
 func _ready() -> void:
 	animation_tree.active = true
@@ -97,7 +99,15 @@ func gain_experience(amount: int) -> void:
 	emit_signal("gained_exp", amount)
 
 func die() -> void:
-	emit_signal("died")
+	state_machine.change_state("DeathState")
+	
+func respawn() -> void:
+	global_position = spawn_position
+	state.stats.current_hp = state.stats.max_hp
+	velocity = Vector2.ZERO
+	attack_requested = false
+	knockback_timer = 0.0
+	state_machine.change_state("IdleState")	
 
 func _on_hit_received(damage: int, from_position: Vector2) -> void:
 	knockback_vector = (global_position - from_position).normalized() * 300
