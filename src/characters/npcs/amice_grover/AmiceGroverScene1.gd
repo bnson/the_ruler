@@ -35,9 +35,9 @@ signal session_resolved(player_won: bool, total_rounds: int, wins: int, losses: 
 @export var ratio_hard := 1.25          # 1.25 <= r < 2.0 -> khó
 @export var ratio_medium_low := 0.85    # 0.85 <= r < 1.25 -> trung bình; r < 0.85 -> dễ
 
-@export var base_tension_per_tap := 5.0
-@export var base_love_per_tap := 5.0
-@export var tension_min_per_tap := 0.4
+@export var base_tension_per_tap := 2.0
+@export var base_love_per_tap := 0.5
+@export var tension_min_per_tap := 0.5
 @export var tension_max_per_tap := 15.0
 
 # -------------------- Config: UI & flow --------------------

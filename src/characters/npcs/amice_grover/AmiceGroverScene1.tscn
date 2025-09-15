@@ -767,13 +767,13 @@ bg_color = Color(0, 0, 0, 0)
 script = ExtResource("1_hyvf1")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-visible = false
 position = Vector2(242.075, 166.625)
 scale = Vector2(0.718229, 0.718229)
 sprite_frames = SubResource("SpriteFrames_j8ee2")
 animation = &"action_3"
 
 [node name="InfoLabel" type="Label" parent="."]
+visible = false
 offset_right = 40.0
 offset_bottom = 23.0
 

@@ -7,13 +7,13 @@ var last_autosave_hour := -1
 
 func _ready():
 	TimeManager.time_updated.connect(_on_time_updated)
-	load_game()
+	#load_game()
 	last_autosave_hour = TimeManager.hour
 
 func _on_time_updated(day_name, hour, minute, is_daytime, time_period):
 	if minute == 0 and hour != last_autosave_hour:
 		last_autosave_hour = hour
-		save_game()
+		#save_game()
 
 func save_game(path: String = SAVE_PATH):
 	var player_state := GameState.player.to_dict()
