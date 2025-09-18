@@ -76,8 +76,8 @@ func _update_look_direction(input: Vector2) -> Vector2:
 	return look_direction
 
 func update_blend_positions(input: Vector2) -> void:
-	for state in ["IdleState", "WalkState", "AttackState"]:
-		animation_tree.set("parameters/%s/blend_position" % state, input)
+	for anim_state in ["IdleState", "WalkState", "AttackState", "DeathState"]:
+		animation_tree.set("parameters/%s/blend_position" % anim_state, input)
 	attack_effect_animation_tree.set("parameters/AttackEffect/blend_position", input)
 
 func update_hitbox_rotation(input: Vector2) -> void:
