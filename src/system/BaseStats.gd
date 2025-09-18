@@ -3,16 +3,16 @@ extends Resource
 class_name BaseStats
 
 # Base attributes
-var base_strength := 10
-var base_dexterity := 5
-var base_intelligence := 5
-var base_agility := 5
+var base_strength : float = 10
+var base_dexterity : float = 5
+var base_intelligence : float = 5
+var base_agility : float = 5
 
 # Bonus attributes
-var bonus_strength := 0
-var bonus_dexterity := 0
-var bonus_intelligence := 0
-var bonus_agility := 0
+var bonus_strength : float = 0
+var bonus_dexterity : float = 0
+var bonus_intelligence : float = 0
+var bonus_agility : float = 0
 
 # Level and EXP
 var _level : int = 1
