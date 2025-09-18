@@ -72,7 +72,10 @@ func _add_slot(grid: GridContainer, item: Item, qty: int, src: int) -> void:
 	grid.add_child(slot)
 	slot.set_item(item, qty)
 	# Kỳ vọng Slot có signal: signal slot_clicked(slot)
-	slot.disconnect("slot_clicked", Callable()) if slot.is_connected("slot_clicked", Callable(self, "_on_slot_clicked")) else null
+	# slot.disconnect("slot_clicked", Callable()) if slot.is_connected("slot_clicked", Callable(self, "_on_slot_clicked")) else null
+	if slot.is_connected("slot_clicked", Callable(self, "_on_slot_clicked")):
+		slot.disconnect("slot_clicked", Callable(self, "_on_slot_clicked"))
+	
 	slot.connect("slot_clicked", Callable(self, "_on_slot_clicked").bind(src))
 
 func _on_slot_clicked(slot, src: int) -> void:
