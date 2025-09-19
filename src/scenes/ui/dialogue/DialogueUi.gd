@@ -50,7 +50,7 @@ func _on_dialogue_started(speaker: String, text: String, options: Array):
 		show_options(options)
 
 func show_options(options: Array) -> void:
-	var option_count = options.size()
+	#var option_count = options.size()
 	queue_free_children(options_container)
 	options_container.visible = true
 	#options_container.columns = 2 if option_count > 3 else 1

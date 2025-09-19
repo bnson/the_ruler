@@ -60,7 +60,7 @@ func _update_all():
 	intelligence_value.text = str(stats.get_intelligence())
 	agility_value.text = str(stats.get_agility())
 
-func _on_level_changed(new_level):
+func _on_level_changed(_new_level):
 	# Khi level thay đổi, cập nhật lại EXP bar (vì max_exp mới)
 	_update_all()
 

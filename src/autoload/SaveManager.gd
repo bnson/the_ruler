@@ -10,7 +10,7 @@ func _ready():
 	#load_game()
 	last_autosave_hour = TimeManager.hour
 
-func _on_time_updated(day_name, hour, minute, is_daytime, time_period):
+func _on_time_updated(_day_name, hour, minute, _is_daytime, _time_period):
 	if minute == 0 and hour != last_autosave_hour:
 		last_autosave_hour = hour
 		#save_game()

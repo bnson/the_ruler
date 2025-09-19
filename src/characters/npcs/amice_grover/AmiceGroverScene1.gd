@@ -196,7 +196,7 @@ func _end_session(apply_result: bool = true) -> void:
 	emit_signal("session_resolved", player_won_session, _session_wins + _session_losses, _session_wins, _session_losses)
 
 
-func _apply_npc_delta(delta: int) -> void:
+func _apply_npc_delta(delta: float) -> void:
 	if npc_state:
 		NpcStateManager.add_affection(npc_state.npc_id, delta, delta)
 		current_npc_love = npc_state.stats.love
@@ -476,7 +476,7 @@ func _show_result_message(player_won: bool, unwinnable: bool) -> void:
 	_show_message(txt, result_show_sec)
 
 
-func _show_message(txt: String, seconds: float) -> void:
+func _show_message(txt: String, _seconds: float) -> void:
 	message_text.text = txt
 	message_box.visible = true
 

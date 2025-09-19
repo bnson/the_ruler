@@ -54,10 +54,10 @@ func _on_time_updated(_day_name: String, _hour: int, minute: int, _is_daytime: b
 	last_displayed_minute = minute
 	time_label.text = TimeManager.get_time_string()
 
-func _on_player_damaged(amount: int) -> void:
+func _on_player_damaged(_amount: int) -> void:
 	hp_bar.value = GameState.player.stats.current_hp
 
-func _on_player_gained_exp(amount: int) -> void:
+func _on_player_gained_exp(_amount: int) -> void:
 	exp_bar.value = GameState.player.stats.experience
 
 

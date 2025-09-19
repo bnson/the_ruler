@@ -3,9 +3,9 @@ extends CharacterBody2D
 class_name Player
 
 signal damaged(amount: int)
-signal healed(amount: int)
+#signal healed(amount: int)
 signal gained_exp(amount: int)
-signal died()
+#signal died()
 
 @export var speed: float = 200.0
 
