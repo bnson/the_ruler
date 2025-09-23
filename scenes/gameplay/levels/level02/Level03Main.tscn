@@ -1,0 +1,7 @@
+[ext_resource type="Script" uid="uid://wrye2rbtfahv" path="res://scenes/gameplay/levels/level02/Level03Main.gd" id="1_syjb0"]
+[ext_resource type="PackedScene" uid="uid://cscea5qc4p4qk" path="res://scenes/characters/enemies/slime/Slime.tscn" id="2_n8w1p"]
+[ext_resource type="PackedScene" uid="uid://1qrcybt3b4bk" path="res://scenes/gameplay/levels/LevelTransitionArea.tscn" id="11_pmeea"]
+[ext_resource type="PackedScene" uid="uid://cg6lquywnk1v" path="res://scenes/characters/player/PlayerSpawn.tscn" id="12_1pnmm"]
+[ext_resource type="PackedScene" uid="uid://d070epdgdlwsb" path="res://scenes/gameplay/world_props/environment/plants/Cabbage.tscn" id="13_gl1jd"]
+[ext_resource type="PackedScene" uid="uid://bl1ma1xp5sjrl" path="res://scenes/gameplay/levels/level02/Level03Citadel.tscn" id="14_4jsbf"]
+[ext_resource type="PackedScene" uid="uid://b8po4dpn41qbg" path="res://scenes/characters/npcs/amice_grover/AmiceGrover.tscn" id="15_1eu7y"]
