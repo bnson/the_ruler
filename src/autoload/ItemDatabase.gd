@@ -18,12 +18,19 @@ func load_items():
 		dir.list_dir_begin()
 		var file_name := dir.get_next()
 		while file_name != "":
-			if not dir.current_is_dir() and file_name.ends_with(".tres"):
-				var full_path := "res://src/resources/items/" + file_name
-				var item := load(full_path)
+			print(file_name)
+			print("---------------")
+			if file_name.ends_with(".tres") or file_name.ends_with(".tres.remap"):
+				var clean_name = file_name
+				if clean_name.ends_with(".remap"):
+					clean_name = clean_name.replace(".remap", "")
+				var full_path = "res://src/resources/items/" + clean_name
+				var item = load(full_path)
 				if item and item is Item:
 					items[item.id] = item
 					print("🔹 Loaded item:", item.id)
+				else:
+					push_warning("⚠ Không load được: " + full_path)
 			file_name = dir.get_next()
 	else:
 		push_error("❌ Không thể mở thư mục items.")

@@ -50,6 +50,18 @@
 | `bgm`       | Nhạc nền chính của game hoặc từng màn chơi, giúp tạo cảm xúc và tăng sự hấp dẫn cho người chơi. |
 | `sfx`       | Hiệu ứng âm thanh phản hồi từ hành động trong game như tiếng nhảy, bắn súng, mở cửa... Thường ngắn và phát khi có sự kiện. |
 
+## 🚀 Một số lệnh check bug
+```bash
+adb devices
+adb install -r The_Rule.apk
+adb logcat -c
+adb logcat -s godot
+adb logcat -c && adb logcat -s godot
+---
+adb kill-server
+adb start-server
+adb devices
+```
 
 ## 🚀 Các lệnh Git thông dụng
 

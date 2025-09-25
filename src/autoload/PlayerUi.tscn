@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://cf8c1vdwthaxy"]
+[gd_scene load_steps=12 format=3 uid="uid://cf8c1vdwthaxy"]
 
 [ext_resource type="Script" uid="uid://b6fv7lnrexiht" path="res://src/autoload/PlayerUi.gd" id="1_dribd"]
 [ext_resource type="PackedScene" uid="uid://xwgxwul70tr5" path="res://src/characters/player/PlayerHud.tscn" id="2_rjh28"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://suf1pcplwyfr" path="res://src/characters/player/PlayerInfoUi.tscn" id="7_vxa1e"]
 [ext_resource type="PackedScene" uid="uid://cgga0xmjh6vpo" path="res://src/characters/npcs/NPCInfo.tscn" id="9_1gmj2"]
 [ext_resource type="PackedScene" uid="uid://cxvi4bqg1bgrv" path="res://src/characters/npcs/NPCChatUi.tscn" id="10_xhpq6"]
+[ext_resource type="PackedScene" uid="uid://c7ak5gxlhlasw" path="res://src/scenes/ui/hud/Hotbar.tscn" id="11_einxb"]
 
 [node name="PlayerUi" type="CanvasLayer"]
 script = ExtResource("1_dribd")
@@ -38,6 +39,22 @@ mouse_filter = 2
 [node name="Joystick" parent="BottomLeftContainer" instance=ExtResource("3_wlkt0")]
 layout_mode = 2
 
+[node name="BottonCenterContainer" type="CenterContainer" parent="."]
+custom_minimum_size = Vector2(260, 60)
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -130.0
+offset_top = -50.0
+offset_right = 130.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="HotBar" parent="BottonCenterContainer" instance=ExtResource("11_einxb")]
+layout_mode = 2
+
 [node name="BottomRightContainer" type="CenterContainer" parent="."]
 anchors_preset = 3
 anchor_left = 1.0
@@ -52,6 +69,7 @@ mouse_filter = 2
 
 [node name="AttackButtons" parent="BottomRightContainer" instance=ExtResource("4_tqk0u")]
 layout_mode = 2
+mouse_filter = 0
 
 [node name="CenterContainer" type="MarginContainer" parent="."]
 anchors_preset = 15
@@ -59,6 +77,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10

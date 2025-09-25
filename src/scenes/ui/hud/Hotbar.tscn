@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://c7ak5gxlhlasw"]
 
-[ext_resource type="Script" uid="uid://w36fjk5tkl7k" path="res://src/scenes/ui/hud/Hotbar.gd" id="1_6q3kt"]
+[ext_resource type="Script" uid="uid://cyrddxhhrmi5n" path="res://src/scenes/ui/hud/Hotbar.gd" id="1_6q3kt"]
 [ext_resource type="PackedScene" uid="uid://4acfqyigneek" path="res://src/scenes/ui/hud/SlotTemplate.tscn" id="2_mew5n"]
 
 [node name="HotBar" type="Control"]

@@ -8,6 +8,7 @@ var amount: int = 1
 @onready var area: Area2D = $PickupArea
 
 func _ready():
+	randomize()
 	# Sau 0.5 giây khóa vật thể để nó đứng yên
 	await get_tree().create_timer(0.5).timeout
 	freeze = true  # thay cho MODE_STATIC	
