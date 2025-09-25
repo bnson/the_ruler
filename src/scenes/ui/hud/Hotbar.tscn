@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://c7ak5gxlhlasw"]
 
-[ext_resource type="Script" uid="uid://c3cbf7lhx4h4q" path="res://scenes/ui/hud/Hotbar.gd" id="1_57ia0"]
-[ext_resource type="PackedScene" uid="uid://4acfqyigneek" path="res://scenes/ui/hud/SlotTemplate.tscn" id="2_mew5n"]
+[ext_resource type="Script" uid="uid://w36fjk5tkl7k" path="res://src/scenes/ui/hud/Hotbar.gd" id="1_6q3kt"]
+[ext_resource type="PackedScene" uid="uid://4acfqyigneek" path="res://src/scenes/ui/hud/SlotTemplate.tscn" id="2_mew5n"]
 
 [node name="HotBar" type="Control"]
 layout_mode = 3
@@ -10,7 +10,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_57ia0")
+script = ExtResource("1_6q3kt")
 slot_scene = ExtResource("2_mew5n")
 
 [node name="Panel" type="Panel" parent="."]
@@ -28,4 +28,4 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-columns = 7
+columns = 6
