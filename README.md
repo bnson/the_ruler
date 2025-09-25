@@ -43,6 +43,12 @@
 | `TileMapCollision`   | Tile có collision                        | Có thể tách riêng để dễ kiểm soát         |
 | `TileMapNavigation`  | Tile dùng cho pathfinding                | Dùng với `NavigationRegion2D`             |
 
+## 🧱 Thư mục & mục đính.
+| **Thư mục** | **Mục đích** |
+|-------------|--------------|
+| `ambience`  | Âm thanh môi trường, tạo không khí cho cảnh game như tiếng gió, mưa, chim hót... Thường phát liên tục và nhẹ nhàng. |
+| `bgm`       | Nhạc nền chính của game hoặc từng màn chơi, giúp tạo cảm xúc và tăng sự hấp dẫn cho người chơi. |
+| `sfx`       | Hiệu ứng âm thanh phản hồi từ hành động trong game như tiếng nhảy, bắn súng, mở cửa... Thường ngắn và phát khi có sự kiện. |
 
 
 ## 🚀 Các lệnh Git thông dụng
