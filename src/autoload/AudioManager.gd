@@ -26,12 +26,20 @@ func _ready():
 	add_child(sfx_player)
 
 # Phát hiệu ứng âm thanh
-func play_sfx(audio_name: String):
-	if audio_files.has(audio_name):
-		sfx_player.stream = audio_files[audio_name]
+func play_sfx(audio, volume := 1.0):
+	var stream
+	
+	if typeof(audio) == TYPE_STRING:
+		stream = audio_files.get(audio)
+	else:
+		stream = audio
+	
+	if stream is AudioStream:
+		sfx_player.stream = stream
+		sfx_player.volume_db = linear_to_db(clamp(volume, 0.0, 1.0))
 		sfx_player.play()
 	else:
-		push_warning("SFX not found: " + audio_name)
+		push_warning("SFX không hợp lệ hoặc không tìm thấy: " + str(audio))
 
 # Phát nhạc nền (tự động dừng nhạc cũ nếu đang phát)
 func play_bgm(audio_name: String):
@@ -42,6 +50,8 @@ func play_bgm(audio_name: String):
 		bgm_player.play()
 	else:
 		push_warning("BGM not found: " + audio_name)
+
+
 
 # Dừng nhạc nền
 func stop_bgm():
