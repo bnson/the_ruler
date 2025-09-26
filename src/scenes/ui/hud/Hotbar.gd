@@ -5,7 +5,6 @@ class_name Hotbar extends Control
 @onready var item_container : GridContainer = $Panel/ItemContainer
 
 func _ready():
-	#GameState.connect("inventory_changed", Callable(self, "refresh"))
 	GameState.inventory_changed.connect(refresh)
 	refresh()
 	
@@ -34,7 +33,6 @@ func refresh():
 		slot.set_item(null, 0)
 		
 func on_slot_clicked(clicked_slot):
-	print("AAAAAAAAAAAAA");
 	for slot in item_container.get_children():
 		if slot.has_method("set_selected"):
 			slot.set_selected(slot == clicked_slot)
@@ -42,8 +40,7 @@ func on_slot_clicked(clicked_slot):
 	var item = clicked_slot.current_item
 	if item:
 		if item.effects.size() > 0:
-			print("BBBBBB");
-			item.use()
-			GameState.player.inventory.remove_item(item, 1)
-			refresh()
-			
+			if item.use():
+				GameState.player.inventory.remove_item(item, 1)
+				refresh()
+	
