@@ -14,9 +14,10 @@ class_name Item extends Resource
 func use() -> bool:
 	if effects.size() == 0:
 		return false
-
+	
+	var used := false
 	for e in effects:
-		print("Item effect...")
-		e.use()
+		if e.use():
+			used = true
 		
-	return true
+	return used
