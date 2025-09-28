@@ -1,0 +1,175 @@
+[gd_scene load_steps=11 format=3 uid="uid://b6c34ptj7fxqe"]
+
+[ext_resource type="Script" uid="uid://0njfbjbh5sr4" path="res://scenes/ui/hud/InventoryUi.gd" id="1_cqhmj"]
+[ext_resource type="PackedScene" uid="uid://4acfqyigneek" path="res://scenes/ui/hud/SlotTemplate.tscn" id="2_85kqp"]
+[ext_resource type="StyleBox" uid="uid://4gmdxn1tm7j8" path="res://resources/ui/themes/tab_container_style_001_tab_selected.tres" id="3_4n13n"]
+[ext_resource type="StyleBox" uid="uid://dgibhjalocopd" path="res://resources/ui/themes/sub_panel_style_001.tres" id="3_6svoj"]
+[ext_resource type="PackedScene" uid="uid://bq53kqc67dfp3" path="res://scenes/ui/hud/ItemInfoPanel.tscn" id="3_nsjed"]
+[ext_resource type="StyleBox" uid="uid://wbl2afd25hh5" path="res://resources/ui/themes/main_panel_style.tres" id="3_p10oa"]
+[ext_resource type="StyleBox" uid="uid://cloiw1ie2oyih" path="res://resources/ui/themes/tab_container_style_001_tab_unselected.tres" id="4_7kkdn"]
+[ext_resource type="Texture2D" uid="uid://cxoacenk7jysw" path="res://assets/textures/items/gold_coin.png" id="4_elmam"]
+[ext_resource type="StyleBox" uid="uid://bar2e8cfw7flg" path="res://resources/ui/themes/tab_container_style_001_tabbar_background.tres" id="4_nbi8g"]
+[ext_resource type="StyleBox" uid="uid://c8ae4cbq6kt15" path="res://resources/ui/themes/tab_container_style_001_tab_hovered.tres" id="4_p10oa"]
+
+[node name="InventoryUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_cqhmj")
+slot_scene = ExtResource("2_85kqp")
+
+[node name="Main" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = ExtResource("3_p10oa")
+
+[node name="Margin" type="MarginContainer" parent="Main"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Main/Margin"]
+layout_mode = 2
+
+[node name="Panel2" type="Panel" parent="Main/Margin/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 8.0
+
+[node name="TabContainer" type="TabContainer" parent="Main/Margin/VBoxContainer/Panel2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_unselected_color = Color(0.14902, 0.0235294, 0, 1)
+theme_override_colors/font_hovered_color = Color(0.36204, 0.111726, 2.40654e-08, 1)
+theme_override_colors/font_selected_color = Color(0.121569, 0.0196078, 0, 1)
+theme_override_styles/tabbar_background = ExtResource("4_nbi8g")
+theme_override_styles/tab_selected = ExtResource("3_4n13n")
+theme_override_styles/tab_hovered = ExtResource("4_p10oa")
+theme_override_styles/tab_unselected = ExtResource("4_7kkdn")
+current_tab = 0
+
+[node name="General" type="Panel" parent="Main/Margin/VBoxContainer/Panel2/TabContainer"]
+layout_mode = 2
+theme_override_styles/panel = ExtResource("3_6svoj")
+metadata/_tab_index = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="Main/Margin/VBoxContainer/Panel2/TabContainer/General"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Main/Margin/VBoxContainer/Panel2/TabContainer/General/MarginContainer"]
+layout_mode = 2
+
+[node name="GridContainer" type="GridContainer" parent="Main/Margin/VBoxContainer/Panel2/TabContainer/General/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 3.0
+theme_override_constants/h_separation = 4
+theme_override_constants/v_separation = 4
+columns = 6
+
+[node name="ItemInfoPanel" parent="Main/Margin/VBoxContainer/Panel2/TabContainer/General/MarginContainer/HBoxContainer" instance=ExtResource("3_nsjed")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 1.5
+
+[node name="Special" type="Panel" parent="Main/Margin/VBoxContainer/Panel2/TabContainer"]
+visible = false
+layout_mode = 2
+theme_override_styles/panel = ExtResource("3_6svoj")
+metadata/_tab_index = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="Main/Margin/VBoxContainer/Panel2/TabContainer/Special"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Main/Margin/VBoxContainer/Panel2/TabContainer/Special/MarginContainer"]
+layout_mode = 2
+
+[node name="GridContainer" type="GridContainer" parent="Main/Margin/VBoxContainer/Panel2/TabContainer/Special/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 3.0
+theme_override_constants/h_separation = 4
+theme_override_constants/v_separation = 4
+columns = 6
+
+[node name="ItemInfoPanel" parent="Main/Margin/VBoxContainer/Panel2/TabContainer/Special/MarginContainer/HBoxContainer" instance=ExtResource("3_nsjed")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 1.5
+
+[node name="Panel" type="Panel" parent="Main/Margin/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = ExtResource("3_6svoj")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Main/Margin/VBoxContainer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Main/Margin/VBoxContainer/Panel/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_right = 5
+
+[node name="TextureRect" type="TextureRect" parent="Main/Margin/VBoxContainer/Panel/HBoxContainer/MarginContainer"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("4_elmam")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="GoldLabel" type="Label" parent="Main/Margin/VBoxContainer/Panel/HBoxContainer"]
+layout_mode = 2
+text = "100"
+
+[node name="CloseButton" type="Button" parent="Main/Margin"]
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+theme_override_colors/font_hover_pressed_color = Color(0.921569, 0.792157, 0.0862745, 1)
+theme_override_colors/font_hover_color = Color(0.921569, 0.792157, 0.0862745, 1)
+theme_override_colors/font_outline_color = Color(0.921569, 0.792157, 0.0862745, 1)
+theme_override_colors/font_color = Color(0.92281, 0.79395, 0.0870322, 1)
+theme_override_constants/outline_size = 4
+text = "X"
+
+[connection signal="pressed" from="Main/Margin/CloseButton" to="." method="_on_button_pressed"]

@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="Item" load_steps=4 format=3 uid="uid://dtp6bm668de0y"]
+
+[ext_resource type="Texture2D" uid="uid://dxmqfb5vatljr" path="res://assets/textures/items/items_sheet_1.png" id="1_51gbj"]
+[ext_resource type="Script" uid="uid://cox730a8e7rqs" path="res://resources/items/Item.gd" id="1_tavi6"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_26h6g"]
+atlas = ExtResource("1_51gbj")
+region = Rect2(192, 0, 32, 32)
+
+[resource]
+script = ExtResource("1_tavi6")
+id = "apple"
+name = "Apple"
+description = ""
+type = "misc"
+price = 1
+is_unique = true
+atlas_texture = SubResource("AtlasTexture_26h6g")
+metadata/_custom_type_script = "uid://cox730a8e7rqs"
