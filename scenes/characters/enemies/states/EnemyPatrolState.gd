@@ -1,5 +1,5 @@
-extends BaseState
-class_name EnemyPatrolState
+class_name EnemyPatrolState extends BaseState
+
 
 var patrol_index := 0
 var patrol_points := []
