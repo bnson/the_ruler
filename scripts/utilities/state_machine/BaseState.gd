@@ -1,5 +1,5 @@
-extends Node
-class_name BaseState
+class_name BaseState extends Node
+
 
 var state_machine: StateMachine = null
 
