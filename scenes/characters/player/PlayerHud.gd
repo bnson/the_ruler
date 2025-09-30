@@ -1,4 +1,4 @@
-extends Node
+class_name PlayerHud extends Node
 
 @onready var vitals_box := $Main/Container/HBox1/VitalsBox
 @onready var hp_bar: ProgressBar = vitals_box.get_node("HpBar")
