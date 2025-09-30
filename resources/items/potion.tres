@@ -12,9 +12,8 @@ region = Rect2(32, 0, 32, 32)
 
 [sub_resource type="Resource" id="Resource_e7abb"]
 script = ExtResource("3_5qnqh")
-heal_amount = 1
-sound = ExtResource("4_5qnqh")
-user_description = ""
+heal_percent = 1.0
+audio_stream = ExtResource("4_5qnqh")
 metadata/_custom_type_script = "uid://bk7wc63o7muww"
 
 [resource]
