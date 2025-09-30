@@ -1,5 +1,4 @@
-extends BaseState
-class_name EnemyAttackState 
+class_name EnemyAttackState extends BaseState
 
 
 func enter() -> void:
