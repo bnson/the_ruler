@@ -1,5 +1,5 @@
-extends RigidBody2D
-class_name DroppedItem
+class_name DroppedItem extends RigidBody2D
+
 
 var item: Item
 var amount: int = 1
@@ -23,7 +23,7 @@ func set_item(new_item: Item, count := 1):
 	item = new_item
 	amount = count
 	
-	print("🎨 SET ITEM:", item.id, "texture:", item.atlas_texture)
+	print("🎨 SET ITEM: ", item.id, " AMOUT: ", amount, " texture: ", item.atlas_texture)
 	
 	if sprite:
 		sprite.texture = item.atlas_texture
