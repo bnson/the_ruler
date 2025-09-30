@@ -1,5 +1,5 @@
-extends Node
-class_name StateMachine
+class_name StateMachine extends Node
+
 
 var states: Dictionary = {}
 var current_state: BaseState = null
