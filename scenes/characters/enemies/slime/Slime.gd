@@ -1,5 +1,5 @@
-extends CharacterBody2D
-class_name Slime
+class_name Slime extends CharacterBody2D
+
 
 signal slime_died(slime_node: Node)
 
@@ -84,6 +84,7 @@ func _update_animation() -> void:
 
 	animation_tree.set("parameters/IdleState/blend_position", look_direction)
 	animation_tree.set("parameters/WalkState/blend_position", look_direction)
+	animation_tree.set("parameters/StunState/blend_position", look_direction)
 
 func _state_update(delta: float) -> void:
 	if state_machine.current_state:
@@ -105,8 +106,9 @@ func get_player() -> Node2D:
 
 func take_damage(amount: int) -> void:
 	current_hp -= amount
+	state_machine.change_state("StunState")
+	
 	Logger.debug_log(node_name, "Received damage: %d | Current HP: %d" % [amount, current_hp], "Enemy")
-
 	if current_hp <= 0:
 		die()
 
@@ -164,7 +166,8 @@ func drop_item(_auto_loot := false):
 		if id != "":
 			var item = ItemDatabase.get_item(id)
 			if item:
-				var amount = randi_range(1, 3)  # mỗi item drop từ 1-3 stack
+				var amount = 1
+				#var amount = randi_range(1, 3)  # mỗi item drop từ 1-3 stack
 				if auto_loot:
 					GameState.player.inventory.add_item(item, amount)
 				else:
