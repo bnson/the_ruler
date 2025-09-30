@@ -1,5 +1,5 @@
-extends BaseState
-class_name EnemyWalkState
+class_name EnemyWalkState extends BaseState
+
 
 func enter() -> void:
 	#print("Enemy walk state enter...")
