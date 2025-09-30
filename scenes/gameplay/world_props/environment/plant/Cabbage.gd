@@ -1,5 +1,5 @@
-extends Node2D
-class_name Cabbage
+class_name Cabbage extends Node2D
+
 
 @export var max_hp := 1
 @export var exp_reward := 5
