@@ -1,5 +1,5 @@
-extends BaseState
-class_name EnemyIdleState
+class_name EnemyIdleState extends BaseState
+
 
 @onready var node_name := get_name()
 
