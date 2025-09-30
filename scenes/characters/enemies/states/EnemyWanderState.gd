@@ -1,5 +1,5 @@
-extends BaseState
-class_name EnemyWanderState
+class_name EnemyWanderState extends BaseState
+
 
 var direction := Vector2.ZERO
 var change_timer := 0.0
