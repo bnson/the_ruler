@@ -1,11 +1,11 @@
 ### 📄 Player.gd
-extends CharacterBody2D
-class_name Player
+class_name Player extends CharacterBody2D
+
 
 signal damaged(amount: int)
 #signal healed(amount: int)
 signal gained_exp(amount: int)
-#signal died()
+signal died()
 
 @export var speed: float = 200.0
 
@@ -100,6 +100,7 @@ func gain_experience(amount: int) -> void:
 
 func die() -> void:
 	state_machine.change_state("DeathState")
+	emit_signal("died")
 	
 func respawn() -> void:
 	global_position = spawn_position
