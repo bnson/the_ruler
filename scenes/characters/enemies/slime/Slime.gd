@@ -106,7 +106,7 @@ func get_player() -> Node2D:
 
 func take_damage(amount: int) -> void:
 	current_hp -= amount
-	state_machine.change_state("StunState")
+	#state_machine.change_state("StunState")
 	
 	Logger.debug_log(node_name, "Received damage: %d | Current HP: %d" % [amount, current_hp], "Enemy")
 	if current_hp <= 0:
@@ -114,6 +114,9 @@ func take_damage(amount: int) -> void:
 
 func die() -> void:
 	Logger.debug_log(node_name, "Slime has died.", "Enemy")
+
+	state_machine.change_state("DestroyState")
+	await animation_tree.animation_finished
 
 	# Thêm EXP vào player
 	GameState.player.stats.gain_experience(exp_reward)
@@ -126,6 +129,7 @@ func die() -> void:
 
 func _on_hit_received(damage: int, from_position: Vector2) -> void:
 	Logger.debug_log(node_name, "Hit received: %d from position %s" % [damage, str(from_position)], "Enemy")
+	state_machine.change_state("StunState")
 	knockback_vector = (global_position - from_position).normalized() * 300
 	knockback_timer = KNOCKBACK_DURATION
 	take_damage(damage)
