@@ -6,7 +6,7 @@
 [ext_resource type="Script" uid="uid://dsja8nwr01sgh" path="res://scenes/characters/components/combat/Hitbox.gd" id="3_nq2cd"]
 [ext_resource type="Script" uid="uid://bxe6ei0rj0p6l" path="res://scenes/characters/components/combat/Hurtbox.gd" id="4_huoql"]
 [ext_resource type="AudioStream" uid="uid://d17u67jcmp8kl" path="res://assets/audio/sfx/sfx_hit_01.wav" id="4_qkkih"]
-[ext_resource type="Texture2D" uid="uid://coh4ruronhfef" path="res://assets/textures/characters/enemies/shadow.png" id="4_wm2n6"]
+[ext_resource type="Texture2D" uid="uid://donpac876lhcn" path="res://assets/textures/characters/enemies/shadow.png" id="4_wm2n6"]
 [ext_resource type="Script" uid="uid://bo3rk6p1yoi3a" path="res://scripts/utilities/state_machine/StateMachine.gd" id="5_v0aeg"]
 [ext_resource type="AudioStream" uid="uid://dxinv614yupyu" path="res://assets/audio/sfx/sfx_hit.wav" id="6_bg4rm"]
 [ext_resource type="Script" uid="uid://borjan4xanvv5" path="res://scenes/characters/enemies/states/EnemyIdleState.gd" id="6_nq2cd"]
@@ -15,7 +15,7 @@
 [ext_resource type="Script" uid="uid://drqkd1jpnb2wt" path="res://scenes/characters/enemies/states/EnemyPatrolState.gd" id="9_nq2cd"]
 [ext_resource type="Script" uid="uid://cuhg46gjmdky4" path="res://scenes/characters/enemies/states/EnemyStunState.gd" id="11_c1o0e"]
 [ext_resource type="Texture2D" uid="uid://ddk345afuf57i" path="res://assets/textures/characters/enemies/death_smoke.png" id="14_ikp84"]
-[ext_resource type="Script" uid="uid://dplggeworlhi2" path="res://scenes/characters/enemies/states/EnemyDestroyState.gd" id="15_5xf4o"]
+[ext_resource type="Script" uid="uid://t0ix2gqqsfq2" path="res://scenes/characters/enemies/states/EnemyDestroyState.gd" id="15_5xf4o"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_jfo11"]
 

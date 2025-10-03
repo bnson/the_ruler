@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://crxnpt26jsln3" path="res://assets/textures/ui/buttons/Sound_Off.png" id="1_oyf68"]
 [ext_resource type="Texture2D" uid="uid://n7ajeqi0i28u" path="res://assets/textures/ui/buttons/Sound_On.png" id="2_ykn3o"]
-[ext_resource type="Script" uid="uid://ikli7trjj5r6" path="res://scenes/ui/controls/buttons/SoundToggleButton.gd" id="3_xwhjo"]
+[ext_resource type="Script" uid="uid://he6mwugv8rli" path="res://scenes/ui/controls/buttons/SoundToggleButton.gd" id="3_xwhjo"]
 
 [node name="SoundToggleButton" type="TextureButton"]
 custom_minimum_size = Vector2(32, 32)
