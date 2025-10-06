@@ -5,19 +5,19 @@ signal slime_died(slime_node: Node)
 
 enum PatrolShape { SQUARE, CIRCLE, TRIANGLE }
 
-const STATE_IDLE := "IdleState"
-const STATE_CHASE := "ChaseState"
 const STATE_ATTACK := "AttackState"
+const STATE_CHASE := "ChaseState"
+const STATE_DESTROY := "DestroyState"
+const STATE_IDLE := "IdleState"
 const STATE_PATROL := "PatrolState"
 const STATE_STUN := "StunState"
-const STATE_DESTROY := "DestroyState"
 const KNOCKBACK_DURATION: float = 0.2
 
 #––––––––––
 # Exported
 #––––––––––
 @export var speed: float = 40.0
-@export var max_hp: int = 300
+@export var max_hp: int = 30
 @export var exp_reward: int = 1
 @export var patrol_shape: PatrolShape = PatrolShape.SQUARE
 @export var patrol_radius: float = 100.0
@@ -78,27 +78,32 @@ func connect_signals() -> void:
 #––––––
 # Logic
 #––––––
-func _update_animation() -> void:
+func update_animation() -> void:
 	var move_dir: Vector2 = velocity.normalized()
 	if move_dir == Vector2.ZERO:
 		return
-
+	
+	# Xác định hướng nhìn
+	look_direction = Vector2.ZERO
 	if abs(move_dir.x) > abs(move_dir.y):
 		look_direction = Vector2(sign(move_dir.x), 0)
 	else:
-		look_direction = Vector2(0, sign(move_dir.y))
+		# đảo trục Y cho đúng hướng
+		look_direction = Vector2(0, -sign(move_dir.y))
+	
+	# Cập nhật cho tất cả state có blend_position
+	var anim_states := ["AttackState", "ChaseState", "DestroyState", "IdleState", "PatrolState", "StunState"]
+	for anim_state in anim_states:
+		var path := "parameters/%s/blend_position" % anim_state
+		animation_tree.set(path, look_direction)
 
-	animation_tree.set("parameters/IdleState/blend_position", look_direction)
-	animation_tree.set("parameters/ChaseState/blend_position", look_direction)
-	animation_tree.set("parameters/StunState/blend_position", look_direction)
-
-func _state_update(delta: float) -> void:
+func state_update(delta: float) -> void:
 	if state_machine.current_state:
 		state_machine.current_state.physics_update(delta)
 
 func _physics_process(delta: float) -> void:
-	_update_animation()
-	_state_update(delta)
+	update_animation()
+	state_update(delta)
 
 #–––––––––––––––
 # Combat & Death
@@ -117,18 +122,17 @@ func take_damage(amount: int) -> void:
 
 func die() -> void:
 	Logger.debug_log(node_name, "Slime has died.", "Enemy")
-
 	state_machine.change_state(STATE_DESTROY)
-	await animation_tree.animation_finished
-
-	# Thêm EXP vào player
-	GameState.player.stats.gain_experience(exp_reward)
-
 	# Drop item (spawn hoặc auto loot)
 	drop_item(auto_loot)
-
+	
+	# Thêm EXP vào player
+	GameState.player.stats.gain_experience(exp_reward)
+	
 	emit_signal("slime_died", self)
 	queue_free()
+	
+	await animation_tree.animation_finished
 
 func _on_hit_received(damage: int, from_position: Vector2) -> void:
 	Logger.debug_log(node_name, "Hit received: %d from position %s" % [damage, str(from_position)], "Enemy")
