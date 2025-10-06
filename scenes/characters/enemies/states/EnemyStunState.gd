@@ -1,12 +1,20 @@
 class_name EnemyStunState extends BaseState
 
 func enter() -> void:
+	var enemy = state_machine.get_parent()
+	enemy.animation_state.travel("StunState")
 	print("Enemy stun state enter...")
-	state_machine.get_parent().animation_state.travel("StunState")
 
-func physics_update(_delta: float, _input_vector := Vector2.ZERO) -> void:
+func physics_update(delta: float, _input_vector := Vector2.ZERO) -> void:
 	var enemy = state_machine.get_parent()
 	var player = enemy.get_player()
+
+	if enemy.knockback_timer > 0.0:
+		enemy.velocity = enemy.knockback_vector
+		enemy.knockback_timer = max(enemy.knockback_timer - delta, 0.0)
+		enemy.move_and_slide()
+		return
+	enemy.velocity = Vector2.ZERO
 
 	if not player:
 		state_machine.change_state("PatrolState")
@@ -19,6 +27,4 @@ func physics_update(_delta: float, _input_vector := Vector2.ZERO) -> void:
 	elif distance > 200:
 		state_machine.change_state("PatrolState")
 	else:
-		var direction = (player.global_position - enemy.global_position).normalized()
-		enemy.velocity = direction * enemy.speed
-		enemy.move_and_slide()
+		state_machine.change_state("WalkState")
