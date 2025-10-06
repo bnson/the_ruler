@@ -5,10 +5,19 @@ signal slime_died(slime_node: Node)
 
 enum PatrolShape { SQUARE, CIRCLE, TRIANGLE }
 
-#––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+const STATE_IDLE := "IdleState"
+const STATE_WALK := "WalkState"
+const STATE_ATTACK := "AttackState"
+const STATE_PATROL := "PatrolState"
+const STATE_STUN := "StunState"
+const STATE_DESTROY := "DestroyState"
+const KNOCKBACK_DURATION: float = 0.2
+
+#––––––––––
 # Exported
+#––––––––––
 @export var speed: float = 40.0
-@export var max_hp: int = 30
+@export var max_hp: int = 300
 @export var exp_reward: int = 1
 @export var patrol_shape: PatrolShape = PatrolShape.SQUARE
 @export var patrol_radius: float = 100.0
@@ -24,22 +33,14 @@ enum PatrolShape { SQUARE, CIRCLE, TRIANGLE }
 @export var min_drop_count := 1
 @export var max_drop_count: int = 3
 
-# Chế độ loot: true = auto loot trực tiếp vào Inventory, false = spawn item ra map
+# Chế độ loot: 
+# - true = auto loot trực tiếp vào Inventory.
+# - false = spawn item ra map
 @export var auto_loot := false
 
-#––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
-# Internal state
-const KNOCKBACK_DURATION: float = 0.2
-
-var current_hp: int = max_hp
-var patrol_index: int = 0
-var is_attacking: bool = true
-var knockback_vector: Vector2 = Vector2.ZERO
-var knockback_timer: float = 0.0
-var look_direction: Vector2 = Vector2.RIGHT  # mặc định nhìn phải
-
-#––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+#–––––––––––––
 # Cached nodes
+#–––––––––––––
 @onready var node_name := get_name()
 @onready var state_machine = $StateMachine
 @onready var animation_tree: AnimationTree = $AnimationTree
@@ -49,15 +50,24 @@ var look_direction: Vector2 = Vector2.RIGHT  # mặc định nhìn phải
 @onready var detection_area: Area2D = $DetectionArea
 @onready var patrol_positions: Array[Vector2] = generate_patrol_positions(global_position, patrol_shape, patrol_radius)
 
-#––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+#–––––––––––––––
+# Internal state
+#–––––––––––––––
+var current_hp: int = max_hp
+var patrol_index: int = 0
+var is_attacking: bool = true
+var knockback_vector: Vector2 = Vector2.ZERO
+var knockback_timer: float = 0.0
+var look_direction: Vector2 = Vector2.RIGHT  # mặc định nhìn phải
+
+#––––––
 # Ready
+#––––––
 func _ready() -> void:
 	current_hp = max_hp
 	animation_tree.active = true
 	hitbox.hitbox_owner = self
-	
-	state_machine.change_state("PatrolState")
-
+	state_machine.change_state(STATE_PATROL)
 	Logger.debug_log(node_name, "Slime initialized with HP: %d" % max_hp, "Enemy")
 	connect_signals()
 
@@ -65,13 +75,9 @@ func connect_signals() -> void:
 	Logger.connect_signal_once(hurtbox, "hit_received", Callable(self, "_on_hit_received"), node_name, "Enemy")
 	Logger.connect_signal_once(detection_area, "body_entered", Callable(self, "_on_body_entered"), node_name, "Enemy")
 
-#––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+#––––––
 # Logic
-func _apply_knockback(delta: float) -> void:
-	if knockback_timer > 0.0:
-		velocity = knockback_vector
-		knockback_timer -= delta
-
+#––––––
 func _update_animation() -> void:
 	var move_dir: Vector2 = velocity.normalized()
 	if move_dir == Vector2.ZERO:
@@ -91,13 +97,12 @@ func _state_update(delta: float) -> void:
 		state_machine.current_state.physics_update(delta)
 
 func _physics_process(delta: float) -> void:
-	_apply_knockback(delta)
-	move_and_slide()
 	_update_animation()
 	_state_update(delta)
 
-#––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+#–––––––––––––––
 # Combat & Death
+#–––––––––––––––
 func get_player() -> Node2D:
 	if Global.player:
 		return Global.player
@@ -106,8 +111,6 @@ func get_player() -> Node2D:
 
 func take_damage(amount: int) -> void:
 	current_hp -= amount
-	#state_machine.change_state("StunState")
-	
 	Logger.debug_log(node_name, "Received damage: %d | Current HP: %d" % [amount, current_hp], "Enemy")
 	if current_hp <= 0:
 		die()
@@ -115,7 +118,7 @@ func take_damage(amount: int) -> void:
 func die() -> void:
 	Logger.debug_log(node_name, "Slime has died.", "Enemy")
 
-	state_machine.change_state("DestroyState")
+	state_machine.change_state(STATE_DESTROY)
 	await animation_tree.animation_finished
 
 	# Thêm EXP vào player
@@ -129,13 +132,14 @@ func die() -> void:
 
 func _on_hit_received(damage: int, from_position: Vector2) -> void:
 	Logger.debug_log(node_name, "Hit received: %d from position %s" % [damage, str(from_position)], "Enemy")
-	state_machine.change_state("StunState")
+	state_machine.change_state(STATE_STUN)
 	knockback_vector = (global_position - from_position).normalized() * 300
 	knockback_timer = KNOCKBACK_DURATION
 	take_damage(damage)
 
-#––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+#––––––––––––––––––
 # Patrol positions
+#––––––––––––––––––
 func generate_patrol_positions(center: Vector2, shape: int, radius: float) -> Array[Vector2]:
 	var positions: Array[Vector2] = []
 	match shape:
@@ -159,10 +163,11 @@ func generate_patrol_positions(center: Vector2, shape: int, radius: float) -> Ar
 func _on_body_entered(body: Node) -> void:
 	if body.is_in_group("Player"):
 		Logger.debug_log(node_name, "Player entered detection area — switching to WalkState.", "Enemy")
-		state_machine.change_state("WalkState")
+		state_machine.change_state(STATE_WALK)
 
-#––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+#–––––––––––––
 # Loot system
+#–––––––––––––
 func drop_item(_auto_loot := false):
 	var drop_count = randi_range(min_drop_count, max_drop_count)
 	for i in range(drop_count):
