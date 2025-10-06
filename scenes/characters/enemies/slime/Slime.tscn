@@ -10,7 +10,7 @@
 [ext_resource type="Script" uid="uid://bo3rk6p1yoi3a" path="res://scripts/utilities/state_machine/StateMachine.gd" id="5_v0aeg"]
 [ext_resource type="AudioStream" uid="uid://dxinv614yupyu" path="res://assets/audio/sfx/sfx_hit.wav" id="6_bg4rm"]
 [ext_resource type="Script" uid="uid://borjan4xanvv5" path="res://scenes/characters/enemies/states/EnemyIdleState.gd" id="6_nq2cd"]
-[ext_resource type="Script" uid="uid://i1d31ifdloqf" path="res://scenes/characters/enemies/states/EnemyWalkState.gd" id="7_huoql"]
+[ext_resource type="Script" uid="uid://i1d31ifdloqf" path="res://scenes/characters/enemies/states/EnemyChaseState.gd" id="7_huoql"]
 [ext_resource type="Script" uid="uid://bbmnqybxkago" path="res://scenes/characters/enemies/states/EnemyAttackState.gd" id="8_0fvek"]
 [ext_resource type="Script" uid="uid://drqkd1jpnb2wt" path="res://scenes/characters/enemies/states/EnemyPatrolState.gd" id="9_nq2cd"]
 [ext_resource type="Script" uid="uid://cuhg46gjmdky4" path="res://scenes/characters/enemies/states/EnemyStunState.gd" id="11_c1o0e"]
@@ -811,7 +811,7 @@ tracks/3/keys = {
 tracks/3/use_blend = true
 
 [sub_resource type="Animation" id="Animation_ck2hb"]
-resource_name = "walk_down"
+resource_name = "chase_down"
 length = 0.7
 loop_mode = 1
 tracks/0/type = "value"
@@ -840,7 +840,7 @@ tracks/1/keys = {
 }
 
 [sub_resource type="Animation" id="Animation_gd7gp"]
-resource_name = "walk_left"
+resource_name = "chase_left"
 length = 0.7
 loop_mode = 1
 tracks/0/type = "value"
@@ -881,7 +881,7 @@ tracks/2/keys = {
 }
 
 [sub_resource type="Animation" id="Animation_hqndb"]
-resource_name = "walk_right"
+resource_name = "chase_right"
 length = 0.7
 loop_mode = 1
 tracks/0/type = "value"
@@ -922,7 +922,7 @@ tracks/2/keys = {
 }
 
 [sub_resource type="Animation" id="Animation_qbmv3"]
-resource_name = "walk_up"
+resource_name = "chase_up"
 length = 0.7
 loop_mode = 1
 tracks/0/type = "value"
@@ -953,6 +953,10 @@ tracks/1/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_huoql"]
 _data = {
 &"RESET": SubResource("Animation_nq2cd"),
+&"chase_down": SubResource("Animation_ck2hb"),
+&"chase_left": SubResource("Animation_gd7gp"),
+&"chase_right": SubResource("Animation_hqndb"),
+&"chase_up": SubResource("Animation_qbmv3"),
 &"destroy_down": SubResource("Animation_klvmb"),
 &"destroy_left": SubResource("Animation_lc57j"),
 &"destroy_right": SubResource("Animation_7byd1"),
@@ -964,12 +968,30 @@ _data = {
 &"stun_down": SubResource("Animation_nmbew"),
 &"stun_left": SubResource("Animation_wm2n6"),
 &"stun_right": SubResource("Animation_c1o0e"),
-&"stun_up": SubResource("Animation_qkkih"),
-&"walk_down": SubResource("Animation_ck2hb"),
-&"walk_left": SubResource("Animation_gd7gp"),
-&"walk_right": SubResource("Animation_hqndb"),
-&"walk_up": SubResource("Animation_qbmv3")
+&"stun_up": SubResource("Animation_qkkih")
 }
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_10a5e"]
+animation = &"destroy_left"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ck2hb"]
+animation = &"chase_right"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_gd7gp"]
+animation = &"chase_up"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_hqndb"]
+animation = &"chase_down"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_qbmv3"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_10a5e")
+blend_point_0/pos = Vector2(-1, 0)
+blend_point_1/node = SubResource("AnimationNodeAnimation_ck2hb")
+blend_point_1/pos = Vector2(1, 0)
+blend_point_2/node = SubResource("AnimationNodeAnimation_gd7gp")
+blend_point_2/pos = Vector2(0, 1)
+blend_point_3/node = SubResource("AnimationNodeAnimation_hqndb")
+blend_point_3/pos = Vector2(0, -1)
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_bg4rm"]
 animation = &"destroy_up"
@@ -1037,28 +1059,6 @@ blend_point_2/pos = Vector2(0, -1)
 blend_point_3/node = SubResource("AnimationNodeAnimation_ikp84")
 blend_point_3/pos = Vector2(-1, 0)
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_10a5e"]
-animation = &"walk_left"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ck2hb"]
-animation = &"walk_right"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_gd7gp"]
-animation = &"walk_down"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_hqndb"]
-animation = &"walk_up"
-
-[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_qbmv3"]
-blend_point_0/node = SubResource("AnimationNodeAnimation_10a5e")
-blend_point_0/pos = Vector2(-1, 0)
-blend_point_1/node = SubResource("AnimationNodeAnimation_ck2hb")
-blend_point_1/pos = Vector2(1, 0)
-blend_point_2/node = SubResource("AnimationNodeAnimation_gd7gp")
-blend_point_2/pos = Vector2(0, 1)
-blend_point_3/node = SubResource("AnimationNodeAnimation_hqndb")
-blend_point_3/pos = Vector2(0, -1)
-
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_pfy11"]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_nq2cd"]
@@ -1072,6 +1072,8 @@ advance_mode = 2
 advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_pfy11"]
+states/ChaseState/node = SubResource("AnimationNodeBlendSpace2D_qbmv3")
+states/ChaseState/position = Vector2(551, 119)
 states/DestroyState/node = SubResource("AnimationNodeBlendSpace2D_5xf4o")
 states/DestroyState/position = Vector2(477, -24)
 states/End/position = Vector2(135, -24)
@@ -1080,9 +1082,7 @@ states/IdleState/position = Vector2(298, 119)
 states/Start/position = Vector2(135, 119)
 states/StunState/node = SubResource("AnimationNodeBlendSpace2D_bg4rm")
 states/StunState/position = Vector2(291, -24)
-states/WalkState/node = SubResource("AnimationNodeBlendSpace2D_qbmv3")
-states/WalkState/position = Vector2(551, 119)
-transitions = ["Start", "IdleState", SubResource("AnimationNodeStateMachineTransition_pfy11"), "IdleState", "WalkState", SubResource("AnimationNodeStateMachineTransition_nq2cd"), "WalkState", "IdleState", SubResource("AnimationNodeStateMachineTransition_huoql"), "Start", "StunState", SubResource("AnimationNodeStateMachineTransition_c1o0e"), "Start", "DestroyState", SubResource("AnimationNodeStateMachineTransition_klvmb")]
+transitions = ["Start", "IdleState", SubResource("AnimationNodeStateMachineTransition_pfy11"), "IdleState", "ChaseState", SubResource("AnimationNodeStateMachineTransition_nq2cd"), "ChaseState", "IdleState", SubResource("AnimationNodeStateMachineTransition_huoql"), "Start", "StunState", SubResource("AnimationNodeStateMachineTransition_c1o0e"), "Start", "DestroyState", SubResource("AnimationNodeStateMachineTransition_klvmb")]
 graph_offset = Vector2(0, -113.529)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_tufbh"]
@@ -1184,10 +1184,10 @@ autoplay = "idle_down"
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource("AnimationNodeStateMachine_pfy11")
 anim_player = NodePath("../AnimationPlayer")
+parameters/ChaseState/blend_position = Vector2(-0.00199205, -0.983914)
 parameters/DestroyState/blend_position = Vector2(0, 0.00319481)
 parameters/IdleState/blend_position = Vector2(0, 0.993789)
 parameters/StunState/blend_position = Vector2(-0.000882626, 0)
-parameters/WalkState/blend_position = Vector2(-0.00247324, 1)
 
 [node name="Hitbox" type="Area2D" parent="."]
 collision_layer = 16
@@ -1219,7 +1219,7 @@ script = ExtResource("5_v0aeg")
 [node name="IdleState" type="Node" parent="StateMachine"]
 script = ExtResource("6_nq2cd")
 
-[node name="WalkState" type="Node" parent="StateMachine"]
+[node name="ChaseState" type="Node" parent="StateMachine"]
 script = ExtResource("7_huoql")
 
 [node name="AttackState" type="Node" parent="StateMachine"]

@@ -7,7 +7,7 @@ var patrol_points := []
 func enter() -> void:
 	#print("Enemy patrol state enter...")
 	var enemy = state_machine.get_parent()
-	enemy.animation_state.travel("WalkState")
+	enemy.animation_state.travel("ChaseState")
 
 	# Lấy danh sách điểm tuần tra từ enemy
 	if enemy.patrol_positions.is_empty():

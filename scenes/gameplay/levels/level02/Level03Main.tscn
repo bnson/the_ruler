@@ -5615,7 +5615,6 @@ sources/7 = SubResource("TileSetAtlasSource_1qfpn")
 sources/2 = SubResource("TileSetAtlasSource_po8fb")
 
 [node name="Level03Main" type="Node2D"]
-position = Vector2(0, -1)
 script = ExtResource("1_syjb0")
 slime_scene = ExtResource("2_n8w1p")
 metadata/_edit_vertical_guides_ = [3488.0, -1006.0, 1004.0]

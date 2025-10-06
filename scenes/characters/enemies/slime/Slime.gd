@@ -6,7 +6,7 @@ signal slime_died(slime_node: Node)
 enum PatrolShape { SQUARE, CIRCLE, TRIANGLE }
 
 const STATE_IDLE := "IdleState"
-const STATE_WALK := "WalkState"
+const STATE_CHASE := "ChaseState"
 const STATE_ATTACK := "AttackState"
 const STATE_PATROL := "PatrolState"
 const STATE_STUN := "StunState"
@@ -89,7 +89,7 @@ func _update_animation() -> void:
 		look_direction = Vector2(0, sign(move_dir.y))
 
 	animation_tree.set("parameters/IdleState/blend_position", look_direction)
-	animation_tree.set("parameters/WalkState/blend_position", look_direction)
+	animation_tree.set("parameters/ChaseState/blend_position", look_direction)
 	animation_tree.set("parameters/StunState/blend_position", look_direction)
 
 func _state_update(delta: float) -> void:
@@ -162,8 +162,8 @@ func generate_patrol_positions(center: Vector2, shape: int, radius: float) -> Ar
 
 func _on_body_entered(body: Node) -> void:
 	if body.is_in_group("Player"):
-		Logger.debug_log(node_name, "Player entered detection area — switching to WalkState.", "Enemy")
-		state_machine.change_state(STATE_WALK)
+		Logger.debug_log(node_name, "Player entered detection area — switching to ChaseState.", "Enemy")
+		state_machine.change_state(STATE_CHASE)
 
 #–––––––––––––
 # Loot system

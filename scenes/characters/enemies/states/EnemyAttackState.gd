@@ -2,7 +2,7 @@ class_name EnemyAttackState extends BaseState
 
 
 func enter() -> void:
-	#print("Enemy attack state enter...")
+	print("Enemy attack state enter...")
 	var enemy = state_machine.get_parent()
 	enemy.is_attacking = true
 	enemy.animation_state.travel("AttackState")

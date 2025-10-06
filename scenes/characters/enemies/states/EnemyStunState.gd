@@ -27,4 +27,4 @@ func physics_update(delta: float, _input_vector := Vector2.ZERO) -> void:
 	elif distance > 200:
 		state_machine.change_state("PatrolState")
 	else:
-		state_machine.change_state("WalkState")
+		state_machine.change_state("ChaseState")
