@@ -6,6 +6,7 @@
 - [docs/NamingConvention.md](./docs/NamingConvention.md): Quy chuẩn đặt tên cho project.
 - [docs/SaveSystem.md](./docs/SaveSystem.md): Hướng dẫn lưu và tải game.
 
+
 ## Project Setting
 | Setting                       | Properties                    | Value            | Note             |
 |-------------------------------|-------------------------------|------------------|------------------|
