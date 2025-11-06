@@ -6,6 +6,19 @@
 - [docs/NamingConvention.md](./docs/NamingConvention.md): Quy chuẩn đặt tên cho project.
 - [docs/SaveSystem.md](./docs/SaveSystem.md): Hướng dẫn lưu và tải game.
 
+## Project Setting
+| Setting                    | Properties                    | Value            | Note          |
+|----------------------------|-------------------------------|------------------|------------------|
+|Display - Window - Size     | Viewport Width                | 480              |                  |
+|                            | Viewport Height               | 270              |                  |
+|                            | mode                          | True             |                  |
+|                            | Resizable                     | True             |                  |
+|                            | Aspect                        | expand           |                  |
+|Display - Window - Stretch  | Mode                          | viewport         |                  |
+|                            | Aspect                        | expand           |                  |
+|Input Devices - Pointing    | Emulate Touch From Mouse      | True             |                  | 
+|                            | Emulate Mouse From Touch      | True             |                  |
+
 
 ## 🧩 Phân tích cấu hình Layer tiêu chuẩn cho game RPG (mở rộng)
 | Layer | Tên Layer               | Mục đích sử dụng | Ghi chú |
