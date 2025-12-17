@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>@EngLives</title>
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.2/css/bootstrap.min.css'>
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css'><link rel="stylesheet" href="./style.css">
+
+</head>
+<body>
+	<!-- partial:index.partial.html -->
+	<video id="background-video" autoplay loop muted>
+		<source src="" type="video/mp4">
+	</video>
+
+	<div id="background-body">
+
+	</div>
+
+	<div class="container-fluid d-flex flex-column vh-100" id="show-content">
+
+		<div class="row mx-md-n2">
+			<div class="col-3 px-md-2 bg-white rounded shadow d-flex p-2 m-2 title justify-content-center align-items-center" style="max-width: 24.15%">
+				<h5 class="p-2"><i id="title-icon" class="fa fa-file-text" aria-hidden="true"></i></h5>
+				<h5 class="p-2"><b><span id="title1"></span></b></h5>
+			</div>
+			<div class="col px-md-2 bg-white rounded shadow d-flex p-2 m-2 title">
+				<!--<h5 class="p-2"><i id="title-icon" class="fa fa-book" aria-hidden="true"></i></h5>-->
+				<h5 class="p-2"><b><span id="title2"></span></b></h5>
+			</div>
+		</div>
+		<div class="row mx-md-n2">
+
+			<div class="col-auto px-md-2 bg-white rounded shadow d-flex p-2 m-2 title">
+				<!--<h5 class="p-2"><i id="title-icon" class="fa fa-book" aria-hidden="true"></i></h5>-->
+				<h6 class="p-1"><span id="title3"></span></h6>
+			</div>
+			<div class="col-auto px-md-2 bg-white rounded shadow d-flex p-2 m-2 title">
+				<!--<h5 class="p-2"><i id="title-icon" class="fa fa-book" aria-hidden="true"></i></h5>-->
+				<h6 class="p-1"><span id="title4"></span></h6>
+			</div>
+
+			<div class="col px-md-2 bg-white rounded shadow d-flex p-2 m-2 title">
+				<!--<h5 class="p-2"><i id="title-icon" class="fa fa-book" aria-hidden="true"></i></h5>-->
+				<h6 class="p-1"><span id="title5"></span></h6>
+			</div>
+		</div>
+
+		<div class="row mx-md-n2 h-100">
+			<div class="col-3 d-flex flex-column h-100">
+				<div class="row h-100">
+					<div class="col bg-white rounded shadow p-2 m-2">
+						<!-- <div id="cardImage"></div> -->
+						<div class="video-container">
+							<video id="left-video" autoplay muted loop>
+								<source src="" type="video/mp4" />
+							</video>
+						</div>
+
+					</div>
+				</div>
+
+				<div class="row d-none">
+					<div class="col bg-white rounded shadow-sm p-2 m-2">
+						<div class="control-panel">
+							<div class="load-wrapp">
+								<div class="load-2">
+									<div class="line"></div>
+									<div class="line"></div>
+									<div class="line"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row text-center">
+					<div class="col bg-white rounded shadow-sm p-2 m-2" style="font-weight: bold;color: #000">
+						<div><b>Chill & Learn</b></div>
+						<div class="container-audio d-none">
+							<audio id="playAudio" controls loop>
+								<source src="" type="audio/mp3">
+								Your browser dose not Support the audio Tag
+							</audio>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+			<div class="col d-flex flex-column h-100">
+
+				<div class="row h-100">
+					<div class="col px-md-2 bg-white rounded shadow p-2 m-2">
+						<div class=""><span class="flag-icon flag-icon-us flag-icon-squared rounded-circle"></span>&nbsp;<b><u>English</u></b></div>
+						<div class="text-content">
+							<div class="text-center" id="text-english">
+								<!-- content english -->
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row h-100">
+					<div class="col px-md-2 bg-white rounded shadow p-2 m-2">
+						<div class=""><span class="flag-icon flag-icon-vn flag-icon-squared rounded-circle"></span>&nbsp;<b><u>Vietnamese</u></b></div>
+						<div class="text-content">
+							<div class="text-center" id="text-vietnamese">
+								<!-- content vietnamese -->
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+
+
+		</div>
+
+		<div class="row">
+			<div class="col bg-white rounded shadow p-2 m-2 col bg-white rounded shadow p-2 m-2 d-flex justify-content-center align-items-center" style="color: #000">
+				<i class="fa fa-copyright p-1" aria-hidden="true"></i> Englives &nbsp; <i class="fa-brands fa-youtube p-1"></i> @EngLives &nbsp;  <i class="fa fa-globe d-none" aria-hidden="true"></i> <a href="https://ehosito.com/" class="link-success d-none" target="_blank">https://ehosito.com/</a>
+			</div>
+		</div>
+
+	</div>
+	<!-- partial -->
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js'></script>
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.2/js/bootstrap.min.js'></script>
+	<script src='./timer.js'></script>
+	<script src='./ai.js'></script>
+	<script src="./script.js"></script>
+
+
+</body>
+</html>
