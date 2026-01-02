@@ -1,0 +1,176 @@
+[gd_scene load_steps=17 format=3 uid="uid://bio313nwshpd1"]
+
+[ext_resource type="Script" uid="uid://bmm8tscraxf6y" path="res://scenes/components/panel/InventoryPanel.gd" id="1_go0ae"]
+[ext_resource type="PackedScene" uid="uid://b5er8kmv0j7aw" path="res://scenes/components/common/InventorySlot.tscn" id="2_38cen"]
+[ext_resource type="StyleBox" uid="uid://wbl2afd25hh5" path="res://resources/themes/BackgroundTheme002.tres" id="3_ppeh2"]
+[ext_resource type="StyleBox" uid="uid://bar2e8cfw7flg" path="res://resources/themes/TabContainerTheme001TabbarBackground.tres" id="4_ju6cw"]
+[ext_resource type="StyleBox" uid="uid://4gmdxn1tm7j8" path="res://resources/themes/TabContainerTheme001TabSelected.tres" id="5_tue4e"]
+[ext_resource type="StyleBox" uid="uid://c8ae4cbq6kt15" path="res://resources/themes/TabContainerTheme001TabHovered.tres" id="6_mike8"]
+[ext_resource type="StyleBox" uid="uid://cloiw1ie2oyih" path="res://resources/themes/TabContainerTheme001TabUnselected.tres" id="7_nmpd4"]
+[ext_resource type="PackedScene" uid="uid://bei61i6bvlujr" path="res://scenes/items/ItemInfoPanel.tscn" id="8_tue4e"]
+[ext_resource type="Texture2D" uid="uid://diynj6cw7731x" path="res://assets/icons/gold_coin.png" id="9_mike8"]
+[ext_resource type="StyleBox" uid="uid://3l474d1p81yu" path="res://resources/themes/BackgroundTheme001.tres" id="9_nmpd4"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ju6cw"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l7tvo"]
+bg_color = Color(0.913725, 0.831373, 0.662745, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pwj7u"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_epvrg"]
+bg_color = Color(0.47451, 0.392157, 0.337255, 0.823529)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2q6ld"]
+bg_color = Color(0.47451, 0.392157, 0.337255, 0.941176)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nmpd4"]
+bg_color = Color(0.473789, 0.390452, 0.336983, 0.737255)
+
+[node name="InventoryPanel" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_go0ae")
+slot_scene = ExtResource("2_38cen")
+
+[node name="MainPanel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = ExtResource("3_ppeh2")
+
+[node name="Margin" type="MarginContainer" parent="MainPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBox" type="VBoxContainer" parent="MainPanel/Margin"]
+layout_mode = 2
+
+[node name="TabContainer" type="TabContainer" parent="MainPanel/Margin/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 8.0
+theme_override_colors/font_unselected_color = Color(0.14902, 0.0235294, 0, 1)
+theme_override_colors/font_hovered_color = Color(0.360784, 0.109804, 0, 1)
+theme_override_colors/font_selected_color = Color(0.121569, 0.0196078, 0, 1)
+theme_override_styles/tab_focus = SubResource("StyleBoxFlat_ju6cw")
+theme_override_styles/tabbar_background = ExtResource("4_ju6cw")
+theme_override_styles/panel = SubResource("StyleBoxFlat_l7tvo")
+theme_override_styles/tab_selected = ExtResource("5_tue4e")
+theme_override_styles/tab_hovered = ExtResource("6_mike8")
+theme_override_styles/tab_unselected = ExtResource("7_nmpd4")
+current_tab = 0
+
+[node name="General" type="MarginContainer" parent="MainPanel/Margin/VBox/TabContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+metadata/_tab_index = 0
+
+[node name="HBox" type="HBoxContainer" parent="MainPanel/Margin/VBox/TabContainer/General"]
+layout_mode = 2
+
+[node name="Scroll" type="ScrollContainer" parent="MainPanel/Margin/VBox/TabContainer/General/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 1.5
+
+[node name="GeneralContainer" type="GridContainer" parent="MainPanel/Margin/VBox/TabContainer/General/HBox/Scroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/h_separation = 4
+theme_override_constants/v_separation = 4
+columns = 6
+
+[node name="ItemInfoPanel" parent="MainPanel/Margin/VBox/TabContainer/General/HBox" instance=ExtResource("8_tue4e")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Special" type="MarginContainer" parent="MainPanel/Margin/VBox/TabContainer"]
+visible = false
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+metadata/_tab_index = 1
+
+[node name="HBox" type="HBoxContainer" parent="MainPanel/Margin/VBox/TabContainer/Special"]
+layout_mode = 2
+
+[node name="Scroll" type="ScrollContainer" parent="MainPanel/Margin/VBox/TabContainer/Special/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 1.5
+
+[node name="SpecialContainer" type="GridContainer" parent="MainPanel/Margin/VBox/TabContainer/Special/HBox/Scroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/h_separation = 4
+theme_override_constants/v_separation = 4
+columns = 6
+
+[node name="ItemInfoPanel" parent="MainPanel/Margin/VBox/TabContainer/Special/HBox" instance=ExtResource("8_tue4e")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Panel" type="Panel" parent="MainPanel/Margin/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = ExtResource("9_nmpd4")
+
+[node name="HBox" type="HBoxContainer" parent="MainPanel/Margin/VBox/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GoldIcon" type="TextureRect" parent="MainPanel/Margin/VBox/Panel/HBox"]
+custom_minimum_size = Vector2(26, 26)
+layout_mode = 2
+texture = ExtResource("9_mike8")
+stretch_mode = 3
+
+[node name="GoldLabel" type="Label" parent="MainPanel/Margin/VBox/Panel/HBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.14902, 0.0235294, 0, 1)
+text = "9,999,999"
+
+[node name="CloseButton" type="Button" parent="MainPanel"]
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -60.0
+offset_bottom = 31.0
+grow_horizontal = 0
+theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 4
+theme_override_styles/focus = SubResource("StyleBoxFlat_pwj7u")
+theme_override_styles/hover = SubResource("StyleBoxFlat_epvrg")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_2q6ld")
+theme_override_styles/normal = SubResource("StyleBoxFlat_nmpd4")
+text = "X"
+
+[connection signal="pressed" from="MainPanel/CloseButton" to="." method="_on_close_button_pressed"]
