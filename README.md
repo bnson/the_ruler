@@ -22,9 +22,9 @@ N/A
 ### Input Map
 | Setting                                      | Properties                          | Note             |
 |----------------------------------------------|-------------------------------------|------------------|
-|`ui_attack` (Deadzone: 0.5)                   | X (Physical)                        |                  |
+|`ui_attack (Deadzone: 0.5)`                   | X (Physical)                        |                  |
 |                                              | Joypad Button0 (All Devices)        |                  |
-|`inventory_panel` (Deadzone: 0.5)             | I (Physical)                        |                  |
+|`inventory_panel (Deadzone: 0.5)`             | I (Physical)                        |                  |
 
 ### Globals
 | Name                                         | Path                                | Note             |
