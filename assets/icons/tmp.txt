@@ -1,1 +1,3 @@
+gold_coin
+gold_coin_sheet
 
