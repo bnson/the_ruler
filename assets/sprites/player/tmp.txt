@@ -1,1 +1,6 @@
+arming_sword
+attack_effect
+player_base
+player_portrait
+player_shadow
 
