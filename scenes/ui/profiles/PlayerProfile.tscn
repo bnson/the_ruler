@@ -1,0 +1,140 @@
+[gd_scene load_steps=8 format=3 uid="uid://c1unhavfqqtee"]
+
+[ext_resource type="Script" uid="uid://clm8d7753g3hk" path="res://scenes/ui/profiles/PlayerProfile.gd" id="1_stijy"]
+[ext_resource type="StyleBox" uid="uid://3l474d1p81yu" path="res://resources/themes/BackgroundTheme001.tres" id="2_omw00"]
+[ext_resource type="FontFile" uid="uid://xshx4l0fl2p5" path="res://assets/fonts/OpenSans_Condensed-Bold.ttf" id="3_stt8t"]
+[ext_resource type="StyleBox" uid="uid://dclh601qphvih" path="res://resources/themes/FontTheme001.tres" id="4_hjhds"]
+[ext_resource type="Texture2D" uid="uid://c1xdwmxjrmxj7" path="res://assets/portrait/player_portrait.png" id="5_hjhds"]
+[ext_resource type="StyleBox" uid="uid://c5ycuhopav2av" path="res://resources/themes/BorderBottomTheme001.tres" id="6_8x2h2"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8x2h2"]
+content_margin_top = 2.0
+content_margin_bottom = 2.0
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[node name="ProfileBase" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_stijy")
+
+[node name="MainPanel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Margin" type="MarginContainer" parent="MainPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="HBox" type="HBoxContainer" parent="MainPanel/Margin"]
+layout_mode = 2
+
+[node name="PanelLeft" type="Panel" parent="MainPanel/Margin/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 1.5
+theme_override_styles/panel = ExtResource("2_omw00")
+
+[node name="VBox" type="VBoxContainer" parent="MainPanel/Margin/HBox/PanelLeft"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBox" type="HBoxContainer" parent="MainPanel/Margin/HBox/PanelLeft/VBox"]
+layout_mode = 2
+
+[node name="PlayerName" type="Label" parent="MainPanel/Margin/HBox/PanelLeft/VBox/HBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.298039, 0.168627, 0.101961, 1)
+theme_override_fonts/font = ExtResource("3_stt8t")
+theme_override_font_sizes/font_size = 14
+theme_override_styles/normal = ExtResource("4_hjhds")
+text = "MALTHERUS  - LEVEL"
+
+[node name="PlayerLevel" type="Label" parent="MainPanel/Margin/HBox/PanelLeft/VBox/HBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.298039, 0.168627, 0.101961, 1)
+theme_override_fonts/font = ExtResource("3_stt8t")
+theme_override_font_sizes/font_size = 14
+theme_override_styles/normal = SubResource("StyleBoxFlat_8x2h2")
+text = "1"
+
+[node name="MarginContainer" type="MarginContainer" parent="MainPanel/Margin/HBox/PanelLeft/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_bottom = 10
+
+[node name="TextureRect" type="TextureRect" parent="MainPanel/Margin/HBox/PanelLeft/VBox/MarginContainer"]
+visible = false
+layout_mode = 2
+texture = ExtResource("5_hjhds")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="PanelRight" type="Panel" parent="MainPanel/Margin/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 3.0
+theme_override_styles/panel = ExtResource("2_omw00")
+
+[node name="VBox" type="VBoxContainer" parent="MainPanel/Margin/HBox/PanelRight"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Vitals" type="MarginContainer" parent="MainPanel/Margin/HBox/PanelRight/VBox"]
+layout_mode = 2
+size_flags_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBox" type="VBoxContainer" parent="MainPanel/Margin/HBox/PanelRight/VBox/Vitals"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MainPanel/Margin/HBox/PanelRight/VBox/Vitals/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.313726, 0.188235, 0.117647, 1)
+theme_override_fonts/font = ExtResource("3_stt8t")
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = ExtResource("6_8x2h2")
+text = "VITAL STATS"
+
+[node name="Grid" type="GridContainer" parent="MainPanel/Margin/HBox/PanelRight/VBox/Vitals/VBox"]
+layout_mode = 2
+columns = 2
+
+[node name="HpLabel" type="Label" parent="MainPanel/Margin/HBox/PanelRight/VBox/Vitals/VBox/Grid"]
+layout_mode = 2
+text = "HP"
+
+[node name="HpBar" type="ProgressBar" parent="MainPanel/Margin/HBox/PanelRight/VBox/Vitals/VBox/Grid"]
+layout_mode = 2
+size_flags_horizontal = 3
+show_percentage = false
+
+[node name="Attributes" type="MarginContainer" parent="MainPanel/Margin/HBox/PanelRight/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
