@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=5 format=3 uid="uid://cfd5qsy2m5ru"]
+
+[ext_resource type="Texture2D" uid="uid://bgjn0i0ucf4f6" path="res://assets/items/items_sheet_1.png" id="1_rsg66"]
+[ext_resource type="Script" uid="uid://btqoqas53aiec" path="res://scenes/items/ItemEffect.gd" id="1_t48s7"]
+[ext_resource type="Script" uid="uid://bo4oben1mb531" path="res://scenes/items/ItemData.gd" id="2_rsg66"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qpsls"]
+atlas = ExtResource("1_rsg66")
+region = Rect2(224, 0, 32, 32)
+
+[resource]
+script = ExtResource("2_rsg66")
+id = "grocery_store_key"
+name = "Grocery Store Key"
+description = ""
+type = "key"
+price = 1
+is_unique = true
+atlas_texture = SubResource("AtlasTexture_qpsls")
+effects = Array[ExtResource("1_t48s7")]([])
+metadata/_custom_type_script = "uid://bo4oben1mb531"
