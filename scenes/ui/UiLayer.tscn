@@ -1,0 +1,65 @@
+[gd_scene load_steps=6 format=3 uid="uid://c8pn362u2sda7"]
+
+[ext_resource type="Script" uid="uid://b5tf0rt018mmv" path="res://scenes/ui/UiLayer.gd" id="1_nbl3c"]
+[ext_resource type="PackedScene" uid="uid://rud3su3fnucq" path="res://scenes/components/panel/HudPanel.tscn" id="2_o3b1c"]
+[ext_resource type="PackedScene" uid="uid://dl6l0fqd45g4b" path="res://scenes/components/panel/JoystickPanel.tscn" id="2_p1e30"]
+[ext_resource type="PackedScene" uid="uid://dr4udhoe051sn" path="res://scenes/components/panel/ActionPanel.tscn" id="3_tb4qj"]
+[ext_resource type="PackedScene" uid="uid://bio313nwshpd1" path="res://scenes/components/panel/InventoryPanel.tscn" id="5_q66yp"]
+
+[node name="UiLayer" type="CanvasLayer"]
+script = ExtResource("1_nbl3c")
+metadata/_edit_horizontal_guides_ = [256.0, 194.0, 174.0]
+
+[node name="TopLeftUi" type="CenterContainer" parent="."]
+offset_right = 124.0
+offset_bottom = 59.0
+
+[node name="HudPanel" parent="TopLeftUi" instance=ExtResource("2_o3b1c")]
+layout_mode = 2
+
+[node name="TopRightUi" type="CenterContainer" parent="."]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 40.0
+grow_horizontal = 0
+
+[node name="BottomLeftUi" type="CenterContainer" parent="."]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -110.0
+offset_right = 110.0
+grow_vertical = 0
+mouse_filter = 2
+
+[node name="JoystickPanel" parent="BottomLeftUi" instance=ExtResource("2_p1e30")]
+layout_mode = 2
+
+[node name="BottomRightUi" type="CenterContainer" parent="."]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -88.0
+offset_top = -88.0
+grow_horizontal = 0
+grow_vertical = 0
+mouse_filter = 2
+
+[node name="ActionPanel" parent="BottomRightUi" instance=ExtResource("3_tb4qj")]
+layout_mode = 2
+
+[node name="CenterUi" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="InventoryPanel" parent="CenterUi" instance=ExtResource("5_q66yp")]
+visible = false
+layout_mode = 2
