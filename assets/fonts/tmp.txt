@@ -1,1 +1,7 @@
-
+Cinzel-Bold
+Cinzel-ExtraBold
+Lato-Bold
+Lato-Thin
+OpenSans_Condensed-Bold
+OpenSans-Italic-VariableFont_wdth,wght
+OpenSans-VariableFont_wdth,wght
