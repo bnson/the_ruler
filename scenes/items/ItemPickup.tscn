@@ -1,0 +1,36 @@
+[gd_scene load_steps=7 format=3 uid="uid://b5ifga6t4f8wh"]
+
+[ext_resource type="Script" uid="uid://dfsof14v4rgga" path="res://scenes/items/ItemPickup.gd" id="1_8rhm7"]
+[ext_resource type="Texture2D" uid="uid://bgjn0i0ucf4f6" path="res://assets/items/items_sheet_1.png" id="2_wvq16"]
+[ext_resource type="Texture2D" uid="uid://dusdf363qrg6p" path="res://assets/sprites/general/shadow.png" id="3_qhpyl"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qporq"]
+atlas = ExtResource("2_wvq16")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gjvcj"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8rhm7"]
+radius = 12.0
+
+[node name="ItemPickup" type="RigidBody2D"]
+gravity_scale = 0.0
+script = ExtResource("1_8rhm7")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_qporq")
+
+[node name="ShadowSprite2D" type="Sprite2D" parent="."]
+modulate = Color(0, 0, 0, 0.27451)
+show_behind_parent = true
+position = Vector2(5.96046e-08, 8)
+scale = Vector2(0.488281, 0.482422)
+texture = ExtResource("3_qhpyl")
+
+[node name="PickupArea2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PickupArea2D"]
+shape = SubResource("CircleShape2D_gjvcj")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_8rhm7")
