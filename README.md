@@ -2,12 +2,11 @@
 
 
 ## 📄 Tài liệu kỹ thuật
-- [docs/Log.md](./docs/Log.md): Hướng dẫn cấu hình và sử dụng hệ thống log.
-- [docs/NamingConvention.md](./docs/NamingConvention.md): Quy chuẩn đặt tên cho project.
-- [docs/SaveSystem.md](./docs/SaveSystem.md): Hướng dẫn lưu và tải game.
+N/A
 
 
 ## Project Setting
+### General
 | Setting                       | Properties                    | Value            | Note             |
 |-------------------------------|-------------------------------|------------------|------------------|
 |`Display - Window - Size`      | Viewport Width                | 480              |                  |
@@ -19,6 +18,24 @@
 |                               | Aspect                        | expand           |                  |
 |`Input Devices - Pointing`     | Emulate Touch From Mouse      | True             |                  | 
 |                               | Emulate Mouse From Touch      | True             |                  |
+
+### Input Map
+| Setting                                      | Properties                          | Note             |
+|----------------------------------------------|-------------------------------------|------------------|
+|`ui_attack` (Deadzone: 0.5)                   | X (Physical)                        |                  |
+|                                              | Joypad Button0 (All Devices)        |                  |
+|`inventory_panel` (Deadzone: 0.5)             | I (Physical)                        |                  |
+
+### Globals
+| Name                                         | Path                                | Note             |
+|----------------------------------------------|-------------------------------------|------------------|
+| AudioManager                                 |                                     |                  |
+| ItemDatabase                                 |                                     |                  |
+| InventoryManager                             |                                     |                  |
+| UiManager                                    |                                     |                  |
+| PlayerManager                                |                                     |                  |
+| SaveManager                                  |                                     |                  |
+| SceneManager                                 |                                     |                  |
 
 
 ## 🧩 Phân tích cấu hình Layer tiêu chuẩn cho game RPG (mở rộng)
@@ -57,12 +74,14 @@
 | `TileMapCollision`   | Tile có collision                        | Có thể tách riêng để dễ kiểm soát         |
 | `TileMapNavigation`  | Tile dùng cho pathfinding                | Dùng với `NavigationRegion2D`             |
 
+
 ## 🧱 Thư mục & mục đính.
 | **Thư mục** | **Mục đích** |
 |-------------|--------------|
 | `ambience`  | Âm thanh môi trường, tạo không khí cho cảnh game như tiếng gió, mưa, chim hót... Thường phát liên tục và nhẹ nhàng. |
 | `bgm`       | Nhạc nền chính của game hoặc từng màn chơi, giúp tạo cảm xúc và tăng sự hấp dẫn cho người chơi. |
 | `sfx`       | Hiệu ứng âm thanh phản hồi từ hành động trong game như tiếng nhảy, bắn súng, mở cửa... Thường ngắn và phát khi có sự kiện. |
+
 
 ## 🚀 Một số lệnh check bug
 ```bash
@@ -76,6 +95,7 @@ adb kill-server
 adb start-server
 adb devices
 ```
+
 
 ## 🚀 Các lệnh Git thông dụng
 
