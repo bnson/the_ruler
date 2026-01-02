@@ -1,0 +1,127 @@
+[gd_scene load_steps=8 format=3 uid="uid://rud3su3fnucq"]
+
+[ext_resource type="Script" uid="uid://cclexnboggd36" path="res://scenes/components/panel/HudPanel.gd" id="1_58v4u"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2bo3v"]
+bg_color = Color(0.618933, 1.54018e-06, 4.81307e-07, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_58v4u"]
+bg_color = Color(8.59615e-05, 0.293632, 0.856044, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1gje6"]
+bg_color = Color(0.557449, 0.557449, 3.85046e-07, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kb161"]
+bg_color = Color(0.454533, 0.301275, 0.730095, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oy44g"]
+content_margin_left = 3.0
+content_margin_right = 3.0
+bg_color = Color(0, 0, 0, 0.309804)
+corner_radius_top_left = 3
+corner_radius_bottom_right = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_821qf"]
+content_margin_left = 3.0
+content_margin_right = 3.0
+bg_color = Color(0, 0, 0, 0.309804)
+corner_radius_top_left = 3
+corner_radius_bottom_right = 3
+
+[node name="HudPanel" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_58v4u")
+
+[node name="MainPanel" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -53.0
+offset_top = -16.0
+offset_right = 53.0
+offset_bottom = 16.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PlayerPanel" type="HBoxContainer" parent="MainPanel"]
+layout_mode = 2
+
+[node name="Avatar" type="TextureRect" parent="MainPanel/PlayerPanel"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+
+[node name="VitalsPanel" type="VBoxContainer" parent="MainPanel/PlayerPanel"]
+custom_minimum_size = Vector2(79, 0)
+layout_mode = 2
+
+[node name="HpBar" type="ProgressBar" parent="MainPanel/PlayerPanel/VitalsPanel"]
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 2
+theme_override_styles/fill = SubResource("StyleBoxFlat_2bo3v")
+value = 50.0
+show_percentage = false
+
+[node name="MpBar" type="ProgressBar" parent="MainPanel/PlayerPanel/VitalsPanel"]
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 2
+theme_override_styles/fill = SubResource("StyleBoxFlat_58v4u")
+value = 50.0
+show_percentage = false
+
+[node name="StBar" type="ProgressBar" parent="MainPanel/PlayerPanel/VitalsPanel"]
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 2
+theme_override_styles/fill = SubResource("StyleBoxFlat_1gje6")
+value = 50.0
+show_percentage = false
+
+[node name="ExBar" type="ProgressBar" parent="MainPanel/PlayerPanel/VitalsPanel"]
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 2
+theme_override_styles/fill = SubResource("StyleBoxFlat_kb161")
+value = 50.0
+show_percentage = false
+
+[node name="InfoPanel" type="HBoxContainer" parent="MainPanel"]
+layout_mode = 2
+
+[node name="Level" type="Label" parent="MainPanel/InfoPanel"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 7
+theme_override_styles/normal = SubResource("StyleBoxFlat_oy44g")
+text = "Level 1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Time" type="Label" parent="MainPanel/InfoPanel"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 7
+theme_override_styles/normal = SubResource("StyleBoxFlat_821qf")
+text = "Time"
+horizontal_alignment = 1
+vertical_alignment = 1
