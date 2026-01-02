@@ -1,1 +1,10 @@
-
+sfx_footstep_01
+sfx_footstep_02
+sfx_footstep_03
+sfx_hit
+sfx_hit_01
+sfx_hit_player
+sfx_hp_up
+sfx_menu_focus
+sfx_menu_select
+sfx_sword_swoosh
