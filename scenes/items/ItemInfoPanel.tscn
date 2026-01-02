@@ -1,0 +1,89 @@
+[gd_scene load_steps=7 format=3 uid="uid://bei61i6bvlujr"]
+
+[ext_resource type="Script" uid="uid://crt0r0xrv14lq" path="res://scenes/items/ItemInfoPanel.gd" id="1_n4xja"]
+[ext_resource type="StyleBox" uid="uid://3l474d1p81yu" path="res://resources/themes/BackgroundTheme001.tres" id="2_fdm0u"]
+[ext_resource type="Texture2D" uid="uid://bgjn0i0ucf4f6" path="res://assets/items/items_sheet_1.png" id="3_acf4s"]
+[ext_resource type="Texture2D" uid="uid://diynj6cw7731x" path="res://assets/icons/gold_coin.png" id="4_fdm0u"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kxmyd"]
+atlas = ExtResource("3_acf4s")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_acf4s"]
+content_margin_top = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_top = 2
+border_color = Color(0.258824, 0.141176, 0.121569, 1)
+
+[node name="ItemInfoPanel" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_n4xja")
+
+[node name="MainPanel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = ExtResource("2_fdm0u")
+
+[node name="Margin" type="MarginContainer" parent="MainPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBox" type="VBoxContainer" parent="MainPanel/Margin"]
+layout_mode = 2
+
+[node name="HBox" type="HBoxContainer" parent="MainPanel/Margin/VBox"]
+layout_mode = 2
+
+[node name="ItemIcon" type="TextureRect" parent="MainPanel/Margin/VBox/HBox"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_kxmyd")
+stretch_mode = 3
+
+[node name="VBox" type="VBoxContainer" parent="MainPanel/Margin/VBox/HBox"]
+layout_mode = 2
+
+[node name="ItemName" type="Label" parent="MainPanel/Margin/VBox/HBox/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.298039, 0.168627, 0.101961, 1)
+theme_override_font_sizes/font_size = 16
+text = "Item Name"
+
+[node name="HBox" type="HBoxContainer" parent="MainPanel/Margin/VBox/HBox/VBox"]
+layout_mode = 2
+
+[node name="ItemPrice" type="Label" parent="MainPanel/Margin/VBox/HBox/VBox/HBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.298039, 0.168627, 0.101961, 1)
+theme_override_font_sizes/font_size = 16
+text = "100"
+
+[node name="GoldIcon" type="TextureRect" parent="MainPanel/Margin/VBox/HBox/VBox/HBox"]
+layout_mode = 2
+texture = ExtResource("4_fdm0u")
+stretch_mode = 3
+
+[node name="ItemDescription" type="RichTextLabel" parent="MainPanel/Margin/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/default_color = Color(0.298039, 0.168627, 0.101961, 1)
+theme_override_font_sizes/normal_font_size = 14
+theme_override_styles/normal = SubResource("StyleBoxFlat_acf4s")
+text = "Item description"
