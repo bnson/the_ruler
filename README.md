@@ -29,13 +29,13 @@ N/A
 ### Globals
 | Name                                         | Path                                | Note             |
 |----------------------------------------------|-------------------------------------|------------------|
-| AudioManager                                 |                                     |                  |
-| ItemDatabase                                 |                                     |                  |
-| InventoryManager                             |                                     |                  |
-| UiManager                                    |                                     |                  |
-| PlayerManager                                |                                     |                  |
-| SaveManager                                  |                                     |                  |
-| SceneManager                                 |                                     |                  |
+| AudioManager                                 | res://autoload/                     |                  |
+| ItemDatabase                                 | res://autoload/                     |                  |
+| InventoryManager                             | res://autoload/                     |                  |
+| UiManager                                    | res://autoload/                     |                  |
+| PlayerManager                                | res://autoload/                     |                  |
+| SaveManager                                  | res://autoload/                     |                  |
+| SceneManager                                 | res://autoload/                     |                  |
 
 
 ## 🧩 Phân tích cấu hình Layer tiêu chuẩn cho game RPG (mở rộng)
