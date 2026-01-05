@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="ItemData" load_steps=5 format=3 uid="uid://dxycq5u0yy2lt"]
 
-[ext_resource type="Texture2D" uid="uid://bgjn0i0ucf4f6" path="res://assets/items/items_sheet_1.png" id="1_kdniq"]
+[ext_resource type="Texture2D" uid="uid://cfknwohqnguyu" path="res://assets/items/items_sheet_1.png" id="1_kdniq"]
 [ext_resource type="Script" uid="uid://btqoqas53aiec" path="res://scenes/items/ItemEffect.gd" id="1_xsg0d"]
 [ext_resource type="Script" uid="uid://bo4oben1mb531" path="res://scenes/items/ItemData.gd" id="2_kdniq"]
 
@@ -12,7 +12,7 @@ region = Rect2(192, 0, 32, 32)
 script = ExtResource("2_kdniq")
 id = "apple"
 name = "Apple"
-description = ""
+description = "Apple."
 type = "fruit"
 price = 1
 is_unique = false

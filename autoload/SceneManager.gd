@@ -4,8 +4,8 @@ extends Node
 var scene_container: Node = null
 var fade_layer: Node = null
 var current_scene: Node = null
-var current_scene_file_path: String = "res://scenes/levels/level_01/Level01.tscn"
-
+var current_scene_file_path: String
+var default_scene_file_path: String = "res://scenes/levels/level_01/Level01.tscn"
 
 #============================================================
 # Thiết lập container để chứa scene
@@ -25,8 +25,10 @@ func change_scene(path: String) -> void:
 		current_scene.queue_free()
 	
 	# Load màn mới
-	#print("[SceneManager] Changed level to: ", path)
-	current_scene_file_path = path
+	print("[SceneManager] Changed level to: ", path)
+	if path.is_empty():
+		current_scene_file_path = default_scene_file_path
+	
 	var new_scene = load(current_scene_file_path).instantiate()
 	scene_container.add_child(new_scene)
 	current_scene = new_scene

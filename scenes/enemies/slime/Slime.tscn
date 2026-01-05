@@ -2,14 +2,14 @@
 
 [ext_resource type="Script" uid="uid://br4qqr5tw2p63" path="res://scenes/enemies/slime/Slime.gd" id="1_vn8bj"]
 [ext_resource type="PackedScene" uid="uid://b5ifga6t4f8wh" path="res://scenes/items/ItemPickup.tscn" id="2_av611"]
-[ext_resource type="Texture2D" uid="uid://c0pe8owimqw88" path="res://assets/sprites/enemies/slime.png" id="2_jfo11"]
-[ext_resource type="Texture2D" uid="uid://bi85xo8ct6awy" path="res://assets/sprites/enemies/slime_die_smoke.png" id="3_6oonr"]
-[ext_resource type="Texture2D" uid="uid://bg5scy8ysv40y" path="res://assets/sprites/enemies/shadow.png" id="3_trjlk"]
+[ext_resource type="Texture2D" uid="uid://di3bn7vlqhxpy" path="res://assets/sprites/enemies/slime.png" id="2_jfo11"]
+[ext_resource type="Texture2D" uid="uid://8x2k8g7a6snb" path="res://assets/sprites/enemies/slime_die_smoke.png" id="3_6oonr"]
+[ext_resource type="Texture2D" uid="uid://jvxjunn724e3" path="res://assets/sprites/enemies/shadow.png" id="3_trjlk"]
 [ext_resource type="Script" uid="uid://di5iylnofunqs" path="res://scenes/components/combat/Hurtbox.gd" id="3_vmhta"]
 [ext_resource type="Script" uid="uid://dssnxw4b5qdxt" path="res://scenes/components/combat/Hitbox.gd" id="4_ov3fh"]
 [ext_resource type="Script" uid="uid://cclhjwk25dsqe" path="res://systems/stats/EnemyStats.gd" id="5_a557u"]
-[ext_resource type="AudioStream" uid="uid://sarrml6ark4l" path="res://assets/sounds/sfx/sfx_hit.wav" id="6_hmrgh"]
-[ext_resource type="AudioStream" uid="uid://c1qhekk7kiuhq" path="res://assets/sounds/sfx/sfx_hit_01.wav" id="7_6oonr"]
+[ext_resource type="AudioStream" uid="uid://d17x33xxiawgm" path="res://assets/sounds/sfx/sfx_hit.wav" id="6_hmrgh"]
+[ext_resource type="AudioStream" uid="uid://bddrkm6d4ypx1" path="res://assets/sounds/sfx/sfx_hit_01.wav" id="7_6oonr"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_jfo11"]
 radius = 15.0

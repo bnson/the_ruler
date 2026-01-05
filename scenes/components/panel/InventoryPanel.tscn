@@ -8,7 +8,7 @@
 [ext_resource type="StyleBox" uid="uid://c8ae4cbq6kt15" path="res://resources/themes/TabContainerTheme001TabHovered.tres" id="6_mike8"]
 [ext_resource type="StyleBox" uid="uid://cloiw1ie2oyih" path="res://resources/themes/TabContainerTheme001TabUnselected.tres" id="7_nmpd4"]
 [ext_resource type="PackedScene" uid="uid://bei61i6bvlujr" path="res://scenes/items/ItemInfoPanel.tscn" id="8_tue4e"]
-[ext_resource type="Texture2D" uid="uid://diynj6cw7731x" path="res://assets/icons/gold_coin.png" id="9_mike8"]
+[ext_resource type="Texture2D" uid="uid://kggwyhd20fop" path="res://assets/icons/gold_coin.png" id="9_mike8"]
 [ext_resource type="StyleBox" uid="uid://3l474d1p81yu" path="res://resources/themes/BackgroundTheme001.tres" id="9_nmpd4"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ju6cw"]

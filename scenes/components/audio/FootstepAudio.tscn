@@ -1,9 +1,9 @@
 [gd_scene load_steps=6 format=3 uid="uid://ybe63yv7yuxp"]
 
 [ext_resource type="Script" uid="uid://c5mokdbgsp6hm" path="res://scenes/components/audio/FootstepAudio.gd" id="1_6mel5"]
-[ext_resource type="AudioStream" uid="uid://di6nikrw2swba" path="res://assets/sounds/sfx/sfx_footstep_01.wav" id="2_o8ul3"]
-[ext_resource type="AudioStream" uid="uid://bdgg4wax87vj5" path="res://assets/sounds/sfx/sfx_footstep_02.wav" id="3_1l1or"]
-[ext_resource type="AudioStream" uid="uid://chayb1v0v74f7" path="res://assets/sounds/sfx/sfx_footstep_03.wav" id="4_7jor5"]
+[ext_resource type="AudioStream" uid="uid://pbgid050aoof" path="res://assets/sounds/sfx/sfx_footstep_01.wav" id="2_o8ul3"]
+[ext_resource type="AudioStream" uid="uid://dutjdftyts0yn" path="res://assets/sounds/sfx/sfx_footstep_02.wav" id="3_1l1or"]
+[ext_resource type="AudioStream" uid="uid://bi2fojilh13m3" path="res://assets/sounds/sfx/sfx_footstep_03.wav" id="4_7jor5"]
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_o8ul3"]
 random_pitch = 1.13

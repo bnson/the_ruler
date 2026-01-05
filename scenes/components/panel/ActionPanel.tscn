@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://dr4udhoe051sn"]
 
 [ext_resource type="Script" uid="uid://h1oujfxw0npg" path="res://scenes/components/panel/ActionPanel.gd" id="1_2lj5n"]
-[ext_resource type="Texture2D" uid="uid://da1p0w2yspipm" path="res://assets/ui/buttons/actions/button_sword.png" id="2_njpo1"]
+[ext_resource type="Texture2D" uid="uid://dkboe5ckryx28" path="res://assets/ui/buttons/actions/button_sword.png" id="2_njpo1"]
 
 [node name="ActionPanel" type="Control"]
 layout_mode = 3

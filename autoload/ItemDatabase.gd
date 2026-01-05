@@ -37,12 +37,12 @@ func load_items():
 	print("✅ Loaded %d items." % items.size())
 
 
-### ✅ Kiểm tra đã load xong
+### ✅ Kiểm tra đã load xong.
 func is_ready() -> bool:
 	return is_item_data_ready and items.size() > 0
 
 
-### ✅ Lấy item theo ID an toàn
+### ✅ Lấy item theo ID an toàn.
 func get_item(id: String) -> ItemData:
 	if items.has(id):
 		return items[id]

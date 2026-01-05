@@ -2,9 +2,9 @@
 
 [ext_resource type="Script" uid="uid://clm8d7753g3hk" path="res://scenes/ui/profiles/PlayerProfile.gd" id="1_stijy"]
 [ext_resource type="StyleBox" uid="uid://3l474d1p81yu" path="res://resources/themes/BackgroundTheme001.tres" id="2_omw00"]
-[ext_resource type="FontFile" uid="uid://xshx4l0fl2p5" path="res://assets/fonts/OpenSans_Condensed-Bold.ttf" id="3_stt8t"]
+[ext_resource type="FontFile" uid="uid://h370v3vijiwg" path="res://assets/fonts/OpenSans_Condensed-Bold.ttf" id="3_stt8t"]
 [ext_resource type="StyleBox" uid="uid://dclh601qphvih" path="res://resources/themes/FontTheme001.tres" id="4_hjhds"]
-[ext_resource type="Texture2D" uid="uid://c1xdwmxjrmxj7" path="res://assets/portrait/player_portrait.png" id="5_hjhds"]
+[ext_resource type="Texture2D" uid="uid://y4ye84h201xe" path="res://assets/portrait/player_portrait.png" id="5_hjhds"]
 [ext_resource type="StyleBox" uid="uid://c5ycuhopav2av" path="res://resources/themes/BorderBottomTheme001.tres" id="6_8x2h2"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8x2h2"]
@@ -83,7 +83,6 @@ size_flags_vertical = 3
 theme_override_constants/margin_bottom = 10
 
 [node name="TextureRect" type="TextureRect" parent="MainPanel/Margin/HBox/PanelLeft/VBox/MarginContainer"]
-visible = false
 layout_mode = 2
 texture = ExtResource("5_hjhds")
 expand_mode = 1

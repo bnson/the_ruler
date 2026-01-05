@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://dxuew55wo0ypf"]
 
 [ext_resource type="Script" uid="uid://udp7qhffflym" path="res://scenes/player/PlayerSpawn.gd" id="1_5sgn8"]
-[ext_resource type="Texture2D" uid="uid://cf4tdx1marvja" path="res://assets/sprites/player/player_base.png" id="2_sykbq"]
+[ext_resource type="Texture2D" uid="uid://d367erreerdr2" path="res://assets/sprites/player/player_base.png" id="2_sykbq"]
 
 [node name="PlayerSpawn" type="Marker2D"]
 script = ExtResource("1_5sgn8")

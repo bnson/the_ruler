@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://dcdrgbqk11l5p"]
 
 [ext_resource type="Script" uid="uid://r3jji5c37yw8" path="res://scenes/components/common/ProgressBar.gd" id="1_p8urv"]
-[ext_resource type="FontFile" uid="uid://xshx4l0fl2p5" path="res://assets/fonts/OpenSans_Condensed-Bold.ttf" id="2_i5nji"]
+[ext_resource type="FontFile" uid="uid://h370v3vijiwg" path="res://assets/fonts/OpenSans_Condensed-Bold.ttf" id="2_i5nji"]
 
 [node name="ProgressBar" type="Control"]
 layout_mode = 3
