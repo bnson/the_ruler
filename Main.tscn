@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://dc5ti7rkkmsc8"]
+
+[ext_resource type="Script" uid="uid://10slh1w5tii4" path="res://Main.gd" id="1_nha0i"]
+[ext_resource type="PackedScene" uid="uid://c8pn362u2sda7" path="res://scenes/ui/UiLayer.tscn" id="2_q24mn"]
+
+[node name="Main" type="Node"]
+script = ExtResource("1_nha0i")
+
+[node name="UiLayer" parent="." instance=ExtResource("2_q24mn")]
+
+[node name="FadeLayer" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="FadeLayer"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="SceneContainer" type="Node" parent="."]
