@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://c1unhavfqqtee"]
+[gd_scene load_steps=12 format=3 uid="uid://c1unhavfqqtee"]
 
 [ext_resource type="Script" uid="uid://clm8d7753g3hk" path="res://scenes/ui/profiles/PlayerProfile.gd" id="1_stijy"]
 [ext_resource type="StyleBox" uid="uid://3l474d1p81yu" path="res://resources/themes/BackgroundTheme001.tres" id="2_omw00"]
@@ -6,13 +6,17 @@
 [ext_resource type="StyleBox" uid="uid://dclh601qphvih" path="res://resources/themes/FontTheme001.tres" id="4_hjhds"]
 [ext_resource type="Texture2D" uid="uid://y4ye84h201xe" path="res://assets/portrait/player_portrait.png" id="5_hjhds"]
 [ext_resource type="StyleBox" uid="uid://c5ycuhopav2av" path="res://resources/themes/BorderBottomTheme001.tres" id="6_8x2h2"]
+[ext_resource type="PackedScene" uid="uid://dcdrgbqk11l5p" path="res://scenes/components/common/HpProgressBar.tscn" id="7_4eh7q"]
+[ext_resource type="PackedScene" uid="uid://dslak0byej3rr" path="res://scenes/components/common/MpProgressBar.tscn" id="8_5rf4x"]
+[ext_resource type="PackedScene" uid="uid://b6hy1kry5neil" path="res://scenes/components/common/StaProgressBar.tscn" id="9_on8rc"]
+[ext_resource type="PackedScene" uid="uid://650k0jf2j0vm" path="res://scenes/components/common/ExpProgressBar.tscn" id="10_4erxo"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8x2h2"]
 content_margin_top = 2.0
 content_margin_bottom = 2.0
 bg_color = Color(0.6, 0.6, 0.6, 0)
 
-[node name="ProfileBase" type="Control"]
+[node name="PlayerProfile" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -83,6 +87,7 @@ size_flags_vertical = 3
 theme_override_constants/margin_bottom = 10
 
 [node name="TextureRect" type="TextureRect" parent="MainPanel/Margin/HBox/PanelLeft/VBox/MarginContainer"]
+visible = false
 layout_mode = 2
 texture = ExtResource("5_hjhds")
 expand_mode = 1
@@ -112,6 +117,7 @@ theme_override_constants/margin_bottom = 5
 
 [node name="VBox" type="VBoxContainer" parent="MainPanel/Margin/HBox/PanelRight/VBox/Vitals"]
 layout_mode = 2
+theme_override_constants/separation = 10
 
 [node name="Label" type="Label" parent="MainPanel/Margin/HBox/PanelRight/VBox/Vitals/VBox"]
 layout_mode = 2
@@ -121,18 +127,21 @@ theme_override_font_sizes/font_size = 16
 theme_override_styles/normal = ExtResource("6_8x2h2")
 text = "VITAL STATS"
 
-[node name="Grid" type="GridContainer" parent="MainPanel/Margin/HBox/PanelRight/VBox/Vitals/VBox"]
+[node name="HpProgressBar" parent="MainPanel/Margin/HBox/PanelRight/VBox/Vitals/VBox" instance=ExtResource("7_4eh7q")]
+custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
-columns = 2
 
-[node name="HpLabel" type="Label" parent="MainPanel/Margin/HBox/PanelRight/VBox/Vitals/VBox/Grid"]
+[node name="MpProgressBar" parent="MainPanel/Margin/HBox/PanelRight/VBox/Vitals/VBox" instance=ExtResource("8_5rf4x")]
+custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
-text = "HP"
 
-[node name="HpBar" type="ProgressBar" parent="MainPanel/Margin/HBox/PanelRight/VBox/Vitals/VBox/Grid"]
+[node name="StaProgressBar" parent="MainPanel/Margin/HBox/PanelRight/VBox/Vitals/VBox" instance=ExtResource("9_on8rc")]
+custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
-size_flags_horizontal = 3
-show_percentage = false
+
+[node name="ExpProgressBar" parent="MainPanel/Margin/HBox/PanelRight/VBox/Vitals/VBox" instance=ExtResource("10_4erxo")]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
 
 [node name="Attributes" type="MarginContainer" parent="MainPanel/Margin/HBox/PanelRight/VBox"]
 layout_mode = 2
