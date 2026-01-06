@@ -1,0 +1,57 @@
+[gd_scene load_steps=5 format=3 uid="uid://dcdrgbqk11l5p"]
+
+[ext_resource type="Script" uid="uid://r3jji5c37yw8" path="res://scenes/components/common/HpProgressBar.gd" id="1_wds8f"]
+[ext_resource type="FontFile" uid="uid://h370v3vijiwg" path="res://assets/fonts/OpenSans_Condensed-Bold.ttf" id="2_ef0jo"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wds8f"]
+bg_color = Color(0, 0, 0, 0.666667)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ef0jo"]
+bg_color = Color(0.545098, 0, 0, 1)
+
+[node name="HpProgressBar" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_wds8f")
+
+[node name="HBox" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="HBox"]
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.313726, 0.188235, 0.117647, 1)
+theme_override_fonts/font = ExtResource("2_ef0jo")
+theme_override_font_sizes/font_size = 14
+text = "HP"
+
+[node name="Margin" type="MarginContainer" parent="HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Bar" type="ProgressBar" parent="HBox/Margin"]
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_fonts/font = ExtResource("2_ef0jo")
+theme_override_font_sizes/font_size = 10
+theme_override_styles/background = SubResource("StyleBoxFlat_wds8f")
+theme_override_styles/fill = SubResource("StyleBoxFlat_ef0jo")
+value = 50.0
+show_percentage = false
+
+[node name="Value" type="Label" parent="HBox/Margin"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "100/100"
+horizontal_alignment = 1
