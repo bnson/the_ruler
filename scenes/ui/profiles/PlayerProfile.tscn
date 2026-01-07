@@ -1,15 +1,21 @@
-[gd_scene load_steps=12 format=3 uid="uid://c1unhavfqqtee"]
+[gd_scene load_steps=18 format=3 uid="uid://c1unhavfqqtee"]
 
 [ext_resource type="Script" uid="uid://clm8d7753g3hk" path="res://scenes/ui/profiles/PlayerProfile.gd" id="1_stijy"]
 [ext_resource type="StyleBox" uid="uid://3l474d1p81yu" path="res://resources/themes/BackgroundTheme001.tres" id="2_omw00"]
+[ext_resource type="StyleBox" uid="uid://wbl2afd25hh5" path="res://resources/themes/BackgroundTheme002.tres" id="2_wm2tc"]
 [ext_resource type="FontFile" uid="uid://h370v3vijiwg" path="res://assets/fonts/OpenSans_Condensed-Bold.ttf" id="3_stt8t"]
 [ext_resource type="StyleBox" uid="uid://dclh601qphvih" path="res://resources/themes/FontTheme001.tres" id="4_hjhds"]
 [ext_resource type="Texture2D" uid="uid://y4ye84h201xe" path="res://assets/portrait/player_portrait.png" id="5_hjhds"]
 [ext_resource type="StyleBox" uid="uid://c5ycuhopav2av" path="res://resources/themes/BorderBottomTheme001.tres" id="6_8x2h2"]
 [ext_resource type="PackedScene" uid="uid://dcdrgbqk11l5p" path="res://scenes/components/common/HpProgressBar.tscn" id="7_4eh7q"]
+[ext_resource type="FontFile" uid="uid://bg1qilwenn3lh" path="res://assets/fonts/Lato-Bold.ttf" id="7_v3qdv"]
 [ext_resource type="PackedScene" uid="uid://dslak0byej3rr" path="res://scenes/components/common/MpProgressBar.tscn" id="8_5rf4x"]
+[ext_resource type="StyleBox" path="res://resources/themes/ButtonStyle001Focus.tres" id="8_uta88"]
+[ext_resource type="StyleBox" path="res://resources/themes/ButtonStyle001Hover.tres" id="9_m0mnv"]
 [ext_resource type="PackedScene" uid="uid://b6hy1kry5neil" path="res://scenes/components/common/StaProgressBar.tscn" id="9_on8rc"]
 [ext_resource type="PackedScene" uid="uid://650k0jf2j0vm" path="res://scenes/components/common/ExpProgressBar.tscn" id="10_4erxo"]
+[ext_resource type="StyleBox" path="res://resources/themes/ButtonStyle001Pressed.tres" id="10_kf6u4"]
+[ext_resource type="StyleBox" uid="uid://be1ncqpu2e36r" path="res://resources/themes/ButtonStyle001Normal.tres" id="11_jecr8"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8x2h2"]
 content_margin_top = 2.0
@@ -32,6 +38,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/panel = ExtResource("2_wm2tc")
 
 [node name="Margin" type="MarginContainer" parent="MainPanel"]
 layout_mode = 1
@@ -81,17 +88,40 @@ theme_override_font_sizes/font_size = 14
 theme_override_styles/normal = SubResource("StyleBoxFlat_8x2h2")
 text = "1"
 
-[node name="MarginContainer" type="MarginContainer" parent="MainPanel/Margin/HBox/PanelLeft/VBox"]
+[node name="Margin1" type="MarginContainer" parent="MainPanel/Margin/HBox/PanelLeft/VBox"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/margin_bottom = 10
 
-[node name="TextureRect" type="TextureRect" parent="MainPanel/Margin/HBox/PanelLeft/VBox/MarginContainer"]
-visible = false
+[node name="TextureRect" type="TextureRect" parent="MainPanel/Margin/HBox/PanelLeft/VBox/Margin1"]
 layout_mode = 2
 texture = ExtResource("5_hjhds")
 expand_mode = 1
 stretch_mode = 5
+
+[node name="Margin2" type="MarginContainer" parent="MainPanel/Margin/HBox/PanelLeft/VBox"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="CloseButton" type="Button" parent="MainPanel/Margin/HBox/PanelLeft/VBox/Margin2"]
+layout_mode = 2
+theme_override_colors/font_disabled_color = Color(0.27451, 0.156863, 0, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.27451, 0.156863, 0, 1)
+theme_override_colors/font_hover_color = Color(0.27451, 0.156863, 0, 1)
+theme_override_colors/font_color = Color(0.27451, 0.156863, 0, 1)
+theme_override_colors/font_focus_color = Color(0.27451, 0.156863, 0, 1)
+theme_override_colors/font_pressed_color = Color(0.27451, 0.156863, 0, 1)
+theme_override_constants/outline_size = 2
+theme_override_fonts/font = ExtResource("7_v3qdv")
+theme_override_font_sizes/font_size = 14
+theme_override_styles/focus = ExtResource("8_uta88")
+theme_override_styles/hover = ExtResource("9_m0mnv")
+theme_override_styles/pressed = ExtResource("10_kf6u4")
+theme_override_styles/normal = ExtResource("11_jecr8")
+text = "CLOSE"
 
 [node name="PanelRight" type="Panel" parent="MainPanel/Margin/HBox"]
 layout_mode = 2
@@ -117,9 +147,9 @@ theme_override_constants/margin_bottom = 5
 
 [node name="VBox" type="VBoxContainer" parent="MainPanel/Margin/HBox/PanelRight/VBox/Vitals"]
 layout_mode = 2
-theme_override_constants/separation = 10
+theme_override_constants/separation = 7
 
-[node name="Label" type="Label" parent="MainPanel/Margin/HBox/PanelRight/VBox/Vitals/VBox"]
+[node name="VitalStatsLabel" type="Label" parent="MainPanel/Margin/HBox/PanelRight/VBox/Vitals/VBox"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.313726, 0.188235, 0.117647, 1)
 theme_override_fonts/font = ExtResource("3_stt8t")
@@ -143,6 +173,80 @@ layout_mode = 2
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 
+[node name="BaseAttrLabel" type="Label" parent="MainPanel/Margin/HBox/PanelRight/VBox/Vitals/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.313726, 0.188235, 0.117647, 1)
+theme_override_fonts/font = ExtResource("3_stt8t")
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = ExtResource("6_8x2h2")
+text = "BASE ATTRIBUTES"
+
+[node name="BaseAttrContainer" type="GridContainer" parent="MainPanel/Margin/HBox/PanelRight/VBox/Vitals/VBox"]
+layout_mode = 2
+columns = 4
+
+[node name="StrLabel" type="Label" parent="MainPanel/Margin/HBox/PanelRight/VBox/Vitals/VBox/BaseAttrContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.313726, 0.188235, 0.117647, 1)
+theme_override_fonts/font = ExtResource("3_stt8t")
+theme_override_font_sizes/font_size = 14
+text = "STR:"
+
+[node name="StrValue" type="Label" parent="MainPanel/Margin/HBox/PanelRight/VBox/Vitals/VBox/BaseAttrContainer"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.313726, 0.188235, 0.117647, 1)
+theme_override_fonts/font = ExtResource("3_stt8t")
+theme_override_font_sizes/font_size = 14
+text = "100"
+
+[node name="DexLabel" type="Label" parent="MainPanel/Margin/HBox/PanelRight/VBox/Vitals/VBox/BaseAttrContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.313726, 0.188235, 0.117647, 1)
+theme_override_fonts/font = ExtResource("3_stt8t")
+theme_override_font_sizes/font_size = 14
+text = "DEX:"
+
+[node name="DexValue" type="Label" parent="MainPanel/Margin/HBox/PanelRight/VBox/Vitals/VBox/BaseAttrContainer"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.313726, 0.188235, 0.117647, 1)
+theme_override_fonts/font = ExtResource("3_stt8t")
+theme_override_font_sizes/font_size = 14
+text = "100"
+
+[node name="IntLabel" type="Label" parent="MainPanel/Margin/HBox/PanelRight/VBox/Vitals/VBox/BaseAttrContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.313726, 0.188235, 0.117647, 1)
+theme_override_fonts/font = ExtResource("3_stt8t")
+theme_override_font_sizes/font_size = 14
+text = "INT:"
+
+[node name="IntValue" type="Label" parent="MainPanel/Margin/HBox/PanelRight/VBox/Vitals/VBox/BaseAttrContainer"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.313726, 0.188235, 0.117647, 1)
+theme_override_fonts/font = ExtResource("3_stt8t")
+theme_override_font_sizes/font_size = 14
+text = "100"
+
+[node name="AgiLabel" type="Label" parent="MainPanel/Margin/HBox/PanelRight/VBox/Vitals/VBox/BaseAttrContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.313726, 0.188235, 0.117647, 1)
+theme_override_fonts/font = ExtResource("3_stt8t")
+theme_override_font_sizes/font_size = 14
+text = "AGI:"
+
+[node name="AgiValue" type="Label" parent="MainPanel/Margin/HBox/PanelRight/VBox/Vitals/VBox/BaseAttrContainer"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.313726, 0.188235, 0.117647, 1)
+theme_override_fonts/font = ExtResource("3_stt8t")
+theme_override_font_sizes/font_size = 14
+text = "100"
+
 [node name="Attributes" type="MarginContainer" parent="MainPanel/Margin/HBox/PanelRight/VBox"]
 layout_mode = 2
 size_flags_vertical = 3
+
+[connection signal="pressed" from="MainPanel/Margin/HBox/PanelLeft/VBox/Margin2/CloseButton" to="." method="_on_close_button_pressed"]
