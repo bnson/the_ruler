@@ -7,11 +7,10 @@ extends Control
 @onready var special_container: GridContainer = $MainPanel/Margin/VBox/TabContainer/Special/HBox/Scroll/SpecialContainer
 @onready var general_item_info_panel: ItemInfoPanel = $MainPanel/Margin/VBox/TabContainer/General/HBox/ItemInfoPanel
 @onready var special_item_info_panel: ItemInfoPanel = $MainPanel/Margin/VBox/TabContainer/Special/HBox/ItemInfoPanel
-@onready var gold_label: Label = $MainPanel/Margin/VBox/Panel/HBox/GoldLabel
-
 
 var count_slot_general: int = 0
 var count_slot_special: int = 0
+
 
 func _ready():
 	# Kết nối signal từ InventoryManager (Autoload)
@@ -26,7 +25,6 @@ func _on_inventory_changed():
 	for data in items:
 		var slot = slot_scene.instantiate()
 		var item: ItemData = data["item"]
-		gold_label.text = str(InventoryManager.get_gold())
 		
 		if item.is_unique:
 			special_container.add_child(slot)
@@ -60,11 +58,11 @@ func _on_slot_clicked(clicked_slot):
 	for slot in general_container.get_children():
 		if slot.has_method("set_highlight"):
 			slot.set_highlight(slot == clicked_slot)
-
+	
 	for slot in special_container.get_children():
 		if slot.has_method("set_highlight"):
 			slot.set_highlight(slot == clicked_slot)
-
+	
 	# Hiển thị thông tin item
 	var item = clicked_slot.current_item
 	if item:
@@ -75,7 +73,7 @@ func _on_slot_clicked(clicked_slot):
 
 func _on_close_button_pressed() -> void:
 	visible = false
-	
+
 func clear() -> void:
 	count_slot_general = 0
 	count_slot_special = 0
