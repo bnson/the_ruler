@@ -25,6 +25,7 @@ N/A
 |`ui_attack (Deadzone: 0.5)`                   | X (Physical)                        |                  |
 |                                              | Joypad Button0 (All Devices)        |                  |
 |`inventory_panel (Deadzone: 0.5)`             | I (Physical)                        |                  |
+|`player_profile (Deadzone: 0.5)`              | P (Physical)                        |                  |
 
 ### Globals
 | Name                                         | Path                                | Note             |
