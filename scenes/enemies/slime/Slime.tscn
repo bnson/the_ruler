@@ -1254,9 +1254,9 @@ script = ExtResource("3_vmhta")
 shape = SubResource("CircleShape2D_8b67b")
 debug_color = Color(0.94833, 0.203911, 0.268831, 0.42)
 
-[node name="DetectionArea" type="Area2D" parent="."]
+[node name="Perception" type="Area2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Perception"]
 shape = SubResource("CircleShape2D_trjlk")
 debug_color = Color(0.709804, 0.568627, 0, 0.176471)
 
@@ -1315,4 +1315,4 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_av611")
 value = 50.0
 show_percentage = false
 
-[connection signal="area_entered" from="DetectionArea" to="." method="_on_detection_area_area_entered"]
+[connection signal="area_entered" from="Perception" to="." method="_on_perception_area_entered"]
