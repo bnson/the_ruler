@@ -1,3 +1,37 @@
-[gd_scene format=3 uid="uid://n8t0b6ckyknc"]
+[gd_scene load_steps=9 format=3 uid="uid://n8t0b6ckyknc"]
 
-[node name="AmiceGrover" type="Node2D"]
+[ext_resource type="Script" uid="uid://bittthjr5503d" path="res://scenes/npcs/amice_grover/AmiceGrover.gd" id="1_0ollw"]
+[ext_resource type="Script" uid="uid://b6i47375scd1p" path="res://systems/stats/NpcStats.gd" id="2_0g827"]
+[ext_resource type="Texture2D" uid="uid://cvtmrllnnqw82" path="res://assets/sprites/npcs/amice_grover/amice_grover_idle_001.png" id="2_54c63"]
+[ext_resource type="Script" uid="uid://bo4oben1mb531" path="res://scenes/items/ItemData.gd" id="2_cayvw"]
+[ext_resource type="Resource" uid="uid://dxycq5u0yy2lt" path="res://resources/items/apple.tres" id="3_yjgdh"]
+[ext_resource type="Resource" uid="uid://bcoyox2kgxavy" path="res://resources/items/health_potion.tres" id="4_4j78u"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0g827"]
+radius = 27.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_54c63"]
+radius = 47.1699
+
+[node name="AmiceGrover" type="CharacterBody2D" groups=["npc"]]
+script = ExtResource("1_0ollw")
+display_name = "Amice Grover"
+display_info = "She is a friendly and diligent shopkeeper, always welcoming customers with a warm smile and a helpful hand. Running the general store is not just her duty but her joy; she finds genuine delight in the art of trading and the rhythm of daily business.\\nThough hardworking, she has a playful streak—often teasing customers with light sarcasm or witty remarks, especially when they try to haggle. In fact, she secretly enjoys “reverse bargaining”: she might raise the price at first with a smirk, only to drop it later and laugh at the customer’s reaction.\\nShe is also known to be a chatterbox, happily sharing the latest gossip and small-town news with anyone who lingers at the counter. Yet beneath her cheerful demeanor, she is mildly suspicious of strangers; it takes time and consistent honesty for her to fully open up and trust someone."
+sell_items = Array[ExtResource("2_cayvw")]([ExtResource("3_yjgdh"), ExtResource("4_4j78u")])
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_0g827")
+
+[node name="Perception" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Perception"]
+shape = SubResource("CircleShape2D_54c63")
+debug_color = Color(0.828395, 0.448424, 0, 0.42)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_54c63")
+
+[node name="Stats" type="Node" parent="."]
+script = ExtResource("2_0g827")
+
+[connection signal="area_entered" from="Perception" to="." method="_on_perception_area_entered"]
