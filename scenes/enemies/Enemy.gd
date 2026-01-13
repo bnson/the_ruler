@@ -8,7 +8,7 @@ extends CharacterBody2D
 @onready var stats: EnemyStats = get_node_or_null("Stats")
 @onready var raycast: RayCast2D = get_node_or_null("RayCast2D")
 @onready var timer: Timer = get_node_or_null("Timer")
-@onready var detection_area: Area2D = get_node("DetectionArea")
+@onready var perception: Area2D = get_node("Perception")
 @onready var health_bar: ProgressBar = get_node_or_null("HealthBar/ProgressBar")
 
 # Enum state
