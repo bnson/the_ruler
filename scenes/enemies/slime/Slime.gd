@@ -85,7 +85,7 @@ func update_hitbox_direction():
 		hitbox.rotation_degrees = 0 if direction.y > 0 else -180
 
 #======================================================================
-func _on_detection_area_area_entered(area: Area2D) -> void:
+func _on_perception_area_entered(area: Area2D) -> void:
 	handle_player_detected(area)
 
 #======================================================================
