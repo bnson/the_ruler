@@ -1,7 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://borhp74q4tqev"]
+[gd_scene load_steps=7 format=3 uid="uid://borhp74q4tqev"]
 
 [ext_resource type="Script" uid="uid://d0vuo8rmq077r" path="res://scenes/components/panel/InteractionMenu.gd" id="1_rg28j"]
 [ext_resource type="StyleBox" uid="uid://3l474d1p81yu" path="res://resources/themes/BackgroundTheme001.tres" id="2_2s8l3"]
+[ext_resource type="PackedScene" uid="uid://cmuvq0os8ej5e" path="res://scenes/components/common/ButtonYellow.tscn" id="2_b7j36"]
+[ext_resource type="StyleBox" uid="uid://wbl2afd25hh5" path="res://resources/themes/BackgroundTheme002.tres" id="3_15pr6"]
+[ext_resource type="FontFile" uid="uid://h370v3vijiwg" path="res://assets/fonts/OpenSans_Condensed-Bold.ttf" id="4_02pli"]
+[ext_resource type="StyleBox" uid="uid://c5ycuhopav2av" path="res://resources/themes/BorderBottomTheme001.tres" id="5_15pr6"]
 
 [node name="InteractionMenu" type="Control"]
 layout_mode = 3
@@ -11,6 +15,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_rg28j")
+button_scene = ExtResource("2_b7j36")
 
 [node name="Margin" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -25,18 +30,52 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="Panel" type="Panel" parent="Margin"]
+[node name="Main" type="Panel" parent="Margin"]
 custom_minimum_size = Vector2(120, 170)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("3_15pr6")
+
+[node name="Margin" type="MarginContainer" parent="Margin/Main"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_top = 3
+theme_override_constants/margin_right = 3
+theme_override_constants/margin_bottom = 3
+
+[node name="Panel" type="Panel" parent="Margin/Main/Margin"]
 layout_mode = 2
 theme_override_styles/panel = ExtResource("2_2s8l3")
 
-[node name="VBox" type="VBoxContainer" parent="Margin/Panel"]
-layout_mode = 2
-offset_right = 20.0
-offset_bottom = 27.0
+[node name="Margin" type="MarginContainer" parent="Margin/Main/Margin/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
 
-[node name="NpcNameLabel" type="Label" parent="Margin/Panel/VBox"]
+[node name="VBox" type="VBoxContainer" parent="Margin/Main/Margin/Panel/Margin"]
 layout_mode = 2
+theme_override_constants/separation = 5
 
-[node name="OptionsContainer" type="GridContainer" parent="Margin/Panel/VBox"]
+[node name="TitleLabel" type="Label" parent="Margin/Main/Margin/Panel/Margin/VBox"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.298039, 0.168627, 0.101961, 1)
+theme_override_fonts/font = ExtResource("4_02pli")
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = ExtResource("5_15pr6")
+text = "Title"
+horizontal_alignment = 1
+
+[node name="InteractionsContainer" type="GridContainer" parent="Margin/Main/Margin/Panel/Margin/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
