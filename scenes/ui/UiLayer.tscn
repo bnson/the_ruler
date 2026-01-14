@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://c8pn362u2sda7"]
+[gd_scene load_steps=8 format=3 uid="uid://c8pn362u2sda7"]
 
 [ext_resource type="Script" uid="uid://b5tf0rt018mmv" path="res://scenes/ui/UiLayer.gd" id="1_nbl3c"]
 [ext_resource type="PackedScene" uid="uid://rud3su3fnucq" path="res://scenes/components/panel/HudPanel.tscn" id="2_o3b1c"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://dr4udhoe051sn" path="res://scenes/components/panel/ActionPanel.tscn" id="3_tb4qj"]
 [ext_resource type="PackedScene" uid="uid://bio313nwshpd1" path="res://scenes/components/panel/InventoryPanel.tscn" id="5_q66yp"]
 [ext_resource type="PackedScene" uid="uid://c1unhavfqqtee" path="res://scenes/ui/profiles/PlayerProfile.tscn" id="6_la556"]
+[ext_resource type="PackedScene" uid="uid://borhp74q4tqev" path="res://scenes/components/panel/InteractionMenu.tscn" id="7_klfh2"]
 
 [node name="UiLayer" type="CanvasLayer"]
 script = ExtResource("1_nbl3c")
@@ -66,5 +67,9 @@ visible = false
 layout_mode = 2
 
 [node name="PlayerProfile" parent="CenterUi" instance=ExtResource("6_la556")]
+visible = false
+layout_mode = 2
+
+[node name="InteractionMenu" parent="CenterUi" instance=ExtResource("7_klfh2")]
 visible = false
 layout_mode = 2
