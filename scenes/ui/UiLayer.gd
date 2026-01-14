@@ -7,6 +7,7 @@ extends CanvasLayer
 @onready var hud_panel: HudPanel = $TopLeftUi/HudPanel
 @onready var inventory_panel: InventoryPanel = $CenterUi/InventoryPanel
 @onready var player_profile: PlayerProfile = $CenterUi/PlayerProfile
+@onready var interaction_menu: InteractionMenu = $CenterUi/InteractionMenu
 
 #========================================================
 func _ready():
