@@ -21,9 +21,11 @@ func from_dict(data: Dictionary) -> void:
 
 func to_dict() -> Dictionary:
 	var d := super.to_dict()
+	
 	d.merge({
 		"love": love, "max_love": max_love,
 		"trust": trust, "max_trust": max_trust,
 		"lust": lust, "max_lust": max_lust,
 	})
+	
 	return d
