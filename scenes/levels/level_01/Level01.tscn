@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=4 uid="uid://b5t7hqlu0to2w"]
+[gd_scene load_steps=6 format=4 uid="uid://b5t7hqlu0to2w"]
 
 [ext_resource type="PackedScene" uid="uid://xktmtraceos7" path="res://scenes/components/tile_map_layer/GrasslandTiles1.tscn" id="1_tqp01"]
 [ext_resource type="PackedScene" uid="uid://dxuew55wo0ypf" path="res://scenes/player/PlayerSpawn.tscn" id="2_tqp01"]
 [ext_resource type="PackedScene" uid="uid://c867h7mw71shr" path="res://scenes/enemies/slime/Slime.tscn" id="3_2bx3l"]
+[ext_resource type="PackedScene" uid="uid://n8t0b6ckyknc" path="res://scenes/npcs/amice_grover/AmiceGrover.tscn" id="3_ro5ca"]
 [ext_resource type="PackedScene" uid="uid://dlq8ann2cfb3d" path="res://scenes/components/common/TransitionArea.tscn" id="4_0nn33"]
 
 [node name="Level01" type="Node2D"]
@@ -14,11 +15,14 @@ tile_map_data = PackedByteArray("AAAAAAAAAQAAAAAAAAAAAAEAAQAAAAEAAAAAAAIAAQAAAAI
 
 [node name="PlayerSpawn" parent="." instance=ExtResource("2_tqp01")]
 
+[node name="AmiceGrover" parent="." instance=ExtResource("3_ro5ca")]
+position = Vector2(-186, -90)
+
 [node name="Slime" parent="." instance=ExtResource("3_2bx3l")]
 position = Vector2(38, 44)
 
 [node name="Slime2" parent="." instance=ExtResource("3_2bx3l")]
-position = Vector2(43, 80)
+position = Vector2(115, -47)
 
 [node name="TransitionArea" parent="." instance=ExtResource("4_0nn33")]
 position = Vector2(1, -86)
