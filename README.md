@@ -18,6 +18,8 @@ N/A
 |                               | Aspect                        | expand           |                  |
 |`Input Devices - Pointing`     | Emulate Touch From Mouse      | True             |                  | 
 |                               | Emulate Mouse From Touch      | True             |                  |
+|`Rendering - Textures`         | Default Texture Filter        | Nearest          |                  |
+|                               | Default Texture Repeat        | Disable          |                  |
 
 ### Input Map
 | Setting                                      | Properties                          | Note             |
