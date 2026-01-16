@@ -1,47 +1,83 @@
 class_name ShopUi
 extends Control
 
+#=============================================
 @export var slot_scene: PackedScene
 
+#=============================================
 @onready var player_container: GridContainer = $Main/Margin/VBox/HBoxCenter/PanelLeft/Margin/VBox/Scroll/PlayerContainer
 @onready var shop_container: GridContainer = $Main/Margin/VBox/HBoxCenter/PanelCenter/Margin/VBox/Scroll/ShopContainer
 @onready var item_info_panel: ItemInfoPanel = $Main/Margin/VBox/HBoxCenter/PanelRight/Margin/ItemInfoPanel
 
-var count_slot_player: int = 0
-var count_slot_shop: int = 0
+#=============================================
+var npc_interaction: Npc
+var selected_item_buy: ItemData
+var selected_item_sell: ItemData
 
-
+#=============================================
 func _ready():
 	# Kết nối signal từ InventoryManager (Autoload)
 	InventoryManager.connect("inventory_changed", Callable(self, "on_inventory_changed"))
 	on_inventory_changed()
 
 func on_inventory_changed():
+	if npc_interaction == null:
+		return
+	#--
 	clear()
-	
-	# Lấy danh sách item từ InventoryManager
-	var items = InventoryManager.get_all_items()
+	populate_slots(player_container, InventoryManager.get_all_items())
+	populate_slots(shop_container, npc_interaction.sell_items)
+
+
+func populate_slots(container: GridContainer, items: Array):
 	for data in items:
-		var slot = slot_scene.instantiate()
-		var item: ItemData = data["item"]
+		var item: ItemData
+		var event: String
+		var quantity: int
+		var selected_item: ItemData
+		
+		if typeof(data) == TYPE_DICTIONARY:
+			item = data["item"]
+			quantity= data["quantity"]
+			event = "on_player_inventory_slot_clicked"
+			selected_item = selected_item_sell
+		else:
+			item = data
+			quantity = 1
+			event = "on_shop_inventory_slot_clicked"
+			selected_item = selected_item_buy
 		
 		if !item.is_unique:
-			player_container.add_child(slot)
-			count_slot_player += 1
-			slot.set_item(item, data["quantity"])
-			slot.connect("slot_clicked", Callable(self, "_on_slot_clicked"))
-	# Thêm slot trống cho đủ max_slots
-	for i in range(InventoryManager.max_slots - count_slot_player):
-		var slot = slot_scene.instantiate()
-		player_container.add_child(slot)
-		slot.set_item(null, 0)
+			var slot: InventorySlot = slot_scene.instantiate()
+			container.add_child(slot)
+			slot.set_item(item, quantity)
+			slot.connect("slot_clicked", Callable(self, event))
+			slot.set_highlight(false)
+			
+			if selected_item:
+				if slot.item.id == selected_item.id:
+					slot.set_highlight(true)
+					item_info_panel.show_item(selected_item)
 	
-	for i in range(InventoryManager.max_slots - count_slot_shop):
+	# Thêm slot trống cho đủ max_slots
+	for i in range(InventoryManager.max_slots - container.get_child_count()):
 		var slot = slot_scene.instantiate()
-		shop_container.add_child(slot)
+		container.add_child(slot)
 		slot.set_item(null, 0)
+	print("Container child count: ", container.get_child_count())
 
-func _on_slot_clicked(clicked_slot):
+func on_player_inventory_slot_clicked(clicked_slot: InventorySlot):
+	selected_item_buy = null
+	selected_item_sell = clicked_slot.item
+	on_inventory_slot_clicked(clicked_slot)
+	
+func on_shop_inventory_slot_clicked(clicked_slot):
+	selected_item_buy = clicked_slot.item
+	selected_item_sell = null
+	on_inventory_slot_clicked(clicked_slot)
+
+func on_inventory_slot_clicked(clicked_slot):
+	print("on_inventory_slot_clicked...")
 	item_info_panel.clear()
 	
 	# Highlight slot
@@ -54,21 +90,31 @@ func _on_slot_clicked(clicked_slot):
 			slot.set_highlight(slot == clicked_slot)
 	
 	# Hiển thị thông tin item
-	var item = clicked_slot.current_item
-	if item:
-		if item.is_unique:
-			item_info_panel.show_item(item)
-		else:
-			item_info_panel.show_item(item)
+	item_info_panel.show_item(clicked_slot.item)
 
 func clear() -> void:
-	count_slot_player = 0
-	count_slot_shop = 0
-	
 	item_info_panel.clear()
+	# Clear child in container
+	for child in player_container.get_children(): child.free()
+	for child in shop_container.get_children(): child.free()
 	
-	for child in player_container.get_children():
-		child.queue_free()
-		
-	for child in shop_container.get_children():
-		child.queue_free()
+func handle_interaction(npc: Npc) -> void:
+	npc_interaction = npc
+	on_inventory_changed()
+	show()
+
+func _on_sell_button_pressed() -> void:
+	if selected_item_sell:
+		InventoryManager.remove_item(selected_item_sell, 1)
+		InventoryManager.add_gold(selected_item_sell.price)
+
+func _on_close_button_pressed() -> void:
+	selected_item_buy = null
+	selected_item_sell = null
+	clear()
+	hide()
+
+func _on_buy_button_pressed() -> void:
+	if selected_item_buy:
+		InventoryManager.add_item(selected_item_buy, 1)
+		InventoryManager.spend_gold(selected_item_buy.price)
