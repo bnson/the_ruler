@@ -7,8 +7,8 @@ var game_data: Dictionary = {}
 func _ready() -> void:
 	# Tạo Timer cho Auto-Save.
 	auto_save_timer = Timer.new()
-	# 30s Save một lần.
-	auto_save_timer.wait_time = 30.0
+	# 10s Save một lần.
+	auto_save_timer.wait_time = 10.0
 	auto_save_timer.one_shot = false
 	auto_save_timer.autostart = false
 	add_child(auto_save_timer)
