@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://cagt3ynqb653p"]
+[gd_scene load_steps=16 format=3 uid="uid://cagt3ynqb653p"]
 
 [ext_resource type="Script" uid="uid://c56jaaccb0irk" path="res://scenes/ui/ShopUi.gd" id="1_34vvg"]
 [ext_resource type="PackedScene" uid="uid://b5er8kmv0j7aw" path="res://scenes/components/common/InventorySlot.tscn" id="2_4228x"]
@@ -7,7 +7,10 @@
 [ext_resource type="FontFile" uid="uid://h370v3vijiwg" path="res://assets/fonts/OpenSans_Condensed-Bold.ttf" id="4_wm3ov"]
 [ext_resource type="PackedScene" uid="uid://b7ru4feurl58n" path="res://scenes/components/common/GoldDisplay.tscn" id="5_qsc2v"]
 [ext_resource type="PackedScene" uid="uid://bei61i6bvlujr" path="res://scenes/items/ItemInfoPanel.tscn" id="6_omxhu"]
+[ext_resource type="StyleBox" uid="uid://riu81oh0y5oi" path="res://resources/themes/ButtonStyle002Hover.tres" id="7_1fd4b"]
+[ext_resource type="StyleBox" uid="uid://bi43tn0ih62k8" path="res://resources/themes/ButtonStyle002Pressed.tres" id="7_2n4bb"]
 [ext_resource type="StyleBox" uid="uid://dclh601qphvih" path="res://resources/themes/FontTheme001.tres" id="7_h6r45"]
+[ext_resource type="StyleBox" uid="uid://d0x0umqlo27l0" path="res://resources/themes/ButtonStyle002Normal.tres" id="7_v5b5b"]
 [ext_resource type="StyleBox" uid="uid://43fs0cb34mdd" path="res://resources/themes/ButtonStyle001Focus.tres" id="8_4228x"]
 [ext_resource type="StyleBox" uid="uid://dvce07ljveo78" path="res://resources/themes/ButtonStyle001Hover.tres" id="9_v5b5b"]
 [ext_resource type="StyleBox" uid="uid://clnqn105qvbx0" path="res://resources/themes/ButtonStyle001Pressed.tres" id="10_2n4bb"]
@@ -96,6 +99,21 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 columns = 3
 
+[node name="SellButton" type="Button" parent="Main/Margin/VBox/HBoxCenter/PanelLeft/Margin/VBox"]
+layout_mode = 2
+theme_override_colors/font_disabled_color = Color(0.136826, 0.136826, 0.136826, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.27451, 0.156863, 0, 1)
+theme_override_colors/font_hover_color = Color(0.27451, 0.156863, 0, 1)
+theme_override_colors/font_color = Color(0.27451, 0.156863, 0, 1)
+theme_override_colors/font_focus_color = Color(0.27451, 0.156863, 0, 1)
+theme_override_colors/font_pressed_color = Color(0.27451, 0.156863, 0, 1)
+theme_override_fonts/font = ExtResource("4_wm3ov")
+theme_override_font_sizes/font_size = 14
+theme_override_styles/hover = ExtResource("7_1fd4b")
+theme_override_styles/pressed = ExtResource("7_2n4bb")
+theme_override_styles/normal = ExtResource("7_v5b5b")
+text = "Sell"
+
 [node name="PanelCenter" type="Panel" parent="Main/Margin/VBox/HBoxCenter"]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -132,6 +150,21 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 columns = 3
+
+[node name="BuyButton" type="Button" parent="Main/Margin/VBox/HBoxCenter/PanelCenter/Margin/VBox"]
+layout_mode = 2
+theme_override_colors/font_disabled_color = Color(0.136826, 0.136826, 0.136826, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.27451, 0.156863, 0, 1)
+theme_override_colors/font_hover_color = Color(0.27451, 0.156863, 0, 1)
+theme_override_colors/font_color = Color(0.27451, 0.156863, 0, 1)
+theme_override_colors/font_focus_color = Color(0.27451, 0.156863, 0, 1)
+theme_override_colors/font_pressed_color = Color(0.27451, 0.156863, 0, 1)
+theme_override_fonts/font = ExtResource("4_wm3ov")
+theme_override_font_sizes/font_size = 14
+theme_override_styles/hover = ExtResource("7_1fd4b")
+theme_override_styles/pressed = ExtResource("7_2n4bb")
+theme_override_styles/normal = ExtResource("7_v5b5b")
+text = "Buy"
 
 [node name="PanelRight" type="Panel" parent="Main/Margin/VBox/HBoxCenter"]
 layout_mode = 2
@@ -176,7 +209,7 @@ theme_override_styles/normal = ExtResource("7_h6r45")
 text = "Message"
 vertical_alignment = 1
 
-[node name="Button" type="Button" parent="Main/Margin/VBox/HBoxBottom"]
+[node name="CloseButton" type="Button" parent="Main/Margin/VBox/HBoxBottom"]
 custom_minimum_size = Vector2(70, 0)
 layout_mode = 2
 theme_override_colors/font_disabled_color = Color(0.27451, 0.156863, 0, 1)
@@ -193,3 +226,7 @@ theme_override_styles/hover = ExtResource("9_v5b5b")
 theme_override_styles/pressed = ExtResource("10_2n4bb")
 theme_override_styles/normal = ExtResource("11_1fd4b")
 text = "CLOSE"
+
+[connection signal="pressed" from="Main/Margin/VBox/HBoxCenter/PanelLeft/Margin/VBox/SellButton" to="." method="_on_sell_button_pressed"]
+[connection signal="pressed" from="Main/Margin/VBox/HBoxCenter/PanelCenter/Margin/VBox/BuyButton" to="." method="_on_buy_button_pressed"]
+[connection signal="pressed" from="Main/Margin/VBox/HBoxBottom/CloseButton" to="." method="_on_close_button_pressed"]
