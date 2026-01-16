@@ -1,13 +1,14 @@
+# ItemDatabase.gd
 extends Node
 
 var items: Dictionary = {}
 var is_item_data_ready: bool = false
 
+
 func _ready():
 	print("📦 Item Database initializing...")
 	load_items()
 	is_item_data_ready = true
-
 
 ### ✅ Load tất cả item từ thư mục
 func load_items():
