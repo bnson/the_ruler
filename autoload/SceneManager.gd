@@ -25,14 +25,14 @@ func change_scene(path: String) -> void:
 		current_scene.queue_free()
 	
 	# Load màn mới
-	print("[SceneManager] Changed level to: ", path)
 	if path.is_empty():
 		current_scene_file_path = default_scene_file_path
+	else:
+		current_scene_file_path = path
 	
 	var new_scene = load(current_scene_file_path).instantiate()
 	scene_container.add_child(new_scene)
 	current_scene = new_scene
-	#print("[SceneManager] Changed level to: ", path)
 	print("[SceneManager] Changed level to: ", current_scene.scene_file_path)
 
 # Chuyển màn với fade-in/out
