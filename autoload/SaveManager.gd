@@ -1,3 +1,4 @@
+# SaveManager.gd
 extends Node
 
 const SAVE_PATH := "user://savegame.json"
