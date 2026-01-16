@@ -7,7 +7,7 @@ signal slot_clicked(slot)
 @onready var icon: TextureRect = $IconButton/Icon
 @onready var quantity: Label = $IconButton/Quantity
 
-var current_item: ItemData = null
+var item: ItemData = null
 
 func _ready():
 	assert(icon, "❌ SlotTemplate: 'icon' node không tìm thấy!")
@@ -15,8 +15,8 @@ func _ready():
 	if highlight:
 		highlight.visible = false
 
-func set_item(item: ItemData, itemQuantity: int):
-	current_item = item
+func set_item(item_data: ItemData, itemQuantity: int):
+	item = item_data
 	set_highlight(false)
 
 	if item:
