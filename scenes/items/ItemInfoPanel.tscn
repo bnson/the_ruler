@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://bei61i6bvlujr"]
+[gd_scene load_steps=8 format=3 uid="uid://bei61i6bvlujr"]
 
 [ext_resource type="Script" uid="uid://crt0r0xrv14lq" path="res://scenes/items/ItemInfoPanel.gd" id="1_n4xja"]
 [ext_resource type="StyleBox" uid="uid://3l474d1p81yu" path="res://resources/themes/BackgroundTheme001.tres" id="2_fdm0u"]
 [ext_resource type="Texture2D" uid="uid://cfknwohqnguyu" path="res://assets/items/items_sheet_1.png" id="3_acf4s"]
+[ext_resource type="FontFile" uid="uid://h370v3vijiwg" path="res://assets/fonts/OpenSans_Condensed-Bold.ttf" id="4_acf4s"]
 [ext_resource type="Texture2D" uid="uid://kggwyhd20fop" path="res://assets/icons/gold_coin.png" id="4_fdm0u"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kxmyd"]
@@ -63,7 +64,8 @@ layout_mode = 2
 [node name="ItemName" type="Label" parent="MainPanel/Margin/VBox/HBox/VBox"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.298039, 0.168627, 0.101961, 1)
-theme_override_font_sizes/font_size = 16
+theme_override_fonts/font = ExtResource("4_acf4s")
+theme_override_font_sizes/font_size = 14
 text = "Item Name"
 
 [node name="HBox" type="HBoxContainer" parent="MainPanel/Margin/VBox/HBox/VBox"]
@@ -72,7 +74,8 @@ layout_mode = 2
 [node name="ItemPrice" type="Label" parent="MainPanel/Margin/VBox/HBox/VBox/HBox"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.298039, 0.168627, 0.101961, 1)
-theme_override_font_sizes/font_size = 16
+theme_override_fonts/font = ExtResource("4_acf4s")
+theme_override_font_sizes/font_size = 14
 text = "100"
 
 [node name="GoldIcon" type="TextureRect" parent="MainPanel/Margin/VBox/HBox/VBox/HBox"]
@@ -84,6 +87,7 @@ stretch_mode = 3
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_colors/default_color = Color(0.298039, 0.168627, 0.101961, 1)
-theme_override_font_sizes/normal_font_size = 14
+theme_override_fonts/normal_font = ExtResource("4_acf4s")
+theme_override_font_sizes/normal_font_size = 12
 theme_override_styles/normal = SubResource("StyleBoxFlat_acf4s")
 text = "Item description"
