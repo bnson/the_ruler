@@ -1,3 +1,4 @@
+# InventoryManager.gd
 extends Node
 
 signal inventory_changed
