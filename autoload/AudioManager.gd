@@ -1,3 +1,4 @@
+# AudioManager.gd
 extends Node
 
 # Dùng để phát nhạc nền
