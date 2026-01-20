@@ -1,0 +1,148 @@
+[gd_scene load_steps=10 format=3 uid="uid://buahkxbbb3ijd"]
+
+[ext_resource type="Script" uid="uid://wx2qagbbugi3" path="res://scenes/components/panel/ChatBox.gd" id="1_8sdsc"]
+[ext_resource type="StyleBox" uid="uid://wbl2afd25hh5" path="res://resources/themes/BackgroundTheme002.tres" id="2_y6wjc"]
+[ext_resource type="StyleBox" uid="uid://3l474d1p81yu" path="res://resources/themes/BackgroundTheme001.tres" id="3_xfuhi"]
+[ext_resource type="FontFile" uid="uid://h370v3vijiwg" path="res://assets/fonts/OpenSans_Condensed-Bold.ttf" id="4_55m18"]
+[ext_resource type="FontFile" uid="uid://bg1qilwenn3lh" path="res://assets/fonts/Lato-Bold.ttf" id="5_xkkyi"]
+[ext_resource type="StyleBox" uid="uid://dafmofmpyx5eu" path="res://resources/themes/ButtonStyle002Focus.tres" id="6_h1420"]
+[ext_resource type="StyleBox" uid="uid://dvce07ljveo78" path="res://resources/themes/ButtonStyle001Hover.tres" id="7_tx4yq"]
+[ext_resource type="StyleBox" uid="uid://clnqn105qvbx0" path="res://resources/themes/ButtonStyle001Pressed.tres" id="8_lsmgi"]
+[ext_resource type="StyleBox" uid="uid://be1ncqpu2e36r" path="res://resources/themes/ButtonStyle001Normal.tres" id="9_e0rvy"]
+
+[node name="ChatBox" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_8sdsc")
+
+[node name="Main" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = ExtResource("2_y6wjc")
+
+[node name="Margin" type="MarginContainer" parent="Main"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="HBox" type="HBoxContainer" parent="Main/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="PanelLeft" type="Panel" parent="Main/Margin/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = ExtResource("3_xfuhi")
+
+[node name="Margin" type="MarginContainer" parent="Main/Margin/HBox/PanelLeft"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBox" type="VBoxContainer" parent="Main/Margin/HBox/PanelLeft/Margin"]
+layout_mode = 2
+
+[node name="HBox" type="HBoxContainer" parent="Main/Margin/HBox/PanelLeft/Margin/VBox"]
+layout_mode = 2
+
+[node name="NameLabel" type="Label" parent="Main/Margin/HBox/PanelLeft/Margin/VBox/HBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.298039, 0.168627, 0.101961, 1)
+theme_override_fonts/font = ExtResource("4_55m18")
+theme_override_font_sizes/font_size = 14
+text = "NPC's Name"
+
+[node name="SeparatorLabel" type="Label" parent="Main/Margin/HBox/PanelLeft/Margin/VBox/HBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.298039, 0.168627, 0.101961, 1)
+theme_override_fonts/font = ExtResource("4_55m18")
+theme_override_font_sizes/font_size = 14
+text = "-"
+
+[node name="LevelLabel" type="Label" parent="Main/Margin/HBox/PanelLeft/Margin/VBox/HBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.298039, 0.168627, 0.101961, 1)
+theme_override_fonts/font = ExtResource("4_55m18")
+theme_override_font_sizes/font_size = 14
+text = "Level 1"
+
+[node name="PanelRight" type="Panel" parent="Main/Margin/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBox" type="VBoxContainer" parent="Main/Margin/HBox/PanelRight"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBox" type="HBoxContainer" parent="Main/Margin/HBox/PanelRight/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.5
+
+[node name="PanelLeft" type="Panel" parent="Main/Margin/HBox/PanelRight/VBox/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+theme_override_styles/panel = ExtResource("3_xfuhi")
+
+[node name="PanelRight" type="Panel" parent="Main/Margin/HBox/PanelRight/VBox/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.5
+theme_override_styles/panel = ExtResource("3_xfuhi")
+
+[node name="CloseButton" type="Button" parent="Main/Margin/HBox/PanelRight/VBox/HBox/PanelRight"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_disabled_color = Color(0.27451, 0.156863, 0, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.27451, 0.156863, 0, 1)
+theme_override_colors/font_hover_color = Color(0.27451, 0.156863, 0, 1)
+theme_override_colors/font_color = Color(0.27451, 0.156863, 0, 1)
+theme_override_colors/font_focus_color = Color(0.27451, 0.156863, 0, 1)
+theme_override_colors/font_pressed_color = Color(0.27451, 0.156863, 0, 1)
+theme_override_constants/outline_size = 1
+theme_override_fonts/font = ExtResource("5_xkkyi")
+theme_override_font_sizes/font_size = 12
+theme_override_styles/focus = ExtResource("6_h1420")
+theme_override_styles/hover = ExtResource("7_tx4yq")
+theme_override_styles/pressed = ExtResource("8_lsmgi")
+theme_override_styles/normal = ExtResource("9_e0rvy")
+text = "X"
+
+[node name="Panel" type="Panel" parent="Main/Margin/HBox/PanelRight/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 4.0
+theme_override_styles/panel = ExtResource("3_xfuhi")
+
+[connection signal="pressed" from="Main/Margin/HBox/PanelRight/VBox/HBox/PanelRight/CloseButton" to="." method="_on_close_button_pressed"]
