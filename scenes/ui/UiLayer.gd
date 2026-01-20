@@ -9,6 +9,7 @@ extends CanvasLayer
 @onready var player_profile: PlayerProfile = $CenterUi/PlayerProfile
 @onready var interaction_menu: InteractionMenu = $CenterUi/InteractionMenu
 @onready var shop_ui: ShopUi = $CenterUi/ShopUi
+@onready var chat_box: ChatBox = $CenterUi/ChatBox
 
 #========================================================
 func _ready():
@@ -26,7 +27,7 @@ func on_interaction_chosen(npc: Npc, interaction: Dictionary) -> void:
 		"open_shop":
 			shop_ui.handle_interaction(npc)
 		"open_chat":
-			pass
+			chat_box.handle_interaction(npc)
 		_:
 			print("Action không hỗ trợ:", interaction)
 
