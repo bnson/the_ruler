@@ -8,6 +8,7 @@ extends Control
 @onready var player_container: GridContainer = $Main/Margin/VBox/HBoxCenter/PanelLeft/Margin/VBox/Scroll/PlayerContainer
 @onready var shop_container: GridContainer = $Main/Margin/VBox/HBoxCenter/PanelCenter/Margin/VBox/Scroll/ShopContainer
 @onready var item_info_panel: ItemInfoPanel = $Main/Margin/VBox/HBoxCenter/PanelRight/Margin/ItemInfoPanel
+@onready var message_label: Label = $Main/Margin/VBox/HBoxBottom/Panel/MessageLabel
 
 #=============================================
 var npc_interaction: Npc
@@ -19,6 +20,8 @@ func _ready():
 	# Kết nối signal từ InventoryManager (Autoload)
 	InventoryManager.connect("inventory_changed", Callable(self, "on_inventory_changed"))
 	on_inventory_changed()
+	#--
+	message_label.text = ""
 
 func on_inventory_changed():
 	if npc_interaction == null:
@@ -27,7 +30,6 @@ func on_inventory_changed():
 	clear()
 	populate_slots(player_container, InventoryManager.get_all_items())
 	populate_slots(shop_container, npc_interaction.sell_items)
-
 
 func populate_slots(container: GridContainer, items: Array):
 	for data in items:
@@ -64,7 +66,6 @@ func populate_slots(container: GridContainer, items: Array):
 		var slot = slot_scene.instantiate()
 		container.add_child(slot)
 		slot.set_item(null, 0)
-	print("Container child count: ", container.get_child_count())
 
 func on_player_inventory_slot_clicked(clicked_slot: InventorySlot):
 	selected_item_buy = null
@@ -105,16 +106,24 @@ func handle_interaction(npc: Npc) -> void:
 
 func _on_sell_button_pressed() -> void:
 	if selected_item_sell:
-		InventoryManager.remove_item(selected_item_sell, 1)
-		InventoryManager.add_gold(selected_item_sell.price)
+		if InventoryManager.can_sell_item(selected_item_sell, 1):
+			InventoryManager.remove_item(selected_item_sell, 1)
+			InventoryManager.add_gold(selected_item_sell.price)
+			message_label.text = ""
+		else:
+			message_label.text = "Message: No items for sale!"
+
+func _on_buy_button_pressed() -> void:
+	if selected_item_buy:
+		if InventoryManager.can_spend_gold(selected_item_buy.price):
+			InventoryManager.add_item(selected_item_buy, 1)
+			InventoryManager.spend_gold(selected_item_buy.price)
+			message_label.text = ""
+		else:
+			message_label.text = "Message: Not enough gold!"
 
 func _on_close_button_pressed() -> void:
 	selected_item_buy = null
 	selected_item_sell = null
 	clear()
 	hide()
-
-func _on_buy_button_pressed() -> void:
-	if selected_item_buy:
-		InventoryManager.add_item(selected_item_buy, 1)
-		InventoryManager.spend_gold(selected_item_buy.price)
