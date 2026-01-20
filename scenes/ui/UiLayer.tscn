@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://c8pn362u2sda7"]
+[gd_scene load_steps=10 format=3 uid="uid://c8pn362u2sda7"]
 
 [ext_resource type="Script" uid="uid://b5tf0rt018mmv" path="res://scenes/ui/UiLayer.gd" id="1_nbl3c"]
 [ext_resource type="PackedScene" uid="uid://rud3su3fnucq" path="res://scenes/components/panel/HudPanel.tscn" id="2_o3b1c"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://c1unhavfqqtee" path="res://scenes/ui/profiles/PlayerProfile.tscn" id="6_la556"]
 [ext_resource type="PackedScene" uid="uid://borhp74q4tqev" path="res://scenes/components/panel/InteractionMenu.tscn" id="7_klfh2"]
 [ext_resource type="PackedScene" uid="uid://cagt3ynqb653p" path="res://scenes/ui/ShopUi.tscn" id="8_s8rx7"]
+[ext_resource type="PackedScene" uid="uid://buahkxbbb3ijd" path="res://scenes/components/panel/ChatBox.tscn" id="9_nin10"]
 
 [node name="UiLayer" type="CanvasLayer"]
 script = ExtResource("1_nbl3c")
@@ -76,5 +77,9 @@ visible = false
 layout_mode = 2
 
 [node name="ShopUi" parent="CenterUi" instance=ExtResource("8_s8rx7")]
+visible = false
+layout_mode = 2
+
+[node name="ChatBox" parent="CenterUi" instance=ExtResource("9_nin10")]
 visible = false
 layout_mode = 2
