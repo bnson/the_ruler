@@ -2,6 +2,10 @@ class_name Player
 extends CharacterBody2D
 
 #=========================================================================
+@export var first_name: String
+@export var last_name: String
+
+#=========================================================================
 @onready var animation_tree: AnimationTree = $AnimationTree
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var hitbox: Hitbox = $Hitbox
