@@ -16,6 +16,7 @@ func _on_perception_area_entered(area: Area2D) -> void:
 		return
 	
 	if area_owner.is_in_group("player"):
+		roll_mood()
 		UiManager.ui_layer.interaction_menu.open(self)
 
 func _on_perception_area_exited(area: Area2D) -> void:
