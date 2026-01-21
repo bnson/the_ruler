@@ -15,8 +15,10 @@ radius = 47.1699
 
 [node name="AmiceGrover" type="CharacterBody2D" groups=["npc"]]
 script = ExtResource("1_0ollw")
-display_name = "Amice Grover"
-display_info = "She is a friendly and diligent shopkeeper, always welcoming customers with a warm smile and a helpful hand. Running the general store is not just her duty but her joy; she finds genuine delight in the art of trading and the rhythm of daily business.\\nThough hardworking, she has a playful streak—often teasing customers with light sarcasm or witty remarks, especially when they try to haggle. In fact, she secretly enjoys “reverse bargaining”: she might raise the price at first with a smirk, only to drop it later and laugh at the customer’s reaction.\\nShe is also known to be a chatterbox, happily sharing the latest gossip and small-town news with anyone who lingers at the counter. Yet beneath her cheerful demeanor, she is mildly suspicious of strangers; it takes time and consistent honesty for her to fully open up and trust someone."
+first_name = "Amice"
+last_name = "Grover"
+level = 1
+information = "She is a friendly and diligent shopkeeper, always welcoming customers with a warm smile and a helpful hand. Running the general store is not just her duty but her joy; she finds genuine delight in the art of trading and the rhythm of daily business.\\nThough hardworking, she has a playful streak—often teasing customers with light sarcasm or witty remarks, especially when they try to haggle. In fact, she secretly enjoys “reverse bargaining”: she might raise the price at first with a smirk, only to drop it later and laugh at the customer’s reaction.\\nShe is also known to be a chatterbox, happily sharing the latest gossip and small-town news with anyone who lingers at the counter. Yet beneath her cheerful demeanor, she is mildly suspicious of strangers; it takes time and consistent honesty for her to fully open up and trust someone."
 sell_items = Array[ExtResource("2_cayvw")]([ExtResource("3_yjgdh"), ExtResource("4_4j78u")])
 interactions = Array[Dictionary]([{
 "action": "open_shop",
