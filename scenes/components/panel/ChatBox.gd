@@ -1,30 +1,102 @@
 class_name ChatBox
 extends Control
 
-@onready var npc_full_name_label: Label = $Main/Margin/HBox/PanelLeft/Margin/VBox/HBox/NpcFullNameLabel
-@onready var npc_level_label: Label = $Main/Margin/HBox/PanelLeft/Margin/VBox/HBox/NpcLevelLabel
+#===========================================================
+@export var button_flat_yellow_scene: PackedScene
 
-@onready var npc_title_label: Label = $Main/Margin/HBox/PanelRight/VBox/PanelTop/Margin/VBox/NpcTitleLabel
-@onready var npc_response: RichTextLabel = $Main/Margin/HBox/PanelRight/VBox/PanelTop/Margin/VBox/NpcResponse
+#===========================================================
+@onready var npc_name_label: Label = $Main/Margin/VBox/HBoxTop/Panel/Margin/HBox/NpcNameLabel
+@onready var npc_level_label: Label = $Main/Margin/VBox/HBoxTop/Panel/Margin/HBox/NpcLevelLabel
+@onready var title_label: Label = $Main/Margin/VBox/HBoxCenter/PanelRight/VBox/PanelTop/Margin/VBox/TitleLabel
+@onready var chat_box: RichTextLabel = $Main/Margin/VBox/HBoxCenter/PanelRight/VBox/PanelTop/Margin/VBox/ChatBox
+@onready var player_title_label: Label = $Main/Margin/VBox/HBoxBottom/PanelBottom/Margin/VBox/PlayerTitleLabel
+@onready var player_choices_container: GridContainer = $Main/Margin/VBox/HBoxBottom/PanelBottom/Margin/VBox/PlayerChoicesContainer
+@onready var mood_label: Label = $Main/Margin/VBox/HBoxCenter/PanelLeft/Margin/VBox/MoodLabel
 
-@onready var player_title_label: Label = $Main/Margin/HBox/PanelRight/VBox/PanelBottom/Margin/VBox/PlayerTitleLabel
-@onready var player_choices_container: GridContainer = $Main/Margin/HBox/PanelRight/VBox/PanelBottom/Margin/VBox/PlayerChoicesContainer
-
+@onready var trust_label: Label = $Main/Margin/VBox/HBoxTop/HBox/PanelLeft/Margin/HBox/TrustLabel
+@onready var love_label: Label = $Main/Margin/VBox/HBoxTop/HBox/PanelLeft/Margin/HBox/LoveLabel
+@onready var lust_label: Label = $Main/Margin/VBox/HBoxTop/HBox/PanelLeft/Margin/HBox/LustLabel
+#===========================================================
 var npc_interaction: Npc
 
-
+#===========================================================
 func handle_interaction(npc: Npc) -> void:
 	npc_interaction = npc
-	npc_full_name_label.text = npc_interaction.first_name + " " + npc_interaction.last_name
+	npc_name_label.text = npc_interaction.first_name
 	npc_level_label.text = "Level: " + str(npc_interaction.level)
-	npc_title_label.text = npc_interaction.first_name + " response"
-	
 	player_title_label.text = PlayerManager.player.first_name + " choices"
+	
+	mood_label.text = npc_interaction.current_mood
+	
+	render_root_menu()
+	update_stat_labels()
 	
 	show()
 
-func _render_ask_choices() -> void:
-	pass
+func update_stat_labels() -> void:
+	trust_label.text = str(npc_interaction.stats.trust)
+	love_label.text = str(npc_interaction.stats.love)
+	lust_label.text = str(npc_interaction.stats.lust)
+
+func render_root_menu() -> void:
+	clear_player_choices_container()
+	var items := npc_interaction.get_root_menu_items()
+	for item in items:
+		var btn = button_flat_yellow_scene.instantiate()
+		btn.text = String(item.get("label", item.get("id", "")))
+		
+		var cat_id := String(item.get("id", ""))
+		btn.pressed.connect(func():
+			on_root_category_selected(cat_id)
+			pass
+		)
+		player_choices_container.add_child(btn)
+
+func on_root_category_selected(category_id: String) -> void:
+	match category_id:
+		"ask":
+			render_ask_choices()
+			pass
+		"help":
+			#_render_help_choices() # TODO: sau này bạn thêm
+			pass
+		"interact":
+			#_render_interact_choices() # TODO: sau này bạn thêm
+			pass
+		"command":
+			#_render_command_choices() # TODO: sau này bạn thêm
+			pass
+		_:
+			pass
+
+func render_ask_choices() -> void:
+	clear_player_choices_container()
+	
+	#var ask_options := npc_interaction.get_random_ask_choices(4)
+	#var ask_options := npc_interaction.get_ask_choices_strict(4)
+	var ask_options := npc_interaction.get_ask_choices_mixed()
+	for opt in ask_options:
+		var btn: Button = button_flat_yellow_scene.instantiate()
+		btn.add_theme_font_size_override("font_size", 12)
+		btn.text = opt.get("text", "???")
+		var choice_id := String(opt.get("id"))
+		btn.pressed.connect(func():
+			on_ask_choice_selected(choice_id, btn.text)
+		)
+		player_choices_container.add_child(btn)
+
+func on_ask_choice_selected(choice_id: String, text_chosen: String) -> void:
+	# Hiện câu của player trước
+	chat_box.text = ""
+	chat_box.text = "[b]You:[/b] " + text_chosen + "\n"
+	var result := npc_interaction.evaluate_ask_choice(choice_id)
+	var who := npc_interaction.first_name
+	chat_box.append_text("[b][color=darkorange]" + who + ":[/color][/b] " + String(result.get("npc_response", "")))
+	update_stat_labels()
 
 func _on_close_button_pressed() -> void:
 	hide()
+
+func clear_player_choices_container() -> void:
+	for c in player_choices_container.get_children():
+		c.queue_free()
