@@ -1,11 +1,10 @@
 class_name AmiceGrover
 extends Npc
 
-@onready var stats: NpcStats = $Stats
 @onready var detection_area: Area2D = $Perception
 
 func _ready() -> void:
-	pass
+	stats = $Stats
 
 func _on_perception_area_entered(area: Area2D) -> void:
 	if not is_instance_valid(area):
