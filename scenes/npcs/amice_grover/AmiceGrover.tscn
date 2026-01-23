@@ -29,6 +29,7 @@ interactions = Array[Dictionary]([{
 "id": 2,
 "name": "Talk"
 }])
+ask_bank_script = "uid://c11vc0nolusgg"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_0g827")
