@@ -12,10 +12,10 @@ extends Control
 @onready var player_title_label: Label = $Main/Margin/VBox/HBoxBottom/PanelBottom/Margin/VBox/PlayerTitleLabel
 @onready var player_choices_container: GridContainer = $Main/Margin/VBox/HBoxBottom/PanelBottom/Margin/VBox/PlayerChoicesContainer
 @onready var mood_label: Label = $Main/Margin/VBox/HBoxCenter/PanelLeft/Margin/VBox/MoodLabel
-
 @onready var trust_label: Label = $Main/Margin/VBox/HBoxTop/HBox/PanelLeft/Margin/HBox/TrustLabel
 @onready var love_label: Label = $Main/Margin/VBox/HBoxTop/HBox/PanelLeft/Margin/HBox/LoveLabel
 @onready var lust_label: Label = $Main/Margin/VBox/HBoxTop/HBox/PanelLeft/Margin/HBox/LustLabel
+
 #===========================================================
 var npc_interaction: Npc
 
@@ -57,23 +57,31 @@ func on_root_category_selected(category_id: String) -> void:
 		"ask":
 			render_ask_choices()
 			pass
-		"help":
-			#_render_help_choices() # TODO: sau này bạn thêm
-			pass
-		"interact":
-			#_render_interact_choices() # TODO: sau này bạn thêm
-			pass
-		"command":
-			#_render_command_choices() # TODO: sau này bạn thêm
+		"stay_silent":
+			on_stay_silent_selected()
 			pass
 		_:
 			pass
 
+
+func on_stay_silent_selected() -> void:
+	#clear_player_choices_container()
+	chat_box.text = ""
+	chat_box.text = "[b]You:[/b] (You stay silently.)\n"
+	
+	var result := npc_interaction.evaluate_stay_silent()
+	var who := npc_interaction.first_name
+	
+	chat_box.append_text(
+		"[b][color=darkblue]%s:[/color][/b] %s"
+		% [who, result.get("npc_response", "")]
+	)
+	
+	update_stat_labels()
+
 func render_ask_choices() -> void:
 	clear_player_choices_container()
-	
-	#var ask_options := npc_interaction.get_random_ask_choices(4)
-	#var ask_options := npc_interaction.get_ask_choices_strict(4)
+
 	var ask_options := npc_interaction.get_ask_choices_mixed()
 	for opt in ask_options:
 		var btn: Button = button_flat_yellow_scene.instantiate()
@@ -91,7 +99,7 @@ func on_ask_choice_selected(choice_id: String, text_chosen: String) -> void:
 	chat_box.text = "[b]You:[/b] " + text_chosen + "\n"
 	var result := npc_interaction.evaluate_ask_choice(choice_id)
 	var who := npc_interaction.first_name
-	chat_box.append_text("[b][color=darkorange]" + who + ":[/color][/b] " + String(result.get("npc_response", "")))
+	chat_box.append_text("[b][color=darkblue]" + who + ":[/color][/b] " + String(result.get("npc_response", "")))
 	update_stat_labels()
 
 func _on_close_button_pressed() -> void:
