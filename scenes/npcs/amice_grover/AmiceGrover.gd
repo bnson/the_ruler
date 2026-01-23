@@ -4,7 +4,11 @@ extends Npc
 @onready var detection_area: Area2D = $Perception
 
 func _ready() -> void:
+	super()
 	stats = $Stats
+	#roll_mood()
+	#load_ask_from_bank()
+	
 
 func _on_perception_area_entered(area: Area2D) -> void:
 	if not is_instance_valid(area):
