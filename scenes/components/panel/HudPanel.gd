@@ -17,7 +17,11 @@ var player_stats: PlayerStats
 
 #=============================================
 func _ready() -> void:
-	pass
+	time_label.text = "%s (Day %d)" % [GameClock.get_time_string(), GameClock.day]
+	GameClock.time_changed.connect(on_time_changed)
+
+func on_time_changed(day: int, hour: int, minute: int) -> void:
+	time_label.text = "%02d:%02d (Day %d)" % [hour, minute, day]
 
 func set_player_stats(stats: PlayerStats):
 	if player_stats:
