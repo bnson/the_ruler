@@ -34,9 +34,9 @@ func handle_interaction(npc: Npc) -> void:
 	show()
 
 func update_stat_labels() -> void:
-	trust_label.text = str(npc_interaction.stats.trust)
-	love_label.text = str(npc_interaction.stats.love)
-	lust_label.text = str(npc_interaction.stats.lust)
+	trust_label.text = "%0.3f" % (npc_interaction.stats.trust)
+	love_label.text = "%0.3f" % (npc_interaction.stats.love)
+	lust_label.text = "%0.3f" % (npc_interaction.stats.lust)
 
 func render_root_menu() -> void:
 	clear_player_choices_container()
