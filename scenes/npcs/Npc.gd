@@ -2,6 +2,7 @@ class_name Npc
 extends CharacterBody2D
 
 #=============================================================
+@export var id: String
 @export var first_name: String
 @export var last_name: String
 @export var level: int
@@ -99,10 +100,10 @@ func get_current_mood() -> String:
 func get_root_menu_items() -> Array[Dictionary]:
 	# Trả về danh sách button root dựa theo config: [{id, label}, ...]
 	var items: Array[Dictionary] = []
-	for id in ["ask", "stay_silent"]:
-		var cfg: Dictionary = root_menu_config.get(id, {})
+	for id_item in ["ask", "stay_silent"]:
+		var cfg: Dictionary = root_menu_config.get(id_item, {})
 		if cfg.get("enabled", false):
-			items.append({"id": id, "label": String(cfg.get("label", id))})
+			items.append({"id": id_item, "label": String(cfg.get("label", id_item))})
 	return items
 
 #=============================================================
