@@ -11,6 +11,8 @@ extends Control
 @onready var message_label: Label = $Main/Margin/VBox/HBoxBottom/Panel/MessageLabel
 
 #=============================================
+const BUY_PRICE_MULTIPLIER := 2
+
 var npc_interaction: Npc
 var selected_item_buy: ItemData
 var selected_item_sell: ItemData
@@ -70,28 +72,27 @@ func populate_slots(container: GridContainer, items: Array):
 func on_player_inventory_slot_clicked(clicked_slot: InventorySlot):
 	selected_item_buy = null
 	selected_item_sell = clicked_slot.item
+	item_info_panel.clear()
+	item_info_panel.show_item(selected_item_sell)
 	on_inventory_slot_clicked(clicked_slot)
 	
 func on_shop_inventory_slot_clicked(clicked_slot):
 	selected_item_buy = clicked_slot.item
 	selected_item_sell = null
+	var buy_price := selected_item_buy.price * 2
+	item_info_panel.clear()
+	item_info_panel.show_item(selected_item_buy, buy_price)
 	on_inventory_slot_clicked(clicked_slot)
 
 func on_inventory_slot_clicked(clicked_slot):
-	print("on_inventory_slot_clicked...")
-	item_info_panel.clear()
-	
-	# Highlight slot
+	# Highlight slot in player container
 	for slot in player_container.get_children():
 		if slot.has_method("set_highlight"):
 			slot.set_highlight(slot == clicked_slot)
-	
+	# Highlight slot in shop container
 	for slot in shop_container.get_children():
 		if slot.has_method("set_highlight"):
 			slot.set_highlight(slot == clicked_slot)
-	
-	# Hiển thị thông tin item
-	item_info_panel.show_item(clicked_slot.item)
 
 func clear() -> void:
 	item_info_panel.clear()
@@ -115,10 +116,14 @@ func _on_sell_button_pressed() -> void:
 
 func _on_buy_button_pressed() -> void:
 	if selected_item_buy:
-		if InventoryManager.can_spend_gold(selected_item_buy.price):
+		var buy_price := selected_item_buy.price * BUY_PRICE_MULTIPLIER
+		if InventoryManager.can_spend_gold(buy_price):
 			InventoryManager.add_item(selected_item_buy, 1)
-			InventoryManager.spend_gold(selected_item_buy.price)
+			InventoryManager.spend_gold(buy_price)
 			message_label.text = ""
+			#--
+			npc_interaction.stats.trust += 0.001
+			print(npc_interaction.stats.trust)
 		else:
 			message_label.text = "Message: Not enough gold!"
 
