@@ -19,7 +19,8 @@ func save_game() -> void:
 	var data := {
 		"player": PlayerManager.to_dict(),
 		"inventory": InventoryManager.to_dict(),
-		"level": SceneManager.to_dict()
+		"npcs": NpcManager.to_dict(),
+		"level": SceneManager.to_dict(),
 	}
 	
 	var file = FileAccess.open(SAVE_PATH, FileAccess.WRITE)
@@ -31,15 +32,18 @@ func save_game() -> void:
 func load_game(scene_container: Node, fade_layer: Node):
 	if not FileAccess.file_exists(SAVE_PATH):
 		push_error("File not found: ", SAVE_PATH)
+		return
 
 	var content = FileAccess.get_file_as_string(SAVE_PATH)
 	game_data = JSON.parse_string(content)
 	if typeof(game_data) != TYPE_DICTIONARY:
 		push_error("JSON format error: ", SAVE_PATH)
+		return
 	
 	SceneManager.from_dict(game_data.get("level", ""), scene_container, fade_layer)
 	PlayerManager.from_dict(game_data.get("player", {})) 
 	InventoryManager.from_dict(game_data.get("inventory", {}))
+	NpcManager.from_dict(game_data.get("npcs", {}))
 
 # Auto-save
 func auto_save_start():
