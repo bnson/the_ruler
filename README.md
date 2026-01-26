@@ -40,6 +40,7 @@ N/A
 | SaveManager                                  | res://autoload/                     |                  |
 | SceneManager                                 | res://autoload/                     |                  |
 | GameClock                                    | res://autoload/                     |                  |
+| NpcManager                                   | res://autoload/                     |                  |
 
 
 ## 🧩 Phân tích cấu hình Layer tiêu chuẩn cho game RPG (mở rộng)
