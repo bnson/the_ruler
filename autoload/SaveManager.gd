@@ -32,18 +32,43 @@ func save_game() -> void:
 func load_game(scene_container: Node, fade_layer: Node):
 	if not FileAccess.file_exists(SAVE_PATH):
 		push_error("File not found: ", SAVE_PATH)
-		return
-
-	var content = FileAccess.get_file_as_string(SAVE_PATH)
-	game_data = JSON.parse_string(content)
-	if typeof(game_data) != TYPE_DICTIONARY:
-		push_error("JSON format error: ", SAVE_PATH)
+		# Không có save => setup scene mặc định
+		game_data = {}
+		SceneManager.setup(scene_container, fade_layer)
+		# (Option) reset các manager về trạng thái mặc định nếu cần
+		PlayerManager.from_dict({})
+		InventoryManager.from_dict({})
+		NpcManager.from_dict({})
 		return
 	
+	var content = FileAccess.get_file_as_string(SAVE_PATH)
+	game_data = JSON.parse_string(content)
+	
+	if typeof(game_data) != TYPE_DICTIONARY:
+		push_error("JSON format error: ", SAVE_PATH)
+		# Save lỗi format => cũng rơi về mặc định
+		game_data = {}
+		SceneManager.setup(scene_container, fade_layer)
+		PlayerManager.from_dict({})
+		InventoryManager.from_dict({})
+		NpcManager.from_dict({})
+		return
+	
+	# Có save hợp lệ
 	SceneManager.from_dict(game_data.get("level", ""), scene_container, fade_layer)
 	PlayerManager.from_dict(game_data.get("player", {})) 
 	InventoryManager.from_dict(game_data.get("inventory", {}))
 	NpcManager.from_dict(game_data.get("npcs", {}))
+
+func new_game(scene_container: Node, fade_layer: Node) -> void:
+	# Xoá cache dữ liệu cũ trong runtime (không xóa file nếu bạn không muốn)
+	game_data = {}
+	# Reset các Manager về trạng thái mặc định (tùy implement)
+	PlayerManager.from_dict({})
+	InventoryManager.from_dict({})
+	NpcManager.from_dict({})
+	# Tải level mặc định
+	SceneManager.setup(scene_container, fade_layer)
 
 # Auto-save
 func auto_save_start():
