@@ -15,7 +15,8 @@ extends CharacterBody2D
 # Cho phép đổi nhãn và bật/tắt theo từng NPC trong Inspector
 @export var root_menu_config := {
 	"ask": {"enabled": true,  "label": "Ask"},
-	"stay_silent": {"enabled": true, "label": "Stay Silent"}
+	"stay_silent": {"enabled": true, "label": "Stay Silent"},
+	"leave": {"enabled": true, "label": "Leave"}
 }
 # ---
 @export_file("*.gd") var ask_bank_script: String = "res://systems/data/AskBank.gd"
@@ -27,17 +28,13 @@ extends CharacterBody2D
 
 #=============================================================
 @onready var stats: NpcStats
+@onready var state: NpcState
 
 #=============================================================
 var current_mood: String = ""
 var mood_last_changed := 0.0
-#---
 var ask_interactions: Array = [] # Danh sách lựa chọn cho category "Ask"
-var ask_points_used_today: float = 0.0
-#---
-var silence_points_used_today: float = 0.0
-#---
-var last_day_checked: int = -1
+
 
 
 #=============================================================
@@ -68,17 +65,14 @@ func load_ask_from_bank(use_merge_with_default := true) -> void:
 	ask_interactions = data.duplicate(true)
 
 func on_day_changed(new_day: int) -> void:
-	ask_points_used_today = 0.0
-	silence_points_used_today = 0.0
-	last_day_checked = new_day
+	if state:
+		state.reset_for_new_day(new_day)
 
 func ensure_daily_reset() -> void:
 	if not (Engine.has_singleton("GameClock") or "GameClock" in Engine.get_singleton_list()):
 		return
-	if last_day_checked != GameClock.day:
-		ask_points_used_today = 0.0
-		silence_points_used_today = 0.0
-		last_day_checked = GameClock.day
+	if state:
+		state.ensure_daily_sync(GameClock.day)
 
 func roll_mood() -> void:
 	if moods.is_empty():
@@ -100,7 +94,7 @@ func get_current_mood() -> String:
 func get_root_menu_items() -> Array[Dictionary]:
 	# Trả về danh sách button root dựa theo config: [{id, label}, ...]
 	var items: Array[Dictionary] = []
-	for id_item in ["ask", "stay_silent"]:
+	for id_item in ["ask", "stay_silent", "leave"]:
 		var cfg: Dictionary = root_menu_config.get(id_item, {})
 		if cfg.get("enabled", false):
 			items.append({"id": id_item, "label": String(cfg.get("label", id_item))})
@@ -146,7 +140,8 @@ func evaluate_ask(option: Dictionary) -> Dictionary:
 	
 	# Thêm metadata để UI có thể hiển thị quota
 	var cap_total: float = max(daily_ask_points_cap, 0.0)
-	var used: float = clampf(ask_points_used_today, 0.0, cap_total)
+	#var used: float = clampf(ask_points_used_today, 0.0, cap_total)
+	var used: float = clampf(state.ask_used, 0.0, cap_total)
 	var remaining: float = max(0.0, cap_total - used)
 	var was_capped: float = effects_total_abs(applied_effects) + 1e-6 < effects_total_abs(raw_effects)
 	
@@ -216,7 +211,9 @@ func apply_effects_with_daily_cap(effects: Dictionary) -> Dictionary:
 
 	# Tính quota còn lại
 	var cap: float = max(daily_ask_points_cap, 0.0)
-	var remaining: float = max(0.0, cap - ask_points_used_today)
+	var used: float = state.ask_used
+	#var remaining: float = max(0.0, cap - ask_points_used_today)
+	var remaining: float = max(0.0, cap - used)
 	if remaining <= 0.0:
 		# Hết quota -> không áp gì
 		return {}
@@ -228,13 +225,15 @@ func apply_effects_with_daily_cap(effects: Dictionary) -> Dictionary:
 
 	# Nếu còn quota đủ → áp full
 	if total <= remaining + 1e-6:
-		ask_points_used_today += total
+		#ask_points_used_today += total
+		state.ask_used = min(cap, used + total)
 		return effects.duplicate(true)
 
 	# Nếu vượt quota → scale tỉ lệ
 	var scale_factor := remaining / total
 	var scaled := scale_effects(effects, scale_factor)
-	ask_points_used_today = cap  # đã dùng hết quota
+	#ask_points_used_today = cap  # đã dùng hết quota
+	state.ask_used = cap # đã dùng hết quota
 	return scaled
 
 
@@ -245,7 +244,9 @@ func apply_silence_with_daily_cap(effects: Dictionary) -> Dictionary:
 		return effects
 
 	var cap: float = max(daily_silence_points_cap, 0.0)
-	var remaining: float = max(0.0, cap - silence_points_used_today)
+	var used := state.silence_used
+	#var remaining: float = max(0.0, cap - silence_points_used_today)
+	var remaining: float = max(0.0, cap - used)
 	
 	if remaining <= 0.0:
 		return {}
@@ -255,12 +256,14 @@ func apply_silence_with_daily_cap(effects: Dictionary) -> Dictionary:
 		return effects
 
 	if total_pos <= remaining + 1e-6:
-		silence_points_used_today += total_pos
+		#silence_points_used_today += total_pos
+		state.silence_used = min(cap, used + total_pos)
 		return effects.duplicate(true)
 
 	var scale_factor := remaining / total_pos
 	var scaled := scale_effects(effects, scale_factor)
-	silence_points_used_today = cap
+	#silence_points_used_today = cap
+	state.silence_used = cap
 	return scaled
 
 
@@ -349,7 +352,7 @@ func apply_silence_entry(entry: Dictionary) -> Dictionary:
 		"mood": current_mood,
 		"silence_cap": {
 			"cap": daily_silence_points_cap,
-			"used": silence_points_used_today,
-			"remaining": max(0.0, daily_silence_points_cap - silence_points_used_today)
+			"used": state.silence_used,
+			"remaining": max(0.0, daily_silence_points_cap - state.silence_used)
 		}
 	}
