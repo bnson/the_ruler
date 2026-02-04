@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://n8t0b6ckyknc"]
+[gd_scene load_steps=10 format=3 uid="uid://n8t0b6ckyknc"]
 
 [ext_resource type="Script" uid="uid://bittthjr5503d" path="res://scenes/npcs/amice_grover/AmiceGrover.gd" id="1_0ollw"]
 [ext_resource type="Script" uid="uid://b6i47375scd1p" path="res://systems/stats/NpcStats.gd" id="2_0g827"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://bo4oben1mb531" path="res://scenes/items/ItemData.gd" id="2_cayvw"]
 [ext_resource type="Resource" uid="uid://dxycq5u0yy2lt" path="res://resources/items/apple.tres" id="3_yjgdh"]
 [ext_resource type="Resource" uid="uid://bcoyox2kgxavy" path="res://resources/items/health_potion.tres" id="4_4j78u"]
+[ext_resource type="Script" uid="uid://binppyrlyawie" path="res://systems/state/NpcState.gd" id="7_yjgdh"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_0g827"]
 radius = 27.0
@@ -44,8 +45,11 @@ debug_color = Color(0.828395, 0.448424, 0, 0.42)
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_54c63")
 
-[node name="Stats" type="Node" parent="."]
+[node name="Stats" type="Node2D" parent="."]
 script = ExtResource("2_0g827")
+
+[node name="State" type="Node2D" parent="."]
+script = ExtResource("7_yjgdh")
 
 [connection signal="area_entered" from="Perception" to="." method="_on_perception_area_entered"]
 [connection signal="area_exited" from="Perception" to="." method="_on_perception_area_exited"]
