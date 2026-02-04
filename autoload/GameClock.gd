@@ -108,3 +108,16 @@ func is_between_hours(from_h: int, to_h: int) -> bool:
 		return hour >= from_h and hour <= to_h
 	else:
 		return (hour >= from_h) or (hour <= to_h)
+
+# ===== SAVE / LOAD =====
+func to_dict() -> Dictionary:
+	return {
+		"minute": minute,
+		"hour": hour,
+		"day": day,
+	}
+
+func from_dict(data: Dictionary) -> void:
+	minute = int(data.get("minute", minute))
+	hour = int(data.get("hour", hour))
+	day = int(data.get("day", day))
