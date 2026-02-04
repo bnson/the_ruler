@@ -17,6 +17,7 @@ func _ready() -> void:
 	
 func save_game() -> void:
 	var data := {
+		"time": GameClock.to_dict(),
 		"player": PlayerManager.to_dict(),
 		"inventory": InventoryManager.to_dict(),
 		"npcs": NpcManager.to_dict(),
@@ -36,6 +37,7 @@ func load_game(scene_container: Node, fade_layer: Node):
 		game_data = {}
 		SceneManager.setup(scene_container, fade_layer)
 		# (Option) reset các manager về trạng thái mặc định nếu cần
+		GameClock.from_dict({})
 		PlayerManager.from_dict({})
 		InventoryManager.from_dict({})
 		NpcManager.from_dict({})
@@ -49,6 +51,7 @@ func load_game(scene_container: Node, fade_layer: Node):
 		# Save lỗi format => cũng rơi về mặc định
 		game_data = {}
 		SceneManager.setup(scene_container, fade_layer)
+		GameClock.from_dict({})
 		PlayerManager.from_dict({})
 		InventoryManager.from_dict({})
 		NpcManager.from_dict({})
@@ -56,6 +59,7 @@ func load_game(scene_container: Node, fade_layer: Node):
 	
 	# Có save hợp lệ
 	SceneManager.from_dict(game_data.get("level", ""), scene_container, fade_layer)
+	GameClock.from_dict(game_data.get("time", {}))
 	PlayerManager.from_dict(game_data.get("player", {})) 
 	InventoryManager.from_dict(game_data.get("inventory", {}))
 	NpcManager.from_dict(game_data.get("npcs", {}))
@@ -64,6 +68,7 @@ func new_game(scene_container: Node, fade_layer: Node) -> void:
 	# Xoá cache dữ liệu cũ trong runtime (không xóa file nếu bạn không muốn)
 	game_data = {}
 	# Reset các Manager về trạng thái mặc định (tùy implement)
+	GameClock.from_dict({})
 	PlayerManager.from_dict({})
 	InventoryManager.from_dict({})
 	NpcManager.from_dict({})
