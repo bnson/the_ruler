@@ -5,19 +5,20 @@ extends Control
 @export var button_flat_yellow_scene: PackedScene
 
 #===========================================================
-@onready var npc_name_label: Label = $Main/Margin/VBox/HBoxTop/Panel/Margin/HBox/NpcNameLabel
-@onready var npc_level_label: Label = $Main/Margin/VBox/HBoxTop/Panel/Margin/HBox/NpcLevelLabel
-@onready var title_label: Label = $Main/Margin/VBox/HBoxCenter/PanelRight/VBox/PanelTop/Margin/VBox/TitleLabel
-@onready var chat_box: RichTextLabel = $Main/Margin/VBox/HBoxCenter/PanelRight/VBox/PanelTop/Margin/VBox/ChatBox
-@onready var player_title_label: Label = $Main/Margin/VBox/HBoxBottom/PanelBottom/Margin/VBox/PlayerTitleLabel
-@onready var player_choices_container: GridContainer = $Main/Margin/VBox/HBoxBottom/PanelBottom/Margin/VBox/PlayerChoicesContainer
-@onready var mood_label: Label = $Main/Margin/VBox/HBoxCenter/PanelLeft/Margin/VBox/MoodLabel
-@onready var trust_label: Label = $Main/Margin/VBox/HBoxTop/HBox/PanelLeft/Margin/HBox/TrustLabel
-@onready var love_label: Label = $Main/Margin/VBox/HBoxTop/HBox/PanelLeft/Margin/HBox/LoveLabel
-@onready var lust_label: Label = $Main/Margin/VBox/HBoxTop/HBox/PanelLeft/Margin/HBox/LustLabel
+@onready var npc_name_label: Label = $Main/Margin/HBox/VBoxRight/PanelTop/Margin/HBox/NpcNameLabel
+@onready var npc_level_label: Label = $Main/Margin/HBox/VBoxRight/PanelTop/Margin/HBox/NpcLevelLabel
+@onready var title_label: Label = $Main/Margin/HBox/VBoxLeft/PanelTop/VBox/PanelTop/Margin/VBox/TitleLabel
+@onready var chat_box: RichTextLabel = $Main/Margin/HBox/VBoxLeft/PanelTop/VBox/PanelTop/Margin/VBox/ChatBox
+@onready var player_title_label: Label = $Main/Margin/HBox/VBoxLeft/PanelCenter/Margin/VBox/PlayerTitleLabel
+@onready var player_choices_container: GridContainer = $Main/Margin/HBox/VBoxLeft/PanelCenter/Margin/VBox/PlayerChoicesContainer
+@onready var mood_label: Label = $Main/Margin/HBox/VBoxRight/PanelCenter/Margin/VBox/MoodLabel
+@onready var trust_label: Label = $Main/Margin/HBox/VBoxRight/PanelBottom/Margin/VBox/HBox1/TrustLabel
+@onready var love_label: Label = $Main/Margin/HBox/VBoxRight/PanelBottom/Margin/VBox/HBox2/LoveLabel
+@onready var lust_label: Label = $Main/Margin/HBox/VBoxRight/PanelBottom/Margin/VBox/HBox3/LustLabel
 
 #===========================================================
 var npc_interaction: Npc
+var is_debug: bool = true
 
 #===========================================================
 func handle_interaction(npc: Npc) -> void:
@@ -29,14 +30,19 @@ func handle_interaction(npc: Npc) -> void:
 	mood_label.text = npc_interaction.current_mood
 	
 	render_root_menu()
-	update_stat_labels()
+	update_labels()
 	
 	show()
 
-func update_stat_labels() -> void:
+func update_labels() -> void:
 	trust_label.text = "%0.3f" % (npc_interaction.stats.trust)
 	love_label.text = "%0.3f" % (npc_interaction.stats.love)
 	lust_label.text = "%0.3f" % (npc_interaction.stats.lust)
+	
+	if is_debug:
+		var debug_info = " (" + str(npc_interaction.state.ask_used) + "/" + str(npc_interaction.daily_ask_points_cap)
+		debug_info += " | " + str(npc_interaction.state.silence_used) + "/" + str(npc_interaction.daily_silence_points_cap) + ")"
+		player_title_label.text = PlayerManager.player.first_name + " choices" + debug_info
 
 func render_root_menu() -> void:
 	clear_player_choices_container()
@@ -60,6 +66,9 @@ func on_root_category_selected(category_id: String) -> void:
 		"stay_silent":
 			on_stay_silent_selected()
 			pass
+		"leave":
+			hide()
+			pass
 		_:
 			pass
 
@@ -73,11 +82,11 @@ func on_stay_silent_selected() -> void:
 	var who := npc_interaction.first_name
 	
 	chat_box.append_text(
-		"[b][color=darkblue]%s:[/color][/b] %s"
+		"[b][color=darkgreen]%s:[/color][/b] %s"
 		% [who, result.get("npc_response", "")]
 	)
 	
-	update_stat_labels()
+	update_labels()
 
 func render_ask_choices() -> void:
 	clear_player_choices_container()
@@ -99,11 +108,9 @@ func on_ask_choice_selected(choice_id: String, text_chosen: String) -> void:
 	chat_box.text = "[b]You:[/b] " + text_chosen + "\n"
 	var result := npc_interaction.evaluate_ask_choice(choice_id)
 	var who := npc_interaction.first_name
-	chat_box.append_text("[b][color=darkblue]" + who + ":[/color][/b] " + String(result.get("npc_response", "")))
-	update_stat_labels()
-
-func _on_close_button_pressed() -> void:
-	hide()
+	chat_box.append_text("[b][color=darkgreen]" + who + ":[/color][/b] " + String(result.get("npc_response", "")))
+	update_labels()
+	render_root_menu()
 
 func clear_player_choices_container() -> void:
 	for c in player_choices_container.get_children():
