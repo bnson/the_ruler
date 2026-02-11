@@ -56,3 +56,11 @@ func play_bgm(audio_name: String):
 func stop_bgm():
 	if bgm_player.playing:
 		bgm_player.stop()
+
+func mute():
+	var master := AudioServer.get_bus_index("Master")
+	AudioServer.set_bus_mute(master, true)
+	
+func unmute():
+	var master := AudioServer.get_bus_index("Master")
+	AudioServer.set_bus_mute(master, false)
