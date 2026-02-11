@@ -1,0 +1,43 @@
+[gd_scene load_steps=4 format=3 uid="uid://b2etmc06nsjdl"]
+
+[ext_resource type="Script" uid="uid://doxdwkgl2j08m" path="res://scenes/components/panel/QuickPanel.gd" id="1_vl5jl"]
+[ext_resource type="Texture2D" uid="uid://djtyuhbs0eyt3" path="res://assets/ui/buttons/menu/sound_on.png" id="2_5yngb"]
+[ext_resource type="Texture2D" uid="uid://cshdsbg8ga1sm" path="res://assets/ui/buttons/menu/sound_on_hover.png" id="3_l7h78"]
+
+[node name="QuickPanel" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_vl5jl")
+
+[node name="Main" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Margin" type="MarginContainer" parent="Main"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBox" type="HBoxContainer" parent="Main/Margin"]
+layout_mode = 2
+
+[node name="SoundBtn" type="TextureButton" parent="Main/Margin/VBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+toggle_mode = true
+texture_normal = ExtResource("2_5yngb")
+texture_hover = ExtResource("3_l7h78")
+
+[connection signal="toggled" from="Main/Margin/VBox/SoundBtn" to="." method="_on_sound_btn_toggled"]
