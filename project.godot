@@ -22,8 +22,10 @@ ItemDatabase="*res://autoload/ItemDatabase.gd"
 InventoryManager="*res://autoload/InventoryManager.gd"
 UiManager="*res://autoload/UiManager.gd"
 PlayerManager="*res://autoload/PlayerManager.gd"
+NpcManager="*res://autoload/NpcManager.gd"
 SaveManager="*res://autoload/SaveManager.gd"
 SceneManager="*res://autoload/SceneManager.gd"
+GameClock="*res://autoload/GameClock.gd"
 
 [display]
 
