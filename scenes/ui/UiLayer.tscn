@@ -60,6 +60,22 @@ mouse_filter = 2
 [node name="ActionPanel" parent="BottomRightUi" instance=ExtResource("3_tb4qj")]
 layout_mode = 2
 
+[node name="LeftUi" type="CenterContainer" parent="."]
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -140.0
+offset_top = -95.0
+offset_bottom = 95.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="InteractionMenu" parent="LeftUi" instance=ExtResource("7_klfh2")]
+visible = false
+layout_mode = 2
+
 [node name="CenterUi" type="MarginContainer" parent="."]
 anchors_preset = 15
 anchor_right = 1.0
@@ -73,10 +89,6 @@ visible = false
 layout_mode = 2
 
 [node name="PlayerProfile" parent="CenterUi" instance=ExtResource("6_la556")]
-visible = false
-layout_mode = 2
-
-[node name="InteractionMenu" parent="CenterUi" instance=ExtResource("7_klfh2")]
 visible = false
 layout_mode = 2
 
