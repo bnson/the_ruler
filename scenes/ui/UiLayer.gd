@@ -7,7 +7,7 @@ extends CanvasLayer
 @onready var hud_panel: HudPanel = $TopLeftUi/HudPanel
 @onready var inventory_panel: InventoryPanel = $CenterUi/InventoryPanel
 @onready var player_profile: PlayerProfile = $CenterUi/PlayerProfile
-@onready var interaction_menu: InteractionMenu = $CenterUi/InteractionMenu
+@onready var interaction_menu: InteractionMenu = $LeftUi/InteractionMenu
 @onready var shop_ui: ShopUi = $CenterUi/ShopUi
 @onready var chat_box: ChatBox = $CenterUi/ChatBox
 
