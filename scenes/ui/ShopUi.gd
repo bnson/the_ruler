@@ -79,7 +79,7 @@ func on_player_inventory_slot_clicked(clicked_slot: InventorySlot):
 func on_shop_inventory_slot_clicked(clicked_slot):
 	selected_item_buy = clicked_slot.item
 	selected_item_sell = null
-	var buy_price := selected_item_buy.price * 2
+	var buy_price := selected_item_buy.price * BUY_PRICE_MULTIPLIER
 	item_info_panel.clear()
 	item_info_panel.show_item(selected_item_buy, buy_price)
 	on_inventory_slot_clicked(clicked_slot)
@@ -105,7 +105,13 @@ func handle_interaction(npc: Npc) -> void:
 	on_inventory_changed()
 	show()
 
-func _on_sell_button_pressed() -> void:
+func _on_close_button_pressed() -> void:
+	selected_item_buy = null
+	selected_item_sell = null
+	clear()
+	hide()
+
+func _on_sell_one_btn_pressed() -> void:
 	if selected_item_sell:
 		if InventoryManager.can_sell_item(selected_item_sell, 1):
 			InventoryManager.remove_item(selected_item_sell, 1)
@@ -114,7 +120,16 @@ func _on_sell_button_pressed() -> void:
 		else:
 			message_label.text = "Message: No items for sale!"
 
-func _on_buy_button_pressed() -> void:
+func _on_sell_ten_btn_pressed() -> void:
+	if selected_item_sell:
+		if InventoryManager.can_sell_item(selected_item_sell, 10):
+			InventoryManager.remove_item(selected_item_sell, 10)
+			InventoryManager.add_gold(selected_item_sell.price * 10)
+			message_label.text = ""
+		else:
+			message_label.text = "Message: No items for sale!"
+
+func _on_buy_one_btn_pressed() -> void:
 	if selected_item_buy:
 		var buy_price := selected_item_buy.price * BUY_PRICE_MULTIPLIER
 		if InventoryManager.can_spend_gold(buy_price):
@@ -122,13 +137,19 @@ func _on_buy_button_pressed() -> void:
 			InventoryManager.spend_gold(buy_price)
 			message_label.text = ""
 			#--
-			npc_interaction.stats.trust += 0.001
-			print(npc_interaction.stats.trust)
+			npc_interaction.stats.trust += 0.01
 		else:
 			message_label.text = "Message: Not enough gold!"
 
-func _on_close_button_pressed() -> void:
-	selected_item_buy = null
-	selected_item_sell = null
-	clear()
-	hide()
+func _on_buy_ten_btn_pressed() -> void:
+	if selected_item_buy:
+		var buy_price := selected_item_buy.price * BUY_PRICE_MULTIPLIER * 10
+		if InventoryManager.can_spend_gold(buy_price):
+			InventoryManager.add_item(selected_item_buy, 10)
+			InventoryManager.spend_gold(buy_price)
+			message_label.text = ""
+			#--
+			npc_interaction.stats.trust += (0.01 * 10)
+			print(npc_interaction.stats.trust)
+		else:
+			message_label.text = "Message: Not enough gold!"
