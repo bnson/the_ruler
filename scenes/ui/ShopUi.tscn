@@ -99,8 +99,12 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 columns = 3
 
-[node name="SellButton" type="Button" parent="Main/Margin/VBox/HBoxCenter/PanelLeft/Margin/VBox"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Main/Margin/VBox/HBoxCenter/PanelLeft/Margin/VBox"]
 layout_mode = 2
+
+[node name="SellOneBtn" type="Button" parent="Main/Margin/VBox/HBoxCenter/PanelLeft/Margin/VBox/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
 theme_override_colors/font_disabled_color = Color(0.136826, 0.136826, 0.136826, 1)
 theme_override_colors/font_hover_pressed_color = Color(0.27451, 0.156863, 0, 1)
 theme_override_colors/font_hover_color = Color(0.27451, 0.156863, 0, 1)
@@ -113,6 +117,22 @@ theme_override_styles/hover = ExtResource("7_1fd4b")
 theme_override_styles/pressed = ExtResource("7_2n4bb")
 theme_override_styles/normal = ExtResource("7_v5b5b")
 text = "Sell"
+
+[node name="SellTenBtn" type="Button" parent="Main/Margin/VBox/HBoxCenter/PanelLeft/Margin/VBox/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_disabled_color = Color(0.136826, 0.136826, 0.136826, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.27451, 0.156863, 0, 1)
+theme_override_colors/font_hover_color = Color(0.27451, 0.156863, 0, 1)
+theme_override_colors/font_color = Color(0.27451, 0.156863, 0, 1)
+theme_override_colors/font_focus_color = Color(0.27451, 0.156863, 0, 1)
+theme_override_colors/font_pressed_color = Color(0.27451, 0.156863, 0, 1)
+theme_override_fonts/font = ExtResource("4_wm3ov")
+theme_override_font_sizes/font_size = 14
+theme_override_styles/hover = ExtResource("7_1fd4b")
+theme_override_styles/pressed = ExtResource("7_2n4bb")
+theme_override_styles/normal = ExtResource("7_v5b5b")
+text = "Sell x10"
 
 [node name="PanelCenter" type="Panel" parent="Main/Margin/VBox/HBoxCenter"]
 layout_mode = 2
@@ -151,8 +171,12 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 columns = 3
 
-[node name="BuyButton" type="Button" parent="Main/Margin/VBox/HBoxCenter/PanelCenter/Margin/VBox"]
+[node name="HBox" type="HBoxContainer" parent="Main/Margin/VBox/HBoxCenter/PanelCenter/Margin/VBox"]
 layout_mode = 2
+
+[node name="BuyOneBtn" type="Button" parent="Main/Margin/VBox/HBoxCenter/PanelCenter/Margin/VBox/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
 theme_override_colors/font_disabled_color = Color(0.136826, 0.136826, 0.136826, 1)
 theme_override_colors/font_hover_pressed_color = Color(0.27451, 0.156863, 0, 1)
 theme_override_colors/font_hover_color = Color(0.27451, 0.156863, 0, 1)
@@ -165,6 +189,22 @@ theme_override_styles/hover = ExtResource("7_1fd4b")
 theme_override_styles/pressed = ExtResource("7_2n4bb")
 theme_override_styles/normal = ExtResource("7_v5b5b")
 text = "Buy"
+
+[node name="BuyTenBtn" type="Button" parent="Main/Margin/VBox/HBoxCenter/PanelCenter/Margin/VBox/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_disabled_color = Color(0.136826, 0.136826, 0.136826, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.27451, 0.156863, 0, 1)
+theme_override_colors/font_hover_color = Color(0.27451, 0.156863, 0, 1)
+theme_override_colors/font_color = Color(0.27451, 0.156863, 0, 1)
+theme_override_colors/font_focus_color = Color(0.27451, 0.156863, 0, 1)
+theme_override_colors/font_pressed_color = Color(0.27451, 0.156863, 0, 1)
+theme_override_fonts/font = ExtResource("4_wm3ov")
+theme_override_font_sizes/font_size = 14
+theme_override_styles/hover = ExtResource("7_1fd4b")
+theme_override_styles/pressed = ExtResource("7_2n4bb")
+theme_override_styles/normal = ExtResource("7_v5b5b")
+text = "Buy x10"
 
 [node name="PanelRight" type="Panel" parent="Main/Margin/VBox/HBoxCenter"]
 layout_mode = 2
@@ -227,6 +267,8 @@ theme_override_styles/pressed = ExtResource("10_2n4bb")
 theme_override_styles/normal = ExtResource("11_1fd4b")
 text = "CLOSE"
 
-[connection signal="pressed" from="Main/Margin/VBox/HBoxCenter/PanelLeft/Margin/VBox/SellButton" to="." method="_on_sell_button_pressed"]
-[connection signal="pressed" from="Main/Margin/VBox/HBoxCenter/PanelCenter/Margin/VBox/BuyButton" to="." method="_on_buy_button_pressed"]
+[connection signal="pressed" from="Main/Margin/VBox/HBoxCenter/PanelLeft/Margin/VBox/HBoxContainer/SellOneBtn" to="." method="_on_sell_one_btn_pressed"]
+[connection signal="pressed" from="Main/Margin/VBox/HBoxCenter/PanelLeft/Margin/VBox/HBoxContainer/SellTenBtn" to="." method="_on_sell_ten_btn_pressed"]
+[connection signal="pressed" from="Main/Margin/VBox/HBoxCenter/PanelCenter/Margin/VBox/HBox/BuyOneBtn" to="." method="_on_buy_one_btn_pressed"]
+[connection signal="pressed" from="Main/Margin/VBox/HBoxCenter/PanelCenter/Margin/VBox/HBox/BuyTenBtn" to="." method="_on_buy_ten_btn_pressed"]
 [connection signal="pressed" from="Main/Margin/VBox/HBoxBottom/CloseButton" to="." method="_on_close_button_pressed"]
