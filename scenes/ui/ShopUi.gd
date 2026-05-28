@@ -1,274 +1,155 @@
-[gd_scene load_steps=16 format=3 uid="uid://cagt3ynqb653p"]
+class_name ShopUi
+extends Control
 
-[ext_resource type="Script" uid="uid://c56jaaccb0irk" path="res://scenes/ui/ShopUi.gd" id="1_34vvg"]
-[ext_resource type="PackedScene" uid="uid://b5er8kmv0j7aw" path="res://scenes/components/common/InventorySlot.tscn" id="2_4228x"]
-[ext_resource type="StyleBox" uid="uid://wbl2afd25hh5" path="res://resources/themes/BackgroundTheme002.tres" id="2_l8ir8"]
-[ext_resource type="StyleBox" uid="uid://3l474d1p81yu" path="res://resources/themes/BackgroundTheme001.tres" id="3_wm3ov"]
-[ext_resource type="FontFile" uid="uid://h370v3vijiwg" path="res://assets/fonts/OpenSans_Condensed-Bold.ttf" id="4_wm3ov"]
-[ext_resource type="PackedScene" uid="uid://b7ru4feurl58n" path="res://scenes/components/common/GoldDisplay.tscn" id="5_qsc2v"]
-[ext_resource type="PackedScene" uid="uid://bei61i6bvlujr" path="res://scenes/items/ItemInfoPanel.tscn" id="6_omxhu"]
-[ext_resource type="StyleBox" uid="uid://riu81oh0y5oi" path="res://resources/themes/ButtonStyle002Hover.tres" id="7_1fd4b"]
-[ext_resource type="StyleBox" uid="uid://bi43tn0ih62k8" path="res://resources/themes/ButtonStyle002Pressed.tres" id="7_2n4bb"]
-[ext_resource type="StyleBox" uid="uid://dclh601qphvih" path="res://resources/themes/FontTheme001.tres" id="7_h6r45"]
-[ext_resource type="StyleBox" uid="uid://d0x0umqlo27l0" path="res://resources/themes/ButtonStyle002Normal.tres" id="7_v5b5b"]
-[ext_resource type="StyleBox" uid="uid://43fs0cb34mdd" path="res://resources/themes/ButtonStyle001Focus.tres" id="8_4228x"]
-[ext_resource type="StyleBox" uid="uid://dvce07ljveo78" path="res://resources/themes/ButtonStyle001Hover.tres" id="9_v5b5b"]
-[ext_resource type="StyleBox" uid="uid://clnqn105qvbx0" path="res://resources/themes/ButtonStyle001Pressed.tres" id="10_2n4bb"]
-[ext_resource type="StyleBox" uid="uid://be1ncqpu2e36r" path="res://resources/themes/ButtonStyle001Normal.tres" id="11_1fd4b"]
+#=============================================
+@export var slot_scene: PackedScene
 
-[node name="ShopUi" type="Control"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("1_34vvg")
-slot_scene = ExtResource("2_4228x")
+#=============================================
+@onready var player_container: GridContainer = $Main/Margin/VBox/HBoxCenter/PanelLeft/Margin/VBox/Scroll/PlayerContainer
+@onready var shop_container: GridContainer = $Main/Margin/VBox/HBoxCenter/PanelCenter/Margin/VBox/Scroll/ShopContainer
+@onready var item_info_panel: ItemInfoPanel = $Main/Margin/VBox/HBoxCenter/PanelRight/Margin/ItemInfoPanel
+@onready var message_label: Label = $Main/Margin/VBox/HBoxBottom/Panel/MessageLabel
 
-[node name="Main" type="Panel" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_styles/panel = ExtResource("2_l8ir8")
+#=============================================
+const BUY_PRICE_MULTIPLIER := 2
 
-[node name="Margin" type="MarginContainer" parent="Main"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 5
+var npc_interaction: Npc
+var selected_item_buy: ItemData
+var selected_item_sell: ItemData
 
-[node name="VBox" type="VBoxContainer" parent="Main/Margin"]
-layout_mode = 2
+#=============================================
+func _ready():
+	# Kết nối signal từ InventoryManager (Autoload)
+	InventoryManager.connect("inventory_changed", Callable(self, "on_inventory_changed"))
+	on_inventory_changed()
+	#--
+	message_label.text = ""
 
-[node name="HBoxCenter" type="HBoxContainer" parent="Main/Margin/VBox"]
-layout_mode = 2
-size_flags_vertical = 3
+func on_inventory_changed():
+	if npc_interaction == null:
+		return
+	#--
+	clear()
+	populate_slots(player_container, InventoryManager.get_all_items())
+	populate_slots(shop_container, npc_interaction.sell_items)
 
-[node name="PanelLeft" type="Panel" parent="Main/Margin/VBox/HBoxCenter"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_styles/panel = ExtResource("3_wm3ov")
+func populate_slots(container: GridContainer, items: Array):
+	for data in items:
+		var item: ItemData
+		var event: String
+		var quantity: int
+		var selected_item: ItemData
+		
+		if typeof(data) == TYPE_DICTIONARY:
+			item = data["item"]
+			quantity= data["quantity"]
+			event = "on_player_inventory_slot_clicked"
+			selected_item = selected_item_sell
+		else:
+			item = data
+			quantity = 1
+			event = "on_shop_inventory_slot_clicked"
+			selected_item = selected_item_buy
+		
+		if !item.is_unique:
+			var slot: InventorySlot = slot_scene.instantiate()
+			container.add_child(slot)
+			slot.set_item(item, quantity)
+			slot.connect("slot_clicked", Callable(self, event))
+			slot.set_highlight(false)
+			
+			if selected_item:
+				if slot.item.id == selected_item.id:
+					slot.set_highlight(true)
+					item_info_panel.show_item(selected_item)
+	
+	# Thêm slot trống cho đủ max_slots
+	for i in range(InventoryManager.max_slots - container.get_child_count()):
+		var slot = slot_scene.instantiate()
+		container.add_child(slot)
+		slot.set_item(null, 0)
 
-[node name="Margin" type="MarginContainer" parent="Main/Margin/VBox/HBoxCenter/PanelLeft"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 5
+func on_player_inventory_slot_clicked(clicked_slot: InventorySlot):
+	selected_item_buy = null
+	selected_item_sell = clicked_slot.item
+	item_info_panel.clear()
+	item_info_panel.show_item(selected_item_sell)
+	on_inventory_slot_clicked(clicked_slot)
+	
+func on_shop_inventory_slot_clicked(clicked_slot):
+	selected_item_buy = clicked_slot.item
+	selected_item_sell = null
+	var buy_price := selected_item_buy.price * BUY_PRICE_MULTIPLIER
+	item_info_panel.clear()
+	item_info_panel.show_item(selected_item_buy, buy_price)
+	on_inventory_slot_clicked(clicked_slot)
 
-[node name="VBox" type="VBoxContainer" parent="Main/Margin/VBox/HBoxCenter/PanelLeft/Margin"]
-layout_mode = 2
+func on_inventory_slot_clicked(clicked_slot):
+	# Highlight slot in player container
+	for slot in player_container.get_children():
+		if slot.has_method("set_highlight"):
+			slot.set_highlight(slot == clicked_slot)
+	# Highlight slot in shop container
+	for slot in shop_container.get_children():
+		if slot.has_method("set_highlight"):
+			slot.set_highlight(slot == clicked_slot)
 
-[node name="HBox" type="HBoxContainer" parent="Main/Margin/VBox/HBoxCenter/PanelLeft/Margin/VBox"]
-layout_mode = 2
-theme_override_constants/separation = 5
+func clear() -> void:
+	item_info_panel.clear()
+	# Clear child in container
+	for child in player_container.get_children(): child.free()
+	for child in shop_container.get_children(): child.free()
+	
+func handle_interaction(npc: Npc) -> void:
+	npc_interaction = npc
+	on_inventory_changed()
+	show()
 
-[node name="Title" type="Label" parent="Main/Margin/VBox/HBoxCenter/PanelLeft/Margin/VBox/HBox"]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.298039, 0.168627, 0.101961, 1)
-theme_override_fonts/font = ExtResource("4_wm3ov")
-theme_override_font_sizes/font_size = 14
-text = "MALTHERUS"
+func _on_close_button_pressed() -> void:
+	selected_item_buy = null
+	selected_item_sell = null
+	clear()
+	hide()
 
-[node name="GoldDisplay" parent="Main/Margin/VBox/HBoxCenter/PanelLeft/Margin/VBox/HBox" instance=ExtResource("5_qsc2v")]
-layout_mode = 2
-size_flags_horizontal = 3
+func _on_sell_one_btn_pressed() -> void:
+	if selected_item_sell:
+		if InventoryManager.can_sell_item(selected_item_sell, 1):
+			InventoryManager.remove_item(selected_item_sell, 1)
+			InventoryManager.add_gold(selected_item_sell.price)
+			message_label.text = ""
+		else:
+			message_label.text = "Message: No items for sale!"
 
-[node name="Scroll" type="ScrollContainer" parent="Main/Margin/VBox/HBoxCenter/PanelLeft/Margin/VBox"]
-layout_mode = 2
-size_flags_vertical = 3
+func _on_sell_ten_btn_pressed() -> void:
+	if selected_item_sell:
+		if InventoryManager.can_sell_item(selected_item_sell, 10):
+			InventoryManager.remove_item(selected_item_sell, 10)
+			InventoryManager.add_gold(selected_item_sell.price * 10)
+			message_label.text = ""
+		else:
+			message_label.text = "Message: No items for sale!"
 
-[node name="PlayerContainer" type="GridContainer" parent="Main/Margin/VBox/HBoxCenter/PanelLeft/Margin/VBox/Scroll"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-columns = 3
+func _on_buy_one_btn_pressed() -> void:
+	if selected_item_buy:
+		var buy_price := selected_item_buy.price * BUY_PRICE_MULTIPLIER
+		if InventoryManager.can_spend_gold(buy_price):
+			InventoryManager.add_item(selected_item_buy, 1)
+			InventoryManager.spend_gold(buy_price)
+			message_label.text = ""
+			#--
+			npc_interaction.stats.trust += 0.01
+		else:
+			message_label.text = "Message: Not enough gold!"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Main/Margin/VBox/HBoxCenter/PanelLeft/Margin/VBox"]
-layout_mode = 2
-
-[node name="SellOneBtn" type="Button" parent="Main/Margin/VBox/HBoxCenter/PanelLeft/Margin/VBox/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_colors/font_disabled_color = Color(0.136826, 0.136826, 0.136826, 1)
-theme_override_colors/font_hover_pressed_color = Color(0.27451, 0.156863, 0, 1)
-theme_override_colors/font_hover_color = Color(0.27451, 0.156863, 0, 1)
-theme_override_colors/font_color = Color(0.27451, 0.156863, 0, 1)
-theme_override_colors/font_focus_color = Color(0.27451, 0.156863, 0, 1)
-theme_override_colors/font_pressed_color = Color(0.27451, 0.156863, 0, 1)
-theme_override_fonts/font = ExtResource("4_wm3ov")
-theme_override_font_sizes/font_size = 14
-theme_override_styles/hover = ExtResource("7_1fd4b")
-theme_override_styles/pressed = ExtResource("7_2n4bb")
-theme_override_styles/normal = ExtResource("7_v5b5b")
-text = "Sell"
-
-[node name="SellTenBtn" type="Button" parent="Main/Margin/VBox/HBoxCenter/PanelLeft/Margin/VBox/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_colors/font_disabled_color = Color(0.136826, 0.136826, 0.136826, 1)
-theme_override_colors/font_hover_pressed_color = Color(0.27451, 0.156863, 0, 1)
-theme_override_colors/font_hover_color = Color(0.27451, 0.156863, 0, 1)
-theme_override_colors/font_color = Color(0.27451, 0.156863, 0, 1)
-theme_override_colors/font_focus_color = Color(0.27451, 0.156863, 0, 1)
-theme_override_colors/font_pressed_color = Color(0.27451, 0.156863, 0, 1)
-theme_override_fonts/font = ExtResource("4_wm3ov")
-theme_override_font_sizes/font_size = 14
-theme_override_styles/hover = ExtResource("7_1fd4b")
-theme_override_styles/pressed = ExtResource("7_2n4bb")
-theme_override_styles/normal = ExtResource("7_v5b5b")
-text = "Sell x10"
-
-[node name="PanelCenter" type="Panel" parent="Main/Margin/VBox/HBoxCenter"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_styles/panel = ExtResource("3_wm3ov")
-
-[node name="Margin" type="MarginContainer" parent="Main/Margin/VBox/HBoxCenter/PanelCenter"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 5
-
-[node name="VBox" type="VBoxContainer" parent="Main/Margin/VBox/HBoxCenter/PanelCenter/Margin"]
-layout_mode = 2
-
-[node name="Title" type="Label" parent="Main/Margin/VBox/HBoxCenter/PanelCenter/Margin/VBox"]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.298039, 0.168627, 0.101961, 1)
-theme_override_fonts/font = ExtResource("4_wm3ov")
-theme_override_font_sizes/font_size = 14
-text = "SHOP"
-
-[node name="Scroll" type="ScrollContainer" parent="Main/Margin/VBox/HBoxCenter/PanelCenter/Margin/VBox"]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="ShopContainer" type="GridContainer" parent="Main/Margin/VBox/HBoxCenter/PanelCenter/Margin/VBox/Scroll"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-columns = 3
-
-[node name="HBox" type="HBoxContainer" parent="Main/Margin/VBox/HBoxCenter/PanelCenter/Margin/VBox"]
-layout_mode = 2
-
-[node name="BuyOneBtn" type="Button" parent="Main/Margin/VBox/HBoxCenter/PanelCenter/Margin/VBox/HBox"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_colors/font_disabled_color = Color(0.136826, 0.136826, 0.136826, 1)
-theme_override_colors/font_hover_pressed_color = Color(0.27451, 0.156863, 0, 1)
-theme_override_colors/font_hover_color = Color(0.27451, 0.156863, 0, 1)
-theme_override_colors/font_color = Color(0.27451, 0.156863, 0, 1)
-theme_override_colors/font_focus_color = Color(0.27451, 0.156863, 0, 1)
-theme_override_colors/font_pressed_color = Color(0.27451, 0.156863, 0, 1)
-theme_override_fonts/font = ExtResource("4_wm3ov")
-theme_override_font_sizes/font_size = 14
-theme_override_styles/hover = ExtResource("7_1fd4b")
-theme_override_styles/pressed = ExtResource("7_2n4bb")
-theme_override_styles/normal = ExtResource("7_v5b5b")
-text = "Buy"
-
-[node name="BuyTenBtn" type="Button" parent="Main/Margin/VBox/HBoxCenter/PanelCenter/Margin/VBox/HBox"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_colors/font_disabled_color = Color(0.136826, 0.136826, 0.136826, 1)
-theme_override_colors/font_hover_pressed_color = Color(0.27451, 0.156863, 0, 1)
-theme_override_colors/font_hover_color = Color(0.27451, 0.156863, 0, 1)
-theme_override_colors/font_color = Color(0.27451, 0.156863, 0, 1)
-theme_override_colors/font_focus_color = Color(0.27451, 0.156863, 0, 1)
-theme_override_colors/font_pressed_color = Color(0.27451, 0.156863, 0, 1)
-theme_override_fonts/font = ExtResource("4_wm3ov")
-theme_override_font_sizes/font_size = 14
-theme_override_styles/hover = ExtResource("7_1fd4b")
-theme_override_styles/pressed = ExtResource("7_2n4bb")
-theme_override_styles/normal = ExtResource("7_v5b5b")
-text = "Buy x10"
-
-[node name="PanelRight" type="Panel" parent="Main/Margin/VBox/HBoxCenter"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_styles/panel = ExtResource("3_wm3ov")
-
-[node name="Margin" type="MarginContainer" parent="Main/Margin/VBox/HBoxCenter/PanelRight"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 5
-
-[node name="ItemInfoPanel" parent="Main/Margin/VBox/HBoxCenter/PanelRight/Margin" instance=ExtResource("6_omxhu")]
-layout_mode = 2
-
-[node name="HBoxBottom" type="HBoxContainer" parent="Main/Margin/VBox"]
-layout_mode = 2
-
-[node name="Panel" type="Panel" parent="Main/Margin/VBox/HBoxBottom"]
-custom_minimum_size = Vector2(0, 25)
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_styles/panel = ExtResource("3_wm3ov")
-
-[node name="MessageLabel" type="Label" parent="Main/Margin/VBox/HBoxBottom/Panel"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_colors/font_color = Color(0.298039, 0.168627, 0.101961, 1)
-theme_override_fonts/font = ExtResource("4_wm3ov")
-theme_override_font_sizes/font_size = 16
-theme_override_styles/normal = ExtResource("7_h6r45")
-text = "Message"
-vertical_alignment = 1
-
-[node name="CloseButton" type="Button" parent="Main/Margin/VBox/HBoxBottom"]
-custom_minimum_size = Vector2(70, 0)
-layout_mode = 2
-theme_override_colors/font_disabled_color = Color(0.27451, 0.156863, 0, 1)
-theme_override_colors/font_hover_pressed_color = Color(0.27451, 0.156863, 0, 1)
-theme_override_colors/font_hover_color = Color(0.27451, 0.156863, 0, 1)
-theme_override_colors/font_outline_color = Color(0.27451, 0.156863, 0, 1)
-theme_override_colors/font_color = Color(0.27451, 0.156863, 0, 1)
-theme_override_colors/font_focus_color = Color(0.27451, 0.156863, 0, 1)
-theme_override_colors/font_pressed_color = Color(0.27451, 0.156863, 0, 1)
-theme_override_fonts/font = ExtResource("4_wm3ov")
-theme_override_font_sizes/font_size = 14
-theme_override_styles/focus = ExtResource("8_4228x")
-theme_override_styles/hover = ExtResource("9_v5b5b")
-theme_override_styles/pressed = ExtResource("10_2n4bb")
-theme_override_styles/normal = ExtResource("11_1fd4b")
-text = "CLOSE"
-
-[connection signal="pressed" from="Main/Margin/VBox/HBoxCenter/PanelLeft/Margin/VBox/HBoxContainer/SellOneBtn" to="." method="_on_sell_one_btn_pressed"]
-[connection signal="pressed" from="Main/Margin/VBox/HBoxCenter/PanelLeft/Margin/VBox/HBoxContainer/SellTenBtn" to="." method="_on_sell_ten_btn_pressed"]
-[connection signal="pressed" from="Main/Margin/VBox/HBoxCenter/PanelCenter/Margin/VBox/HBox/BuyOneBtn" to="." method="_on_buy_one_btn_pressed"]
-[connection signal="pressed" from="Main/Margin/VBox/HBoxCenter/PanelCenter/Margin/VBox/HBox/BuyTenBtn" to="." method="_on_buy_ten_btn_pressed"]
-[connection signal="pressed" from="Main/Margin/VBox/HBoxBottom/CloseButton" to="." method="_on_close_button_pressed"]
+func _on_buy_ten_btn_pressed() -> void:
+	if selected_item_buy:
+		var buy_price := selected_item_buy.price * BUY_PRICE_MULTIPLIER * 10
+		if InventoryManager.can_spend_gold(buy_price):
+			InventoryManager.add_item(selected_item_buy, 10)
+			InventoryManager.spend_gold(buy_price)
+			message_label.text = ""
+			#--
+			npc_interaction.stats.trust += (0.01 * 10)
+			print(npc_interaction.stats.trust)
+		else:
+			message_label.text = "Message: Not enough gold!"
